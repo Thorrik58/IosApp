@@ -1,12 +1,13 @@
 //
 //  Game.m
-//  iOS App Dev
+//  IosApp Dev
 //
-//  Created by Sveinn Fannar Kristjansson on 9/17/13.
-//  Copyright 2013 Sveinn Fannar Kristjansson. All rights reserved.
 //
 
 #import "Game.h"
+#import "Player.h"
+
+
 
 
 @implementation Game
@@ -18,10 +19,19 @@
     {
         srandom(time(NULL));
         _configuration = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Configuration" ofType:@"plist"]];
-        NSLog(@"%@", [[NSBundle mainBundle] pathForResource:@"Configuration" ofType:@"plist"]);
         
+        //staerd gluggans
+        _winSize = [CCDirector sharedDirector].winSize;
         [self generateRandomWind];
         [self setupGraphicsLandscape];
+        
+        //Player character set up with starting position
+        NSString *playerPositionString = _configuration[@"playerStartingPos"];
+
+        _player = [[Player alloc] initWithPosition:CGPointFromString(playerPositionString)];
+        [self addChild:_player];
+        //[_player fly];
+        
         
         // Your initilization code goes here
         [self scheduleUpdate];

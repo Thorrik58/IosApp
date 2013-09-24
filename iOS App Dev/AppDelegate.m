@@ -2,8 +2,6 @@
 //  AppDelegate.m
 //  IosApp
 //
-//  Created by Sveinn Fannar Kristjansson on 9/14/13.
-//  Copyright Sveinn Fannar Kristjansson 2013. All rights reserved.
 //
 
 #import "cocos2d.h"

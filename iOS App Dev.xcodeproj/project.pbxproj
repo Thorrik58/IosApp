@@ -153,6 +153,10 @@
 		428E1A2017F10EBD00AF0E47 /* grass-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1E17F10EBD00AF0E47 /* grass-small.png */; };
 		428E1A2317F1102D00AF0E47 /* tree2-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A2117F1102D00AF0E47 /* tree2-hd.png */; };
 		428E1A2417F1102D00AF0E47 /* tree2.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A2217F1102D00AF0E47 /* tree2.png */; };
+		428E1A2717F241E600AF0E47 /* pony-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A2517F241E600AF0E47 /* pony-hd.png */; };
+		428E1A2817F241E600AF0E47 /* pony.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A2617F241E600AF0E47 /* pony.png */; };
+		428E1A2B17F245E700AF0E47 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 428E1A2917F245E700AF0E47 /* Player.m */; };
+		428E1A2D17F246FA00AF0E47 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A2C17F246FA00AF0E47 /* Configuration.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -490,6 +494,11 @@
 		428E1A1E17F10EBD00AF0E47 /* grass-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grass-small.png"; path = "Resources/grass-small.png"; sourceTree = "<group>"; };
 		428E1A2117F1102D00AF0E47 /* tree2-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tree2-hd.png"; path = "Resources/tree2-hd.png"; sourceTree = "<group>"; };
 		428E1A2217F1102D00AF0E47 /* tree2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tree2.png; path = Resources/tree2.png; sourceTree = "<group>"; };
+		428E1A2517F241E600AF0E47 /* pony-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pony-hd.png"; path = "Resources/pony-hd.png"; sourceTree = "<group>"; };
+		428E1A2617F241E600AF0E47 /* pony.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pony.png; path = Resources/pony.png; sourceTree = "<group>"; };
+		428E1A2917F245E700AF0E47 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		428E1A2A17F245E700AF0E47 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		428E1A2C17F246FA00AF0E47 /* Configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -553,12 +562,15 @@
 		0B312F4117E85CF200D0829B /* iOS App Dev */ = {
 			isa = PBXGroup;
 			children = (
+				428E1A2C17F246FA00AF0E47 /* Configuration.plist */,
 				0B3130D217E85CF400D0829B /* AppDelegate.h */,
 				0B3130D317E85CF400D0829B /* AppDelegate.m */,
 				0B3130D817E85CF400D0829B /* IntroLayer.h */,
 				0B3130D917E85CF400D0829B /* IntroLayer.m */,
 				0B31313E17E8662800D0829B /* Game.h */,
 				0B31313F17E8662800D0829B /* Game.m */,
+				428E1A2917F245E700AF0E47 /* Player.m */,
+				428E1A2A17F245E700AF0E47 /* Player.h */,
 				0B312F4217E85CF200D0829B /* Resources */,
 				0B312F5A17E85CF200D0829B /* libs */,
 				0B3130CE17E85CF400D0829B /* Supporting Files */,
@@ -569,6 +581,8 @@
 		0B312F4217E85CF200D0829B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				428E1A2517F241E600AF0E47 /* pony-hd.png */,
+				428E1A2617F241E600AF0E47 /* pony.png */,
 				0B312F4317E85CF200D0829B /* Default.png */,
 				0B312F4517E85CF200D0829B /* Default@2x.png */,
 				0B312F4717E85CF200D0829B /* Default-568h@2x.png */,
@@ -1097,6 +1111,9 @@
 				428E1A2017F10EBD00AF0E47 /* grass-small.png in Resources */,
 				428E1A2317F1102D00AF0E47 /* tree2-hd.png in Resources */,
 				428E1A2417F1102D00AF0E47 /* tree2.png in Resources */,
+				428E1A2717F241E600AF0E47 /* pony-hd.png in Resources */,
+				428E1A2817F241E600AF0E47 /* pony.png in Resources */,
+				428E1A2D17F246FA00AF0E47 /* Configuration.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1219,6 +1236,7 @@
 				0B3130D417E85CF400D0829B /* AppDelegate.m in Sources */,
 				0B3130DA17E85CF400D0829B /* IntroLayer.m in Sources */,
 				0B31314017E8662800D0829B /* Game.m in Sources */,
+				428E1A2B17F245E700AF0E47 /* Player.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

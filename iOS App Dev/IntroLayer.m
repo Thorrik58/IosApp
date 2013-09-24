@@ -1,9 +1,7 @@
 //
 //  IntroLayer.m
-//  iOS App Dev
+//  IosApp
 //
-//  Created by Sveinn Fannar Kristjansson on 9/17/13.
-//  Copyright Sveinn Fannar Kristjansson 2013. All rights reserved.
 //
 
 
