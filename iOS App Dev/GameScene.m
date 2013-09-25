@@ -4,13 +4,17 @@
 //
 //
 
-#import "Game.h"
+#import "GameScene.h"
 #import "Player.h"
+#import "InputLayer.h"
 
 
 
 
-@implementation Game
+
+@implementation GameScene
+
+#pragma mark - Initilization
 
 - (id)init
 {
@@ -20,8 +24,10 @@
         srandom(time(NULL));
         _configuration = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Configuration" ofType:@"plist"]];
         
-        //staerd gluggans
+        //Window size
         _winSize = [CCDirector sharedDirector].winSize;
+        
+        //not used really
         [self generateRandomWind];
         [self setupGraphicsLandscape];
         
@@ -30,7 +36,16 @@
 
         _player = [[Player alloc] initWithPosition:CGPointFromString(playerPositionString)];
         [self addChild:_player];
-        //[_player fly];
+        
+        // Create a input layer
+        InputLayer *inputLayer = [[InputLayer alloc] init];
+        inputLayer.delegate = self;
+        [self addChild:inputLayer];
+        
+        
+        
+        
+        [_player fly];
         
         
         // Your initilization code goes here
@@ -71,6 +86,9 @@
     
 }
 
+
+#pragma mark - Update
+
 - (void)update:(ccTime)delta
 {
     // Update logic goes here
@@ -92,9 +110,18 @@
      */
 }
 
+#pragma mark - My Touch Delegate Methods
+
+- (void)touchEnded
+{
+    
+}
+
+
+
 - (void)generateRandomWind
 {
-    _windSpeed = CCRANDOM_MINUS1_1() * [_configuration[@"windMaxSpeed"] floatValue];
+   _windSpeed = CCRANDOM_MINUS1_1() * [_configuration[@"windMaxSpeed"] floatValue];
 }
 
 
