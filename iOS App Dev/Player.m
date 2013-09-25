@@ -21,7 +21,7 @@ return self;
 
 - (void)fly
 {
-    CCJumpTo *jump = [CCJumpTo actionWithDuration:1.5f position:ccp(230, 215) height:100.0f jumps:1];
+    CCJumpTo *jump = [CCJumpTo actionWithDuration:1.5f position:ccp(60, 215) height:100.0f jumps:1];
     [self runAction:jump];
 }
 

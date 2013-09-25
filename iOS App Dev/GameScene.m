@@ -42,12 +42,6 @@
         inputLayer.delegate = self;
         [self addChild:inputLayer];
         
-        
-        
-        
-        [_player fly];
-        
-        
         // Your initilization code goes here
         [self scheduleUpdate];
     }
@@ -114,6 +108,8 @@
 
 - (void)touchEnded
 {
+    [_player fly];
+
     
 }
 
