@@ -16,6 +16,11 @@
     CCLayerGradient *_skyLayer;
     CGFloat _windSpeed;
     Player *_player;
+    
+    CCParallaxNode *_backgroundNode;
+    CCNode *_gameNode;
+    CGFloat _landscapeWidth;
+    
 }
 
 @end

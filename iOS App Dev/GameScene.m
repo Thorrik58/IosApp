@@ -22,6 +22,8 @@
     if (self)
     {
         srandom(time(NULL));
+        
+        //Config file loaded
         _configuration = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Configuration" ofType:@"plist"]];
         
         //Window size
@@ -29,11 +31,12 @@
         
         //not used really
         [self generateRandomWind];
+        
+        //Background set up
         [self setupGraphicsLandscape];
         
         //Player character set up with starting position
         NSString *playerPositionString = _configuration[@"playerStartingPos"];
-
         _player = [[Player alloc] initWithPosition:CGPointFromString(playerPositionString)];
         [self addChild:_player];
         
@@ -44,39 +47,41 @@
         
         // Your initilization code goes here
         [self scheduleUpdate];
+
     }
     return self;
 }
 
 - (void)setupGraphicsLandscape
 {
+    //Skylayer set up with gradient orange to blue
     _skyLayer = [CCLayerGradient layerWithColor:ccc4(0, 48, 150, 255) fadingTo:ccc4(242, 155, 5, 255)];
     [self addChild:_skyLayer];
     
-    /*
-    //make 4 clouds
-    for (NSUInteger i = 0; i < 4; ++i)
-    {
-        CCSprite *cloud = [CCSprite spriteWithFile:@"Cloud.png"];
-        cloud.position = ccp(CCRANDOM_0_1() * [CCDirector sharedDirector].winSize.width, CCRANDOM_0_1() * ([CCDirector  sharedDirector].winSize.height / 2) + [CCDirector sharedDirector].winSize.height / 2);
-        [_skyLayer addChild:cloud];
-    }*/
+    //ParallaxEffect
+    _backgroundNode = [CCParallaxNode node];
+    [self addChild:_backgroundNode z:1];
+    
+    //Speed which objects move in background
+    CGPoint grassSpeed = ccp(0.1, 0.1);
+    CGPoint landscapeSpeed = ccp(0.05, 0.05);
+    CGPoint moonSpeed = ccp(0.0005, 0.0005);
     
     //trees
-    CCSprite *trees = [CCSprite spriteWithFile:@"tree2.png"];
-    trees.anchorPoint = ccp(-1.8, -0.1);
-    [self addChild:trees];
+    CCSprite* trees = [CCSprite spriteWithFile:@"tree2.png"];
+    trees.anchorPoint = ccp(0,0);
+    [_backgroundNode addChild:trees z:-1 parallaxRatio:landscapeSpeed positionOffset:ccp(600,_winSize.height * 0)];
     
-    CCSprite *moon = [CCSprite spriteWithFile:@"moon.png"];
-    moon.anchorPoint = ccp(1, -0.8);
-    moon.position = ccp(moon.contentSize.width, moon.contentSize.height);
+    //moon
+    CCSprite* moon = [CCSprite spriteWithFile:@"moon.png"];
+    moon.anchorPoint = ccp(0, 0);
+    [_backgroundNode addChild:moon z:-1 parallaxRatio:moonSpeed positionOffset:ccp(_winSize.width,_winSize.height * 0.6)];
+
+    //grass
+    CCSprite* landscape = [CCSprite spriteWithFile:@"grass-small.png"];
+    landscape.anchorPoint = ccp(0,0);
+    [_backgroundNode addChild:landscape z:-1 parallaxRatio:grassSpeed positionOffset:CGPointZero];
     
-    [self addChild:moon];
-    
-    CCSprite *landscape = [CCSprite spriteWithFile:@"grass-small.png"];
-    landscape.anchorPoint = ccp(0.2,0.2);
-    //landscape.position = ccp(landscape.contentSize.width , landscape.contentSize.height);
-    [self addChild:landscape];
     
 }
 
@@ -85,29 +90,22 @@
 
 - (void)update:(ccTime)delta
 {
-    // Update logic goes here
-    /* Commented out clouds because we have no clouds :(
-    for (CCSprite *cloud in _skyLayer.children)
+    
+    //CGPoint backgroundScrollVel = ccp(-1000, 0);
+    //_backgroundNode.position = ccpAdd(_backgroundNode.position, ccpMult(backgroundScrollVel, delta));
+    
+    
+    if (_player.position.x >= (_winSize.width / 2) && _player.position.x < (_landscapeWidth - (_winSize.width / 2)))
     {
-        CGPoint newPosition = ccp(cloud.position.x + (_windSpeed * delta), cloud.position.y);
-        if (newPosition.x < -cloud.contentSize.width / 2)
-        {
-            newPosition.x = [CCDirector sharedDirector].winSize.width + (cloud.contentSize.width / 2);
-        }
-        else if (newPosition.x > ([CCDirector sharedDirector].winSize.width + cloud.contentSize.width / 2))
-        {
-            newPosition.x = -cloud.contentSize.width / 2;
-        }
-        
-        cloud.position = newPosition;
+        _backgroundNode.position = ccp(-(_player.position.x - (_winSize.width / 2)), 0);
     }
-     */
 }
 
 #pragma mark - My Touch Delegate Methods
 
 - (void)touchEnded
 {
+    //Yet to be implemented properly
     [_player fly];
 
     
@@ -117,6 +115,7 @@
 
 - (void)generateRandomWind
 {
+    //not used 
    _windSpeed = CCRANDOM_MINUS1_1() * [_configuration[@"windMaxSpeed"] floatValue];
 }
 
