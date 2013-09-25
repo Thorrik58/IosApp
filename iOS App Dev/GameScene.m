@@ -38,7 +38,7 @@
         //Player character set up with starting position
         NSString *playerPositionString = _configuration[@"playerStartingPos"];
         _player = [[Player alloc] initWithPosition:CGPointFromString(playerPositionString)];
-        [self addChild:_player];
+        [_gameNode addChild:_player];
         
         // Create a input layer
         InputLayer *inputLayer = [[InputLayer alloc] init];
@@ -54,6 +54,7 @@
 
 - (void)setupGraphicsLandscape
 {
+    
     //Skylayer set up with gradient orange to blue
     _skyLayer = [CCLayerGradient layerWithColor:ccc4(0, 48, 150, 255) fadingTo:ccc4(242, 155, 5, 255)];
     [self addChild:_skyLayer];
@@ -77,10 +78,21 @@
     moon.anchorPoint = ccp(0, 0);
     [_backgroundNode addChild:moon z:-1 parallaxRatio:moonSpeed positionOffset:ccp(_winSize.width,_winSize.height * 0.6)];
 
+    //Ceiling
+    CCSprite* ceiling = [CCSprite spriteWithFile:@"thorns.png"];
+    ceiling.anchorPoint = ccp(0,0);
+    [_backgroundNode addChild:ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.9)];
+
+    
     //grass
     CCSprite* landscape = [CCSprite spriteWithFile:@"grass-small.png"];
     landscape.anchorPoint = ccp(0,0);
+    _landscapeWidth = landscape.contentSize.width;
     [_backgroundNode addChild:landscape z:-1 parallaxRatio:grassSpeed positionOffset:CGPointZero];
+    
+    _gameNode = [CCNode node];
+    [_backgroundNode addChild:_gameNode z:2 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:CGPointZero];
+
     
     
 }
@@ -94,7 +106,6 @@
     //CGPoint backgroundScrollVel = ccp(-1000, 0);
     //_backgroundNode.position = ccpAdd(_backgroundNode.position, ccpMult(backgroundScrollVel, delta));
     
-    
     if (_player.position.x >= (_winSize.width / 2) && _player.position.x < (_landscapeWidth - (_winSize.width / 2)))
     {
         _backgroundNode.position = ccp(-(_player.position.x - (_winSize.width / 2)), 0);
@@ -106,9 +117,7 @@
 - (void)touchEnded
 {
     //Yet to be implemented properly
-    [_player fly];
-
-    
+    [_player fly];    
 }
 
 
@@ -118,6 +127,7 @@
     //not used 
    _windSpeed = CCRANDOM_MINUS1_1() * [_configuration[@"windMaxSpeed"] floatValue];
 }
+
 
 
 @end
