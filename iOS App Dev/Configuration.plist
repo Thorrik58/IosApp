@@ -4,7 +4,5 @@
 <dict>
 	<key>playerStartingPos</key>
 	<string>{60,165}</string>
-	<key>gravity</key>
-	<string>100.0f</string>
 </dict>
 </plist>

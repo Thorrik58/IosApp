@@ -7,7 +7,6 @@
 #import "GameScene.h"
 #import "Player.h"
 #import "InputLayer.h"
-#import "ChipmunkAutoGeometry.h"
 
 
 
@@ -33,25 +32,13 @@
         //not used really
         [self generateRandomWind];
         
-        //Create physics world.
-        _space = [[ChipmunkSpace alloc] init];
-        CGFloat gravity = [_configuration [@"gravity"] floatValue];
-        _space.gravity = ccp(0.0f, -gravity);
-        
         //Background set up
-        [self setupGraphicsWorld];
-        [self setupPhysicsWorld];
-        
-        //Create debug node
-        CCPhysicsDebugNode *debugNode = [CCPhysicsDebugNode debugNodeForChipmunkSpace:_space];
-        debugNode.visible = YES;
-        [self addChild:debugNode];
+        [self setupGraphicsLandscape];
         
         //Player character set up with starting position
         NSString *playerPositionString = _configuration[@"playerStartingPos"];
-
-        _player = [[Player alloc] initWithSpace:_space position:CGPointFromString(playerPositionString)];
-        [self addChild:_player];
+        _player = [[Player alloc] initWithPosition:CGPointFromString(playerPositionString)];
+        [_gameNode addChild:_player];
         
         // Create a input layer
         InputLayer *inputLayer = [[InputLayer alloc] init];
@@ -65,39 +52,7 @@
     return self;
 }
 
-//Run theese by svenni.
-- (void) setupPhysicsWorld
-{
-    /*
-     First approach. Auto Geometry used to get the all the lines of the grass.
-    NSURL *floorUrl = [[NSBundle mainBundle] URLForResource:@"grass-small" withExtension:@"png"];
-    ChipmunkImageSampler *sampler = [ChipmunkImageSampler samplerWithImageFile:floorUrl isMask:NO];
-    
-    ChipmunkPolylineSet *contour = [sampler marchAllWithBorder:NO hard:YES];
-    ChipmunkPolyline *line = [contour lineAtIndex:0];
-    ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
-    
-    ChipmunkBody *floorBody = [ChipmunkBody staticBody];
-    NSArray *floorShapes = [simpleLine asChipmunkSegmentsWithBody:floorBody radius:0 offset:cpvzero];
-    for (ChipmunkShape *shape in floorShapes)
-    {
-        [_space addShape:shape];
-    }*/
-    
-    //The second approach. A simple rectangle in the middle of the grass.
-    //Now it appears as though you land in the middle of the grass.
-    CCSprite* landscape = [CCSprite spriteWithFile:@"grass-small.png"];
-    NSLog(@"The image height is %f", landscape.contentSize.height);
-    CGSize size = landscape.textureRect.size;
-    ChipmunkBody *body = [ChipmunkBody staticBody];
-    body.pos = ccp(0, size.height/4);
-    ChipmunkShape *shape = [ChipmunkPolyShape boxWithBody:body width:size.width height:size.height/8];
-    [_space addShape:shape];
-    
-}
-
-
-- (void)setupGraphicsWorld
+- (void)setupGraphicsLandscape
 {
     
     //Skylayer set up with gradient orange to blue
@@ -147,13 +102,6 @@
     
     //CGPoint backgroundScrollVel = ccp(-1000, 0);
     //_backgroundNode.position = ccpAdd(_backgroundNode.position, ccpMult(backgroundScrollVel, delta));
-    CGFloat fixedTimeStep = 1.0f / 240.0f;
-    _accumulator += delta;
-    while (_accumulator > fixedTimeStep)
-    {
-        [_space step:fixedTimeStep];
-        _accumulator -= fixedTimeStep;
-    }
     
     if (_player.position.x >= (_winSize.width / 2) && _player.position.x < (_landscapeWidth - (_winSize.width / 2)))
     {
