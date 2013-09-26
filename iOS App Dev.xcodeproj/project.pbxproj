@@ -143,12 +143,6 @@
 		0B3130E117E85D0D00D0829B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B3130E017E85D0D00D0829B /* ImageIO.framework */; };
 		0B31313D17E85ECE00D0829B /* libChipmunkPro-iPhone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B31313B17E85ECE00D0829B /* libChipmunkPro-iPhone.a */; };
 		0B31314017E8662800D0829B /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B31313F17E8662800D0829B /* GameScene.m */; };
-		24A037D117F3C405002B852A /* kirby-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A037CB17F3C405002B852A /* kirby-hd.png */; };
-		24A037D217F3C405002B852A /* kirby.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A037CC17F3C405002B852A /* kirby.png */; };
-		24A037D317F3C405002B852A /* spikes-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A037CD17F3C405002B852A /* spikes-hd.png */; };
-		24A037D417F3C405002B852A /* spikes.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A037CE17F3C405002B852A /* spikes.png */; };
-		24A037D517F3C405002B852A /* thorns-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A037CF17F3C405002B852A /* thorns-hd.png */; };
-		24A037D617F3C405002B852A /* thorns.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A037D017F3C405002B852A /* thorns.png */; };
 		428E1A1717F109AE00AF0E47 /* grass-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1117F109AE00AF0E47 /* grass-hd.png */; };
 		428E1A1817F109AE00AF0E47 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1217F109AE00AF0E47 /* grass.png */; };
 		428E1A1917F109AE00AF0E47 /* moon-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1317F109AE00AF0E47 /* moon-hd.png */; };
@@ -164,17 +158,12 @@
 		428E1A2B17F245E700AF0E47 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 428E1A2917F245E700AF0E47 /* Player.m */; };
 		428E1A2D17F246FA00AF0E47 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A2C17F246FA00AF0E47 /* Configuration.plist */; };
 		429E778917F2814D00E23F80 /* InputLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 429E778817F2814D00E23F80 /* InputLayer.m */; };
-<<<<<<< HEAD
-		429E77AE17F3C75000E23F80 /* kirby-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77A817F3C74F00E23F80 /* kirby-hd.png */; };
-		429E77AF17F3C75000E23F80 /* kirby.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77A917F3C74F00E23F80 /* kirby.png */; };
-		429E77B017F3C75000E23F80 /* spikes-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77AA17F3C74F00E23F80 /* spikes-hd.png */; };
-		429E77B117F3C75000E23F80 /* spikes.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77AB17F3C75000E23F80 /* spikes.png */; };
-		429E77B217F3C75000E23F80 /* thorns-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77AC17F3C75000E23F80 /* thorns-hd.png */; };
-		429E77B317F3C75000E23F80 /* thorns.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77AD17F3C75000E23F80 /* thorns.png */; };
-		429E77B617F3C75D00E23F80 /* line-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77B417F3C75D00E23F80 /* line-hd.png */; };
-		429E77B717F3C75D00E23F80 /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77B517F3C75D00E23F80 /* line.png */; };
-=======
->>>>>>> 6803dd6eeb38b2ccc966d9965dbff7514e6955ef
+		429E779217F368DD00E23F80 /* thorns-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779017F368DC00E23F80 /* thorns-hd.png */; };
+		429E779317F368DD00E23F80 /* thorns.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779117F368DC00E23F80 /* thorns.png */; };
+		429E779617F39DCF00E23F80 /* spikes-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779417F39DCF00E23F80 /* spikes-hd.png */; };
+		429E779717F39DCF00E23F80 /* spikes.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779517F39DCF00E23F80 /* spikes.png */; };
+		429E779A17F3BA6B00E23F80 /* kirby-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779817F3BA6B00E23F80 /* kirby-hd.png */; };
+		429E779B17F3BA6B00E23F80 /* kirby.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779917F3BA6B00E23F80 /* kirby.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -502,12 +491,6 @@
 		0B31313C17E85ECE00D0829B /* ObjectiveChipmunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveChipmunk.h; sourceTree = "<group>"; };
 		0B31313E17E8662800D0829B /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		0B31313F17E8662800D0829B /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
-		24A037CB17F3C405002B852A /* kirby-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kirby-hd.png"; path = "Resources/kirby-hd.png"; sourceTree = "<group>"; };
-		24A037CC17F3C405002B852A /* kirby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kirby.png; path = Resources/kirby.png; sourceTree = "<group>"; };
-		24A037CD17F3C405002B852A /* spikes-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "spikes-hd.png"; path = "Resources/spikes-hd.png"; sourceTree = "<group>"; };
-		24A037CE17F3C405002B852A /* spikes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spikes.png; path = Resources/spikes.png; sourceTree = "<group>"; };
-		24A037CF17F3C405002B852A /* thorns-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "thorns-hd.png"; path = "Resources/thorns-hd.png"; sourceTree = "<group>"; };
-		24A037D017F3C405002B852A /* thorns.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = thorns.png; path = Resources/thorns.png; sourceTree = "<group>"; };
 		428E1A1117F109AE00AF0E47 /* grass-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grass-hd.png"; path = "Resources/grass-hd.png"; sourceTree = "<group>"; };
 		428E1A1217F109AE00AF0E47 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grass.png; path = Resources/grass.png; sourceTree = "<group>"; };
 		428E1A1317F109AE00AF0E47 /* moon-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "moon-hd.png"; path = "Resources/moon-hd.png"; sourceTree = "<group>"; };
@@ -525,17 +508,12 @@
 		428E1A2C17F246FA00AF0E47 /* Configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
 		429E778717F2814D00E23F80 /* InputLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputLayer.h; sourceTree = "<group>"; };
 		429E778817F2814D00E23F80 /* InputLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputLayer.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		429E77A817F3C74F00E23F80 /* kirby-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kirby-hd.png"; path = "Resources/kirby-hd.png"; sourceTree = "<group>"; };
-		429E77A917F3C74F00E23F80 /* kirby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kirby.png; path = Resources/kirby.png; sourceTree = "<group>"; };
-		429E77AA17F3C74F00E23F80 /* spikes-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "spikes-hd.png"; path = "Resources/spikes-hd.png"; sourceTree = "<group>"; };
-		429E77AB17F3C75000E23F80 /* spikes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spikes.png; path = Resources/spikes.png; sourceTree = "<group>"; };
-		429E77AC17F3C75000E23F80 /* thorns-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "thorns-hd.png"; path = "Resources/thorns-hd.png"; sourceTree = "<group>"; };
-		429E77AD17F3C75000E23F80 /* thorns.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = thorns.png; path = Resources/thorns.png; sourceTree = "<group>"; };
-		429E77B417F3C75D00E23F80 /* line-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line-hd.png"; sourceTree = "<group>"; };
-		429E77B517F3C75D00E23F80 /* line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line.png; sourceTree = "<group>"; };
-=======
->>>>>>> 6803dd6eeb38b2ccc966d9965dbff7514e6955ef
+		429E779017F368DC00E23F80 /* thorns-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thorns-hd.png"; sourceTree = "<group>"; };
+		429E779117F368DC00E23F80 /* thorns.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thorns.png; sourceTree = "<group>"; };
+		429E779417F39DCF00E23F80 /* spikes-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spikes-hd.png"; sourceTree = "<group>"; };
+		429E779517F39DCF00E23F80 /* spikes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spikes.png; sourceTree = "<group>"; };
+		429E779817F3BA6B00E23F80 /* kirby-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kirby-hd.png"; sourceTree = "<group>"; };
+		429E779917F3BA6B00E23F80 /* kirby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kirby.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -606,9 +584,15 @@
 				0B3130D917E85CF400D0829B /* IntroLayer.m */,
 				0B31313E17E8662800D0829B /* GameScene.h */,
 				0B31313F17E8662800D0829B /* GameScene.m */,
+				429E779017F368DC00E23F80 /* thorns-hd.png */,
+				429E779417F39DCF00E23F80 /* spikes-hd.png */,
+				429E779517F39DCF00E23F80 /* spikes.png */,
+				429E779117F368DC00E23F80 /* thorns.png */,
 				429E778717F2814D00E23F80 /* InputLayer.h */,
 				429E778817F2814D00E23F80 /* InputLayer.m */,
 				428E1A2917F245E700AF0E47 /* Player.m */,
+				429E779817F3BA6B00E23F80 /* kirby-hd.png */,
+				429E779917F3BA6B00E23F80 /* kirby.png */,
 				428E1A2A17F245E700AF0E47 /* Player.h */,
 				0B312F4217E85CF200D0829B /* Resources */,
 				0B312F5A17E85CF200D0829B /* libs */,
@@ -620,23 +604,6 @@
 		0B312F4217E85CF200D0829B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-				429E77B417F3C75D00E23F80 /* line-hd.png */,
-				429E77B517F3C75D00E23F80 /* line.png */,
-				429E77A817F3C74F00E23F80 /* kirby-hd.png */,
-				429E77A917F3C74F00E23F80 /* kirby.png */,
-				429E77AA17F3C74F00E23F80 /* spikes-hd.png */,
-				429E77AB17F3C75000E23F80 /* spikes.png */,
-				429E77AC17F3C75000E23F80 /* thorns-hd.png */,
-				429E77AD17F3C75000E23F80 /* thorns.png */,
-=======
-				24A037CB17F3C405002B852A /* kirby-hd.png */,
-				24A037CC17F3C405002B852A /* kirby.png */,
-				24A037CD17F3C405002B852A /* spikes-hd.png */,
-				24A037CE17F3C405002B852A /* spikes.png */,
-				24A037CF17F3C405002B852A /* thorns-hd.png */,
-				24A037D017F3C405002B852A /* thorns.png */,
->>>>>>> 6803dd6eeb38b2ccc966d9965dbff7514e6955ef
 				428E1A2517F241E600AF0E47 /* pony-hd.png */,
 				428E1A2617F241E600AF0E47 /* pony.png */,
 				0B312F4317E85CF200D0829B /* Default.png */,
@@ -1146,7 +1113,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B312F4417E85CF200D0829B /* Default.png in Resources */,
-				24A037D417F3C405002B852A /* spikes.png in Resources */,
 				0B312F4617E85CF200D0829B /* Default@2x.png in Resources */,
 				0B312F4817E85CF200D0829B /* Default-568h@2x.png in Resources */,
 				0B312F4A17E85CF200D0829B /* Default-Landscape~ipad.png in Resources */,
@@ -1162,31 +1128,21 @@
 				428E1A1817F109AE00AF0E47 /* grass.png in Resources */,
 				428E1A1917F109AE00AF0E47 /* moon-hd.png in Resources */,
 				428E1A1A17F109AE00AF0E47 /* moon.png in Resources */,
-				24A037D317F3C405002B852A /* spikes-hd.png in Resources */,
 				428E1A1B17F109AE00AF0E47 /* tree1-hd.png in Resources */,
 				428E1A1C17F109AE00AF0E47 /* tree1.png in Resources */,
 				428E1A1F17F10EBD00AF0E47 /* grass-small-hd.png in Resources */,
 				428E1A2017F10EBD00AF0E47 /* grass-small.png in Resources */,
-				24A037D617F3C405002B852A /* thorns.png in Resources */,
 				428E1A2317F1102D00AF0E47 /* tree2-hd.png in Resources */,
-				24A037D517F3C405002B852A /* thorns-hd.png in Resources */,
-				24A037D117F3C405002B852A /* kirby-hd.png in Resources */,
-				24A037D217F3C405002B852A /* kirby.png in Resources */,
 				428E1A2417F1102D00AF0E47 /* tree2.png in Resources */,
 				428E1A2717F241E600AF0E47 /* pony-hd.png in Resources */,
 				428E1A2817F241E600AF0E47 /* pony.png in Resources */,
 				428E1A2D17F246FA00AF0E47 /* Configuration.plist in Resources */,
-<<<<<<< HEAD
-				429E77AE17F3C75000E23F80 /* kirby-hd.png in Resources */,
-				429E77AF17F3C75000E23F80 /* kirby.png in Resources */,
-				429E77B017F3C75000E23F80 /* spikes-hd.png in Resources */,
-				429E77B117F3C75000E23F80 /* spikes.png in Resources */,
-				429E77B217F3C75000E23F80 /* thorns-hd.png in Resources */,
-				429E77B317F3C75000E23F80 /* thorns.png in Resources */,
-				429E77B617F3C75D00E23F80 /* line-hd.png in Resources */,
-				429E77B717F3C75D00E23F80 /* line.png in Resources */,
-=======
->>>>>>> 6803dd6eeb38b2ccc966d9965dbff7514e6955ef
+				429E779217F368DD00E23F80 /* thorns-hd.png in Resources */,
+				429E779317F368DD00E23F80 /* thorns.png in Resources */,
+				429E779617F39DCF00E23F80 /* spikes-hd.png in Resources */,
+				429E779717F39DCF00E23F80 /* spikes.png in Resources */,
+				429E779A17F3BA6B00E23F80 /* kirby-hd.png in Resources */,
+				429E779B17F3BA6B00E23F80 /* kirby.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1366,7 +1322,9 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS App Dev/Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"iOS App Dev/libs/kazmath/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"iOS App Dev/libs/kazmath/include\"",
+				);
 				INFOPLIST_FILE = "iOS App Dev/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -1391,7 +1349,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS App Dev/Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"iOS App Dev/libs/kazmath/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"iOS App Dev/libs/kazmath/include\"",
+				);
 				INFOPLIST_FILE = "iOS App Dev/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
