@@ -158,12 +158,14 @@
 		428E1A2B17F245E700AF0E47 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 428E1A2917F245E700AF0E47 /* Player.m */; };
 		428E1A2D17F246FA00AF0E47 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A2C17F246FA00AF0E47 /* Configuration.plist */; };
 		429E778917F2814D00E23F80 /* InputLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 429E778817F2814D00E23F80 /* InputLayer.m */; };
-		429E779217F368DD00E23F80 /* thorns-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779017F368DC00E23F80 /* thorns-hd.png */; };
-		429E779317F368DD00E23F80 /* thorns.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779117F368DC00E23F80 /* thorns.png */; };
-		429E779617F39DCF00E23F80 /* spikes-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779417F39DCF00E23F80 /* spikes-hd.png */; };
-		429E779717F39DCF00E23F80 /* spikes.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779517F39DCF00E23F80 /* spikes.png */; };
-		429E779A17F3BA6B00E23F80 /* kirby-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779817F3BA6B00E23F80 /* kirby-hd.png */; };
-		429E779B17F3BA6B00E23F80 /* kirby.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779917F3BA6B00E23F80 /* kirby.png */; };
+		429E77AE17F3C75000E23F80 /* kirby-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77A817F3C74F00E23F80 /* kirby-hd.png */; };
+		429E77AF17F3C75000E23F80 /* kirby.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77A917F3C74F00E23F80 /* kirby.png */; };
+		429E77B017F3C75000E23F80 /* spikes-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77AA17F3C74F00E23F80 /* spikes-hd.png */; };
+		429E77B117F3C75000E23F80 /* spikes.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77AB17F3C75000E23F80 /* spikes.png */; };
+		429E77B217F3C75000E23F80 /* thorns-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77AC17F3C75000E23F80 /* thorns-hd.png */; };
+		429E77B317F3C75000E23F80 /* thorns.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77AD17F3C75000E23F80 /* thorns.png */; };
+		429E77B617F3C75D00E23F80 /* line-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77B417F3C75D00E23F80 /* line-hd.png */; };
+		429E77B717F3C75D00E23F80 /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77B517F3C75D00E23F80 /* line.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -508,12 +510,14 @@
 		428E1A2C17F246FA00AF0E47 /* Configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
 		429E778717F2814D00E23F80 /* InputLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputLayer.h; sourceTree = "<group>"; };
 		429E778817F2814D00E23F80 /* InputLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputLayer.m; sourceTree = "<group>"; };
-		429E779017F368DC00E23F80 /* thorns-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thorns-hd.png"; sourceTree = "<group>"; };
-		429E779117F368DC00E23F80 /* thorns.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thorns.png; sourceTree = "<group>"; };
-		429E779417F39DCF00E23F80 /* spikes-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spikes-hd.png"; sourceTree = "<group>"; };
-		429E779517F39DCF00E23F80 /* spikes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spikes.png; sourceTree = "<group>"; };
-		429E779817F3BA6B00E23F80 /* kirby-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kirby-hd.png"; sourceTree = "<group>"; };
-		429E779917F3BA6B00E23F80 /* kirby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kirby.png; sourceTree = "<group>"; };
+		429E77A817F3C74F00E23F80 /* kirby-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kirby-hd.png"; path = "Resources/kirby-hd.png"; sourceTree = "<group>"; };
+		429E77A917F3C74F00E23F80 /* kirby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kirby.png; path = Resources/kirby.png; sourceTree = "<group>"; };
+		429E77AA17F3C74F00E23F80 /* spikes-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "spikes-hd.png"; path = "Resources/spikes-hd.png"; sourceTree = "<group>"; };
+		429E77AB17F3C75000E23F80 /* spikes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spikes.png; path = Resources/spikes.png; sourceTree = "<group>"; };
+		429E77AC17F3C75000E23F80 /* thorns-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "thorns-hd.png"; path = "Resources/thorns-hd.png"; sourceTree = "<group>"; };
+		429E77AD17F3C75000E23F80 /* thorns.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = thorns.png; path = Resources/thorns.png; sourceTree = "<group>"; };
+		429E77B417F3C75D00E23F80 /* line-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line-hd.png"; sourceTree = "<group>"; };
+		429E77B517F3C75D00E23F80 /* line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -584,15 +588,9 @@
 				0B3130D917E85CF400D0829B /* IntroLayer.m */,
 				0B31313E17E8662800D0829B /* GameScene.h */,
 				0B31313F17E8662800D0829B /* GameScene.m */,
-				429E779017F368DC00E23F80 /* thorns-hd.png */,
-				429E779417F39DCF00E23F80 /* spikes-hd.png */,
-				429E779517F39DCF00E23F80 /* spikes.png */,
-				429E779117F368DC00E23F80 /* thorns.png */,
 				429E778717F2814D00E23F80 /* InputLayer.h */,
 				429E778817F2814D00E23F80 /* InputLayer.m */,
 				428E1A2917F245E700AF0E47 /* Player.m */,
-				429E779817F3BA6B00E23F80 /* kirby-hd.png */,
-				429E779917F3BA6B00E23F80 /* kirby.png */,
 				428E1A2A17F245E700AF0E47 /* Player.h */,
 				0B312F4217E85CF200D0829B /* Resources */,
 				0B312F5A17E85CF200D0829B /* libs */,
@@ -604,6 +602,14 @@
 		0B312F4217E85CF200D0829B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				429E77B417F3C75D00E23F80 /* line-hd.png */,
+				429E77B517F3C75D00E23F80 /* line.png */,
+				429E77A817F3C74F00E23F80 /* kirby-hd.png */,
+				429E77A917F3C74F00E23F80 /* kirby.png */,
+				429E77AA17F3C74F00E23F80 /* spikes-hd.png */,
+				429E77AB17F3C75000E23F80 /* spikes.png */,
+				429E77AC17F3C75000E23F80 /* thorns-hd.png */,
+				429E77AD17F3C75000E23F80 /* thorns.png */,
 				428E1A2517F241E600AF0E47 /* pony-hd.png */,
 				428E1A2617F241E600AF0E47 /* pony.png */,
 				0B312F4317E85CF200D0829B /* Default.png */,
@@ -1137,12 +1143,14 @@
 				428E1A2717F241E600AF0E47 /* pony-hd.png in Resources */,
 				428E1A2817F241E600AF0E47 /* pony.png in Resources */,
 				428E1A2D17F246FA00AF0E47 /* Configuration.plist in Resources */,
-				429E779217F368DD00E23F80 /* thorns-hd.png in Resources */,
-				429E779317F368DD00E23F80 /* thorns.png in Resources */,
-				429E779617F39DCF00E23F80 /* spikes-hd.png in Resources */,
-				429E779717F39DCF00E23F80 /* spikes.png in Resources */,
-				429E779A17F3BA6B00E23F80 /* kirby-hd.png in Resources */,
-				429E779B17F3BA6B00E23F80 /* kirby.png in Resources */,
+				429E77AE17F3C75000E23F80 /* kirby-hd.png in Resources */,
+				429E77AF17F3C75000E23F80 /* kirby.png in Resources */,
+				429E77B017F3C75000E23F80 /* spikes-hd.png in Resources */,
+				429E77B117F3C75000E23F80 /* spikes.png in Resources */,
+				429E77B217F3C75000E23F80 /* thorns-hd.png in Resources */,
+				429E77B317F3C75000E23F80 /* thorns.png in Resources */,
+				429E77B617F3C75D00E23F80 /* line-hd.png in Resources */,
+				429E77B717F3C75D00E23F80 /* line.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
