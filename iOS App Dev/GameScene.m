@@ -79,7 +79,7 @@
     [_backgroundNode addChild:moon z:-1 parallaxRatio:moonSpeed positionOffset:ccp(_winSize.width,_winSize.height * 0.6)];
 
     //Ceiling
-    CCSprite* ceiling = [CCSprite spriteWithFile:@"spikes.png"];
+    CCSprite* ceiling = [CCSprite spriteWithFile:@"line.png"];
     ceiling.anchorPoint = ccp(0,0);
     [_backgroundNode addChild:ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.8)];
 
