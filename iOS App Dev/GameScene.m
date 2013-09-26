@@ -30,9 +30,6 @@
         //Window size
         _winSize = [CCDirector sharedDirector].winSize;
         
-        //not used really
-        [self generateRandomWind];
-        
         //Create physics world.
         _space = [[ChipmunkSpace alloc] init];
         CGFloat gravity = [_configuration [@"gravity"] floatValue];
@@ -65,7 +62,7 @@
     return self;
 }
 
-//Run theese by svenni.
+
 - (void) setupPhysicsWorld
 {
     /*
@@ -157,6 +154,7 @@
     if (_player.position.x >= (_winSize.width / 2) && _player.position.x < (_landscapeWidth - (_winSize.width / 2)))
     {
         _backgroundNode.position = ccp(-(_player.position.x - (_winSize.width / 2)), 0);
+        NSLog(@"inside if %@", NSStringFromCGPoint(_backgroundNode.position));
     }
 }
 
@@ -164,7 +162,8 @@
 - (void)touchBegan
 {
     NSLog(@"touch began!!");
-    cpVect vector = cpv(0.0f, 100.0f);
+    float force = [_configuration[@"forceVector"] floatValue];
+    cpVect vector = cpv(0.0f, force);
     [_player jumpWithForceVector:cpvnormalize(vector)];
 }
 
@@ -172,16 +171,8 @@
 {
     NSLog(@"touch ended!");
     [_player removeForces];
+    
 }
-
-
-
-- (void)generateRandomWind
-{
-    //not used 
-   _windSpeed = CCRANDOM_MINUS1_1() * [_configuration[@"windMaxSpeed"] floatValue];
-}
-
 
 
 @end

@@ -2,9 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>forceVector</key>
+	<string>200.0f</string>
 	<key>playerStartingPos</key>
 	<string>{60,165}</string>
 	<key>gravity</key>
-	<string>200.0f</string>
+	<string>500.0f</string>
 </dict>
 </plist>

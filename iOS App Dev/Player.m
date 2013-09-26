@@ -6,6 +6,7 @@
 //
 
 #import "Player.h"
+#import "ChipmunkAutoGeometry.h"
 
 @implementation Player
 
@@ -20,23 +21,24 @@
         {
             //TODO: Look into if I should perhaps do this with auto geometry.
             
-            /*        
-             //Not working!!
-             NSURL *url = [[NSBundle mainBundle] URLForResource:@"pony" withExtension:@"png"];
+            /*
+            //Not working!!
+            NSURL *url = [[NSBundle mainBundle] URLForResource:@"pony" withExtension:@"png"];
              
-             ChipmunkImageSampler *sampler = [ChipmunkImageSampler samplerWithImageFile:url isMask:NO];
-             ChipmunkPolylineSet *contour = [sampler marchAllWithBorder:NO hard:YES];
-             ChipmunkPolyline *line = [contour lineAtIndex:0];
-             ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
+            ChipmunkImageSampler *sampler = [ChipmunkImageSampler samplerWithImageFile:url isMask:NO];
+            ChipmunkPolylineSet *contour = [sampler marchAllWithBorder:NO hard:YES];
+            ChipmunkPolyline *line = [contour lineAtIndex:0];
+            ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
              
-             ChipmunkBody *ponyBody = [ChipmunkBody bodyWithMass:10000.0f andMoment:1000000.0f];
-             NSArray *ponyShapes = [simpleLine asChipmunkSegmentsWithBody:ponyBody radius:0 offset:cpvzero];
-             for (ChipmunkShape *shape in ponyShapes)
-             {
-             [_space addShape:shape];
-             //self.chipmunkBody = ponyBody;
-             }
-             */
+            ChipmunkBody *ponyBody = [ChipmunkBody bodyWithMass:10000.0f andMoment:1000000.0f];
+            NSArray *ponyShapes = [simpleLine asChipmunkSegmentsWithBody:ponyBody radius:0 offset:cpvzero];
+            for (ChipmunkShape *shape in ponyShapes)
+            {
+                [_space addShape:shape];
+                //self.chipmunkBody = ponyBody;
+            }
+            */
+            
             
             CGSize size = self.textureRect.size;
             cpFloat mass = size.width * size.height;
@@ -53,7 +55,6 @@
             //add to physics sprite
             
             self.chipmunkBody = body;
-            
         }
     }
     return self;
