@@ -160,6 +160,10 @@
 		429E778917F2814D00E23F80 /* InputLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 429E778817F2814D00E23F80 /* InputLayer.m */; };
 		429E779217F368DD00E23F80 /* thorns-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779017F368DC00E23F80 /* thorns-hd.png */; };
 		429E779317F368DD00E23F80 /* thorns.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779117F368DC00E23F80 /* thorns.png */; };
+		429E779617F39DCF00E23F80 /* spikes-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779417F39DCF00E23F80 /* spikes-hd.png */; };
+		429E779717F39DCF00E23F80 /* spikes.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779517F39DCF00E23F80 /* spikes.png */; };
+		429E779A17F3BA6B00E23F80 /* kirby-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779817F3BA6B00E23F80 /* kirby-hd.png */; };
+		429E779B17F3BA6B00E23F80 /* kirby.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E779917F3BA6B00E23F80 /* kirby.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -506,6 +510,10 @@
 		429E778817F2814D00E23F80 /* InputLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputLayer.m; sourceTree = "<group>"; };
 		429E779017F368DC00E23F80 /* thorns-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thorns-hd.png"; sourceTree = "<group>"; };
 		429E779117F368DC00E23F80 /* thorns.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thorns.png; sourceTree = "<group>"; };
+		429E779417F39DCF00E23F80 /* spikes-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spikes-hd.png"; sourceTree = "<group>"; };
+		429E779517F39DCF00E23F80 /* spikes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spikes.png; sourceTree = "<group>"; };
+		429E779817F3BA6B00E23F80 /* kirby-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kirby-hd.png"; sourceTree = "<group>"; };
+		429E779917F3BA6B00E23F80 /* kirby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kirby.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -577,10 +585,14 @@
 				0B31313E17E8662800D0829B /* GameScene.h */,
 				0B31313F17E8662800D0829B /* GameScene.m */,
 				429E779017F368DC00E23F80 /* thorns-hd.png */,
+				429E779417F39DCF00E23F80 /* spikes-hd.png */,
+				429E779517F39DCF00E23F80 /* spikes.png */,
 				429E779117F368DC00E23F80 /* thorns.png */,
 				429E778717F2814D00E23F80 /* InputLayer.h */,
 				429E778817F2814D00E23F80 /* InputLayer.m */,
 				428E1A2917F245E700AF0E47 /* Player.m */,
+				429E779817F3BA6B00E23F80 /* kirby-hd.png */,
+				429E779917F3BA6B00E23F80 /* kirby.png */,
 				428E1A2A17F245E700AF0E47 /* Player.h */,
 				0B312F4217E85CF200D0829B /* Resources */,
 				0B312F5A17E85CF200D0829B /* libs */,
@@ -1127,6 +1139,10 @@
 				428E1A2D17F246FA00AF0E47 /* Configuration.plist in Resources */,
 				429E779217F368DD00E23F80 /* thorns-hd.png in Resources */,
 				429E779317F368DD00E23F80 /* thorns.png in Resources */,
+				429E779617F39DCF00E23F80 /* spikes-hd.png in Resources */,
+				429E779717F39DCF00E23F80 /* spikes.png in Resources */,
+				429E779A17F3BA6B00E23F80 /* kirby-hd.png in Resources */,
+				429E779B17F3BA6B00E23F80 /* kirby.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

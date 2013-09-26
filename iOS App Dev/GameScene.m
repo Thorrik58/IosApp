@@ -79,9 +79,9 @@
     [_backgroundNode addChild:moon z:-1 parallaxRatio:moonSpeed positionOffset:ccp(_winSize.width,_winSize.height * 0.6)];
 
     //Ceiling
-    CCSprite* ceiling = [CCSprite spriteWithFile:@"thorns.png"];
+    CCSprite* ceiling = [CCSprite spriteWithFile:@"spikes.png"];
     ceiling.anchorPoint = ccp(0,0);
-    [_backgroundNode addChild:ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.9)];
+    [_backgroundNode addChild:ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.8)];
 
     
     //grass
@@ -92,9 +92,6 @@
     
     _gameNode = [CCNode node];
     [_backgroundNode addChild:_gameNode z:2 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:CGPointZero];
-
-    
-    
 }
 
 

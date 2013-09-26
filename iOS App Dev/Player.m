@@ -11,7 +11,7 @@
 
 - (id)initWithPosition:(CGPoint)position
 {
-    self = [super initWithFile:@"pony.png"];
+    self = [super initWithFile:@"kirby.png"];
     if (self)
     {
         self.position = position;
