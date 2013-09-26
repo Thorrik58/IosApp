@@ -169,6 +169,10 @@
 		429E77CB17F3CAA700E23F80 /* thorns.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77C317F3CAA700E23F80 /* thorns.png */; };
 		42F68B0417F4D9DC0072B79A /* cloud-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F68B0217F4D9DC0072B79A /* cloud-hd.png */; };
 		42F68B0517F4D9DC0072B79A /* cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F68B0317F4D9DC0072B79A /* cloud.png */; };
+		42F68B0817F4F7270072B79A /* small-grassl-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F68B0617F4F7270072B79A /* small-grassl-hd.png */; };
+		42F68B0917F4F7270072B79A /* small-grassl.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F68B0717F4F7270072B79A /* small-grassl.png */; };
+		42F68B0C17F4F80A0072B79A /* cloudl-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F68B0A17F4F80A0072B79A /* cloudl-hd.png */; };
+		42F68B0D17F4F80A0072B79A /* cloudl.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F68B0B17F4F80A0072B79A /* cloudl.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -525,6 +529,10 @@
 		429E77C317F3CAA700E23F80 /* thorns.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = thorns.png; path = Resources/thorns.png; sourceTree = "<group>"; };
 		42F68B0217F4D9DC0072B79A /* cloud-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cloud-hd.png"; path = "Resources/cloud-hd.png"; sourceTree = "<group>"; };
 		42F68B0317F4D9DC0072B79A /* cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cloud.png; path = Resources/cloud.png; sourceTree = "<group>"; };
+		42F68B0617F4F7270072B79A /* small-grassl-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "small-grassl-hd.png"; path = "Resources/small-grassl-hd.png"; sourceTree = "<group>"; };
+		42F68B0717F4F7270072B79A /* small-grassl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "small-grassl.png"; path = "Resources/small-grassl.png"; sourceTree = "<group>"; };
+		42F68B0A17F4F80A0072B79A /* cloudl-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cloudl-hd.png"; path = "Resources/cloudl-hd.png"; sourceTree = "<group>"; };
+		42F68B0B17F4F80A0072B79A /* cloudl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cloudl.png; path = Resources/cloudl.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -611,6 +619,10 @@
 		0B312F4217E85CF200D0829B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				42F68B0A17F4F80A0072B79A /* cloudl-hd.png */,
+				42F68B0B17F4F80A0072B79A /* cloudl.png */,
+				42F68B0617F4F7270072B79A /* small-grassl-hd.png */,
+				42F68B0717F4F7270072B79A /* small-grassl.png */,
 				42F68B0217F4D9DC0072B79A /* cloud-hd.png */,
 				42F68B0317F4D9DC0072B79A /* cloud.png */,
 				429E77BC17F3CAA700E23F80 /* kirby-hd.png */,
@@ -1164,6 +1176,10 @@
 				429E77CB17F3CAA700E23F80 /* thorns.png in Resources */,
 				42F68B0417F4D9DC0072B79A /* cloud-hd.png in Resources */,
 				42F68B0517F4D9DC0072B79A /* cloud.png in Resources */,
+				42F68B0817F4F7270072B79A /* small-grassl-hd.png in Resources */,
+				42F68B0917F4F7270072B79A /* small-grassl.png in Resources */,
+				42F68B0C17F4F80A0072B79A /* cloudl-hd.png in Resources */,
+				42F68B0D17F4F80A0072B79A /* cloudl.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1344,7 +1360,9 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS App Dev/Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"iOS App Dev/libs/kazmath/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"iOS App Dev/libs/kazmath/include\"",
+				);
 				INFOPLIST_FILE = "iOS App Dev/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -1369,7 +1387,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS App Dev/Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"iOS App Dev/libs/kazmath/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"iOS App Dev/libs/kazmath/include\"",
+				);
 				INFOPLIST_FILE = "iOS App Dev/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (

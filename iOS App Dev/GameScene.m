@@ -107,7 +107,7 @@
     //Speed which objects move in background
     CGPoint grassSpeed = ccp(0.1, 0.1);
     CGPoint landscapeSpeed = ccp(0.05, 0.05);
-    CGPoint moonSpeed = ccp(0.0005, 0.0005);
+    CGPoint moonSpeed = ccp(0.002, 0.002);
     
     //trees
     CCSprite* trees = [CCSprite spriteWithFile:@"tree2.png"];
@@ -117,16 +117,16 @@
     //moon
     CCSprite* moon = [CCSprite spriteWithFile:@"moon.png"];
     moon.anchorPoint = ccp(0, 0);
-    [_backgroundNode addChild:moon z:-1 parallaxRatio:moonSpeed positionOffset:ccp(_winSize.width,_winSize.height * 0.6)];
+    [_backgroundNode addChild:moon z:-1 parallaxRatio:moonSpeed positionOffset:ccp(500,_winSize.height * 0.6)];
 
     //Ceiling
-    CCSprite* ceiling = [CCSprite spriteWithFile:@"cloud.png"];
+    CCSprite* ceiling = [CCSprite spriteWithFile:@"cloudl.png"];
     ceiling.anchorPoint = ccp(0,0);
     [_backgroundNode addChild:ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.83)];
 
     
     //grass
-    CCSprite* landscape = [CCSprite spriteWithFile:@"grass-small.png"];
+    CCSprite* landscape = [CCSprite spriteWithFile:@"small-grassl.png"];
     landscape.anchorPoint = ccp(0,0);
     _landscapeWidth = landscape.contentSize.width;
     [_backgroundNode addChild:landscape z:-1 parallaxRatio:grassSpeed positionOffset:CGPointZero];
@@ -151,10 +151,14 @@
         _accumulator -= fixedTimeStep;
     }
     
-    if (_player.position.x >= (_winSize.width / 2) && _player.position.x < (_landscapeWidth - (_winSize.width / 2)))
+    cpVect vect = cpv(1000.0f, 0.0f);
+    [_player.chipmunkBody applyForce:vect offset:cpvzero];
+    
+    if (_player.position.x >= (_winSize.width /2) && _player.position.x < (_landscapeWidth - (_winSize.width / 2)))
     {
-        _backgroundNode.position = ccp(-(_player.position.x - (_winSize.width / 2)), 0);
-        NSLog(@"inside if %@", NSStringFromCGPoint(_backgroundNode.position));
+        CGPoint backgroundScrollVel = ccp(-4500, 0);
+        _backgroundNode.position = ccpAdd(_backgroundNode.position, ccpMult(backgroundScrollVel, delta));
+        //_backgroundNode.position = ccp(-(_player.position.x),0);
     }
 }
 
