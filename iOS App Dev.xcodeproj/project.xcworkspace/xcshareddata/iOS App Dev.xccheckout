@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>4B72FFC8-5D02-4212-BD49-EE65CBBF47BB</string>
+	<string>75F7124B-BCEA-4463-B6E8-16B7CDC710FD</string>
 	<key>IDESourceControlProjectName</key>
 	<string>iOS App Dev</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>2D1259BE-231A-415E-8B55-6DA388BBC1C3</key>
-		<string>https://github.com/Thorrik58/IosApp.git</string>
+		<key>2272D719-2C24-4351-AE18-7FB2929256E5</key>
+		<string>https://github.com/brynjarthor/IosApp.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>iOS App Dev.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>2D1259BE-231A-415E-8B55-6DA388BBC1C3</key>
+		<key>2272D719-2C24-4351-AE18-7FB2929256E5</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/Thorrik58/IosApp.git</string>
+	<string>https://github.com/brynjarthor/IosApp.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>2D1259BE-231A-415E-8B55-6DA388BBC1C3</string>
+	<string>2272D719-2C24-4351-AE18-7FB2929256E5</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>2D1259BE-231A-415E-8B55-6DA388BBC1C3</string>
+			<string>2272D719-2C24-4351-AE18-7FB2929256E5</string>
 			<key>IDESourceControlWCCName</key>
 			<string>IosApp</string>
 		</dict>

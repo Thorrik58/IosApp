@@ -69,8 +69,8 @@
 - (void) setupPhysicsWorld
 {
     /*
-     First approach. Auto Geometry used to get the all the lines of the grass.
-    NSURL *floorUrl = [[NSBundle mainBundle] URLForResource:@"grass-small" withExtension:@"png"];
+     First approach. Auto Geometry used to get the all the lines of the grass.*/
+    NSURL *floorUrl = [[NSBundle mainBundle] URLForResource:@"line" withExtension:@"png"];
     ChipmunkImageSampler *sampler = [ChipmunkImageSampler samplerWithImageFile:floorUrl isMask:NO];
     
     ChipmunkPolylineSet *contour = [sampler marchAllWithBorder:NO hard:YES];
@@ -78,16 +78,15 @@
     ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
     
     ChipmunkBody *floorBody = [ChipmunkBody staticBody];
-    NSArray *floorShapes = [simpleLine asChipmunkSegmentsWithBody:floorBody radius:0 offset:cpvzero];
+    NSArray *floorShapes = [simpleLine asChipmunkSegmentsWithBody:floorBody radius:0 offset:cpv(0.0f, 200.0f)];
     for (ChipmunkShape *shape in floorShapes)
     {
         [_space addShape:shape];
-    }*/
-    
+    }
+     
     //The second approach. A simple rectangle in the middle of the grass.
     //Now it appears as though you land in the middle of the grass.
     CCSprite* landscape = [CCSprite spriteWithFile:@"grass-small.png"];
-    NSLog(@"The image height is %f", landscape.contentSize.height);
     CGSize size = landscape.textureRect.size;
     ChipmunkBody *body = [ChipmunkBody staticBody];
     body.pos = ccp(0, size.height/4);
@@ -162,11 +161,17 @@
 }
 
 #pragma mark - My Touch Delegate Methods
+- (void)touchBegan
+{
+    NSLog(@"touch began!!");
+    cpVect vector = cpv(0.0f, 100.0f);
+    [_player jumpWithForceVector:cpvnormalize(vector)];
+}
 
 - (void)touchEnded
 {
-    //Yet to be implemented properly
-    [_player fly];    
+    NSLog(@"touch ended!");
+    [_player removeForces];
 }
 
 

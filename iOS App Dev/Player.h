@@ -14,6 +14,7 @@
 }
 
 - (id) initWithSpace:(ChipmunkSpace *)space position:(CGPoint)position;
-- (void)fly; //veit ekkert hvort eg muni thurfa thetta
+- (void)jumpWithForceVector:(cpVect) vector; //veit ekkert hvort eg muni thurfa thetta
+- (void)removeForces;
 
 @end

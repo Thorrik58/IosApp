@@ -24,6 +24,7 @@
 
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
+    [_delegate touchBegan];
     return YES;
 }
 

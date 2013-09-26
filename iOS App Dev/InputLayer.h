@@ -11,6 +11,7 @@
 
 @protocol InputLayerDelgate <NSObject>
 
+- (void)touchBegan;
 - (void)touchEnded;
 
 @end
