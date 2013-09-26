@@ -70,7 +70,7 @@
 {
     /*
      First approach. Auto Geometry used to get the all the lines of the grass.*/
-    NSURL *floorUrl = [[NSBundle mainBundle] URLForResource:@"line" withExtension:@"png"];
+    NSURL *floorUrl = [[NSBundle mainBundle] URLForResource:@"cloud" withExtension:@"png"];
     ChipmunkImageSampler *sampler = [ChipmunkImageSampler samplerWithImageFile:floorUrl isMask:NO];
     
     ChipmunkPolylineSet *contour = [sampler marchAllWithBorder:NO hard:YES];
@@ -78,7 +78,7 @@
     ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
     
     ChipmunkBody *floorBody = [ChipmunkBody staticBody];
-    NSArray *floorShapes = [simpleLine asChipmunkSegmentsWithBody:floorBody radius:0 offset:cpv(0.0f, 200.0f)];
+    NSArray *floorShapes = [simpleLine asChipmunkSegmentsWithBody:floorBody radius:0 offset:cpv(0.0f, _winSize.height*0.83)];
     for (ChipmunkShape *shape in floorShapes)
     {
         [_space addShape:shape];
@@ -123,9 +123,9 @@
     [_backgroundNode addChild:moon z:-1 parallaxRatio:moonSpeed positionOffset:ccp(_winSize.width,_winSize.height * 0.6)];
 
     //Ceiling
-    CCSprite* ceiling = [CCSprite spriteWithFile:@"line.png"];
+    CCSprite* ceiling = [CCSprite spriteWithFile:@"cloud.png"];
     ceiling.anchorPoint = ccp(0,0);
-    [_backgroundNode addChild:ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.8)];
+    [_backgroundNode addChild:ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.83)];
 
     
     //grass
