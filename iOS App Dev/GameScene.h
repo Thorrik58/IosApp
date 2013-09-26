@@ -17,9 +17,6 @@
     CGFloat _windSpeed;
     Player *_player;
     
-    ChipmunkSpace *_space;
-    ccTime _accumulator;    
-    
     CCParallaxNode *_backgroundNode;
     CCNode *_gameNode;
     CGFloat _landscapeWidth;

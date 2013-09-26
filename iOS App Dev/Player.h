@@ -8,12 +8,12 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface Player : CCPhysicsSprite
+@interface Player : CCSprite
 {
-    ChipmunkSpace *_space;
+    
 }
 
-- (id) initWithSpace:(ChipmunkSpace *)space position:(CGPoint)position;
+- (id)initWithPosition:(CGPoint)position;
 - (void)fly; //veit ekkert hvort eg muni thurfa thetta
 
 @end
