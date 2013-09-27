@@ -107,7 +107,7 @@
     //Speed which objects move in background
     CGPoint grassSpeed = ccp(0.1, 0.1);
     CGPoint landscapeSpeed = ccp(0.05, 0.05);
-    CGPoint moonSpeed = ccp(0.002, 0.002);
+    CGPoint moonSpeed = ccp(0.005, 0.005);
     
     //trees
     CCSprite* trees = [CCSprite spriteWithFile:@"tree2.png"];
