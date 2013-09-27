@@ -156,7 +156,7 @@
     
     if (_player.position.x >= (_winSize.width /2) && _player.position.x < (_landscapeWidth - (_winSize.width / 2)))
     {
-        CGPoint backgroundScrollVel = ccp(-4500, 0);
+        CGPoint backgroundScrollVel = ccp(-1000, 0);
         _backgroundNode.position = ccpAdd(_backgroundNode.position, ccpMult(backgroundScrollVel, delta));
         //_backgroundNode.position = ccp(-(_player.position.x),0);
     }
