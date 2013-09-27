@@ -60,12 +60,15 @@
     return self;
 }
 
-- (void)jumpWithForceVector:(cpVect)vector
+- (void)jumpWithForceVector
 {
     NSLog(@"inside jump with force vector");
     //CCJumpTo *jump = [CCJumpTo actionWithDuration:1.5f position:ccp(60, 215) height:100.0f jumps:1];
     //[self runAction:jump];
-    cpVect forceVector = cpvmult(vector, self.chipmunkBody.mass * 1000);
+    
+    cpVect forceVector = cpvmult(ccp(0,1), self.chipmunkBody.mass * 1000);
+    
+    //cpVect forceVector = cpvmult(vector, self.chipmunkBody.mass * 1000);
     [self.chipmunkBody applyForce:forceVector offset:cpvzero];
     NSLog(@"The current force: %@",NSStringFromCGPoint(self.chipmunkBody.body->f));
 }
@@ -73,7 +76,8 @@
 - (void)removeForces
 {
     NSLog(@"The current force before remove: %@",NSStringFromCGPoint(self.chipmunkBody.body->f));
-    [self.chipmunkBody resetForces];
+    //[self.chipmunkBody resetForces];
+    self.chipmunkBody.body->f.y = 0;
     NSLog(@"The current force after remove: %@",NSStringFromCGPoint(self.chipmunkBody.body->f));
 }
 

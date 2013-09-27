@@ -48,7 +48,7 @@
         NSString *playerPositionString = _configuration[@"playerStartingPos"];
 
         _player = [[Player alloc] initWithSpace:_space position:CGPointFromString(playerPositionString)];
-        [self addChild:_player];
+        [_gameNode addChild:_player];
         
         // Create a input layer
         InputLayer *inputLayer = [[InputLayer alloc] init];
@@ -83,13 +83,13 @@
      
     //The second approach. A simple rectangle in the middle of the grass.
     //Now it appears as though you land in the middle of the grass.
-    CCSprite* landscape = [CCSprite spriteWithFile:@"grass-small.png"];
+    CCSprite* landscape = [CCSprite spriteWithFile:@"small-grassl.png"];
     CGSize size = landscape.textureRect.size;
     ChipmunkBody *body = [ChipmunkBody staticBody];
     body.pos = ccp(0, size.height/4);
+    //height size has a constant because of positioning in middle of grass
     ChipmunkShape *shape = [ChipmunkPolyShape boxWithBody:body width:size.width height:size.height/8];
     [_space addShape:shape];
-    
 }
 
 
@@ -99,13 +99,14 @@
     //Skylayer set up with gradient orange to blue
     _skyLayer = [CCLayerGradient layerWithColor:ccc4(0, 48, 150, 255) fadingTo:ccc4(242, 155, 5, 255)];
     [self addChild:_skyLayer];
+    [_backgroundNode addChild:_skyLayer z:0 parallaxRatio:ccp(0.0f,0.0f) positionOffset:CGPointZero];
     
     //ParallaxEffect
     _backgroundNode = [CCParallaxNode node];
     [self addChild:_backgroundNode z:1];
     
     //Speed which objects move in background
-    CGPoint grassSpeed = ccp(0.1, 0.1);
+    CGPoint grassSpeed = ccp(1.0, 1.0);
     CGPoint landscapeSpeed = ccp(0.05, 0.05);
     CGPoint moonSpeed = ccp(0.005, 0.005);
     
@@ -154,11 +155,13 @@
     cpVect vect = cpv(1000.0f, 0.0f);
     [_player.chipmunkBody applyForce:vect offset:cpvzero];
     
-    if (_player.position.x >= (_winSize.width /2) && _player.position.x < (_landscapeWidth - (_winSize.width / 2)))
+    if (_player.position.x >= (_winSize.width /2))
     {
-        CGPoint backgroundScrollVel = ccp(-1000, 0);
-        _backgroundNode.position = ccpAdd(_backgroundNode.position, ccpMult(backgroundScrollVel, delta));
-        //_backgroundNode.position = ccp(-(_player.position.x),0);
+        //CGPoint backgroundScrollVel = ccp(-1000, 0);
+        //_backgroundNode.position = ccpAdd(_backgroundNode.position, ccpMult(backgroundScrollVel, delta));
+        _backgroundNode.position = ccp(-(_player.position.x - (_winSize.width / 2)),0);
+        
+    
     }
 }
 
@@ -166,9 +169,11 @@
 - (void)touchBegan
 {
     NSLog(@"touch began!!");
-    float force = [_configuration[@"forceVector"] floatValue];
-    cpVect vector = cpv(0.0f, force);
-    [_player jumpWithForceVector:cpvnormalize(vector)];
+    //[_player flyWithForce];
+    //float force = [_configuration[@"forceVector"] floatValue];
+    //cpVect vector = cpv(0.0f, force);
+    //[_player jumpWithForceVector:cpvnormalize(vector)];
+    [_player jumpWithForceVector];
 }
 
 - (void)touchEnded
