@@ -115,12 +115,29 @@
         inputLayer.delegate = self;
         [self addChild:inputLayer];
         
+        
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            _scoreLabel = [CCLabelBMFont labelWithString:@"" fntFile:@"Arial-hd.fnt"];
+        } else {
+            _scoreLabel = [CCLabelBMFont labelWithString:@"" fntFile:@"Arial.fnt"];
+        }
+        _scoreLabel.position = ccp(_winSize.width* 0.2, _winSize.height * 0.9);
+        [self addChild:_scoreLabel z:10];
+        
+        
         // Your initilization code goes here
         [self scheduleUpdate];
 
     }
     return self;
 }
+
+
+- (void)setScoreString:(NSString *)string {
+    _scoreLabel.string = string;
+}
+
 
 - (void) setupPhysicsWorld
 {
@@ -214,10 +231,10 @@
 
     //Distance travelled, we start at startingPosX so thats deducted
     CGFloat startPosX = [_configuration[@"startingPosX"] floatValue];
-    _distanceScore = _player.position.x - startPosX;
-    //We need to format the string similar to this when displaying the score after adding the coins ofc
-    //NSString* formattedNumber = [NSString stringWithFormat:@"%.02f", myFloat];
-
+    _distanceScore = (_player.position.x - startPosX)/100;
+    
+    [self setScoreString:[NSString stringWithFormat:@"Score: %.0f", _distanceScore]];
+    
     cpVect vect = cpv(1000.0f, 0.0f);
     [_player.chipmunkBody applyForce:vect offset:cpvzero];
     

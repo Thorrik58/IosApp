@@ -24,6 +24,9 @@
     CGFloat _landscapeWidth;
     CGFloat _distanceScore;
     
+    CCLabelBMFont * _scoreLabel;
+
+    
 }
 
 @end
