@@ -67,7 +67,7 @@
 {
     /*
      First approach. Auto Geometry used to get the all the lines of the grass.*/
-    NSURL *floorUrl = [[NSBundle mainBundle] URLForResource:@"cloud" withExtension:@"png"];
+    NSURL *floorUrl = [[NSBundle mainBundle] URLForResource:@"cloudl" withExtension:@"png"];
     ChipmunkImageSampler *sampler = [ChipmunkImageSampler samplerWithImageFile:floorUrl isMask:NO];
     
     ChipmunkPolylineSet *contour = [sampler marchAllWithBorder:NO hard:YES];
