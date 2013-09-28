@@ -8,5 +8,7 @@
 	<string>{60,165}</string>
 	<key>gravity</key>
 	<string>500.0f</string>
+	<key>startingPosX</key>
+	<string>60.0f</string>
 </dict>
 </plist>

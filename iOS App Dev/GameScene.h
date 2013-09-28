@@ -22,6 +22,7 @@
     CCParallaxNode *_backgroundNode;
     CCNode *_gameNode;
     CGFloat _landscapeWidth;
+    CGFloat _distanceScore;
     
 }
 
