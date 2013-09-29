@@ -8,6 +8,7 @@
 #import "Player.h"
 #import "InputLayer.h"
 #import "ChipmunkAutoGeometry.h"
+#import "CCParallaxNode-Extras.h"
 
 
 
@@ -29,7 +30,7 @@
 }
 
 - (void)restartTapped:(id)sender {
-    
+    [[CCDirector sharedDirector] resume];
     // Reload the current scene
     CCScene *scene = [GameScene scene];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:scene]];
@@ -39,7 +40,7 @@
 - (void)showRestartMenu:(BOOL)won {
     
     CGSize winSize = [CCDirector sharedDirector].winSize;
-    
+    [[CCDirector sharedDirector] pause];
     NSString *message;
     if (won) {
         message = @"You win!";
@@ -150,12 +151,17 @@
     ChipmunkPolyline *line = [contour lineAtIndex:0];
     ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
     
-    ChipmunkBody *floorBody = [ChipmunkBody staticBody];
+    ChipmunkBody *floorBody = [ChipmunkBody bodyWithMass:1000000000.0f andMoment:INFINITY];
+    CGFloat gravity = [_configuration [@"gravity"] floatValue];
+    floorBody.force = cpv(0.0f, gravity*1000000000);
     NSArray *floorShapes = [simpleLine asChipmunkSegmentsWithBody:floorBody radius:0 offset:cpv(0.0f, _winSize.height*0.83)];
     for (ChipmunkShape *shape in floorShapes)
     {
         [_space addShape:shape];
     }
+    [_space addBody:floorBody];
+    
+    
      
     //The second approach. A simple rectangle in the middle of the grass.
     //Now it appears as though you land in the middle of the grass.
@@ -197,16 +203,14 @@
     [_backgroundNode addChild:moon z:-1 parallaxRatio:moonSpeed positionOffset:ccp(500,_winSize.height * 0.6)];
 
     //Ceiling
-    CCSprite* ceiling = [CCSprite spriteWithFile:@"cloudl.png"];
-    ceiling.anchorPoint = ccp(0,0);
-    [_backgroundNode addChild:ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.83)];
-    _ceiling = ceiling;
+    _ceiling = [CCSprite spriteWithFile:@"cloudl.png"];
+    _ceiling.anchorPoint = ccp(0,0);
+    [_backgroundNode addChild:_ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.83)];
     
-    CCSprite* ceiling2 = [CCSprite spriteWithFile:@"cloudl.png"];
-    ceiling2.anchorPoint = ccp(0,0);
-    [_backgroundNode addChild:ceiling2 z:-1 parallaxRatio:grassSpeed positionOffset:ccp(2000,_winSize.height*0.83)];
-    _lastAppendPos = ceiling2.position.x + ceiling2.contentSize.width;
-    _ceiling2 = ceiling2;
+    _ceiling2 = [CCSprite spriteWithFile:@"cloudl.png"];
+    _ceiling2.anchorPoint = ccp(0,0);
+    [_backgroundNode addChild:_ceiling2 z:-1 parallaxRatio:grassSpeed positionOffset:ccp(2000,_winSize.height*0.83)];
+    _lastAppendPos = _ceiling2.position.x + _ceiling2.contentSize.width;
     
     
     //grass
@@ -250,10 +254,24 @@
         _backgroundNode.position = ccp(-(_player.position.x - (_winSize.width / 2)),0);
     }
     
+    /*if (_player.position.x > _lastAppendPos/2)
+    {
+        [self extendTunnel];
+    }*/
+    
        
     
     //NSLog(@"Pos: %f",_distanceScore);
-
+    
+    
+    
+    
+    NSArray *ceilings = [NSArray arrayWithObjects:_ceiling,_ceiling2, nil];
+    for (CCSprite *ceiling in ceilings) {
+        if ([_backgroundNode convertToWorldSpace:ceiling.position].x < -ceiling.contentSize.width) {
+            [_backgroundNode incrementOffset:ccp(2*ceiling.contentSize.width,0) forChild:ceiling];
+        }
+    }
 }
 
 #pragma mark - My Touch Delegate Methods
@@ -274,22 +292,44 @@
     
 }
 
-/*- (void)extendTunnel
+- (void)extendTunnel
 {
+    
+    CGPoint grassSpeed = ccp(1.0, 1.0);
     if (_ceiling.position.x > _ceiling2.position.x)
     {
-        _ceiling2.position.x = ccp(_lastAppendPos, _ceiling2.position.y);
-        _floor2.position.x = _lastAppendPos;
-        _lastAppendPos = _floor2.position.x + _floor2.contentSize.width;
+        NSLog(@"OMG TRUE RELOCATE!!!!!!");
+        NSLog(@"_ceiling.position.x %f",_lastAppendPos);
+        
+        [_backgroundNode removeChild: _ceiling2 cleanup:YES ];
+        _ceiling2 = [CCSprite spriteWithFile:@"cloudl.png"];
+        _ceiling2.anchorPoint = ccp(0,0);
+        [_backgroundNode addChild:_ceiling2 z:-1 parallaxRatio:grassSpeed positionOffset:ccp(_lastAppendPos,_winSize.height*0.83)];
+        _lastAppendPos = _ceiling2.position.x + _ceiling2.contentSize.width;
     }
     else
     {
-        _ceiling.position.x = _lastAppendPos;
-        _floor.position.x = _lastAppendPos;
-        _lastAppendPos = _floor.position.x + _floor.contentSize.width;
+        NSLog(@"OMG2 TRUE RELOCATE!!!!!!");
+        NSLog(@"_ceiling.position.x %f",_lastAppendPos);
+        NSLog(@"_player.position.x %f",_player.position.x);
 
+        [_backgroundNode removeChild: _ceiling cleanup:YES ];
+        _ceiling = [CCSprite spriteWithFile:@"cloudl.png"];
+        _ceiling.anchorPoint = ccp(0,0);
+        [_backgroundNode addChild:_ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(_lastAppendPos,_winSize.height*0.83)];
+        _lastAppendPos = _ceiling.position.x + _ceiling.contentSize.width;
     }
-}*/
+    
+    
+    
+    
+    //Ceiling
+    _ceiling = [CCSprite spriteWithFile:@"cloudl.png"];
+    _ceiling.anchorPoint = ccp(0,0);
+    [_backgroundNode addChild:_ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.83)];
+    
+    
+}
 
 
 @end

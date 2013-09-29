@@ -144,6 +144,7 @@
 		0B31313D17E85ECE00D0829B /* libChipmunkPro-iPhone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B31313B17E85ECE00D0829B /* libChipmunkPro-iPhone.a */; };
 		0B31314017E8662800D0829B /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B31313F17E8662800D0829B /* GameScene.m */; };
 		24A441E017F4DB590003DBB7 /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A441DF17F4DB590003DBB7 /* MenuScene.m */; };
+		4252E88817F7E7130005071D /* CCParallaxNode-Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 4252E88717F7E7130005071D /* CCParallaxNode-Extras.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		428E1A1717F109AE00AF0E47 /* grass-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1117F109AE00AF0E47 /* grass-hd.png */; };
 		428E1A1817F109AE00AF0E47 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1217F109AE00AF0E47 /* grass.png */; };
 		428E1A1917F109AE00AF0E47 /* moon-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1317F109AE00AF0E47 /* moon-hd.png */; };
@@ -508,6 +509,8 @@
 		0B31313F17E8662800D0829B /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		24A441DE17F4DB590003DBB7 /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
 		24A441DF17F4DB590003DBB7 /* MenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScene.m; sourceTree = "<group>"; };
+		4252E88617F7E7130005071D /* CCParallaxNode-Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCParallaxNode-Extras.h"; sourceTree = "<group>"; };
+		4252E88717F7E7130005071D /* CCParallaxNode-Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCParallaxNode-Extras.m"; sourceTree = "<group>"; };
 		428E1A1117F109AE00AF0E47 /* grass-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grass-hd.png"; path = "Resources/grass-hd.png"; sourceTree = "<group>"; };
 		428E1A1217F109AE00AF0E47 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grass.png; path = Resources/grass.png; sourceTree = "<group>"; };
 		428E1A1317F109AE00AF0E47 /* moon-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "moon-hd.png"; path = "Resources/moon-hd.png"; sourceTree = "<group>"; };
@@ -609,6 +612,8 @@
 			isa = PBXGroup;
 			children = (
 				428E1A2C17F246FA00AF0E47 /* Configuration.plist */,
+				4252E88617F7E7130005071D /* CCParallaxNode-Extras.h */,
+				4252E88717F7E7130005071D /* CCParallaxNode-Extras.m */,
 				24A441DE17F4DB590003DBB7 /* MenuScene.h */,
 				24A441DF17F4DB590003DBB7 /* MenuScene.m */,
 				0B3130D217E85CF400D0829B /* AppDelegate.h */,
@@ -1338,6 +1343,7 @@
 				0B31314017E8662800D0829B /* GameScene.m in Sources */,
 				428E1A2B17F245E700AF0E47 /* Player.m in Sources */,
 				429E778917F2814D00E23F80 /* InputLayer.m in Sources */,
+				4252E88817F7E7130005071D /* CCParallaxNode-Extras.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
