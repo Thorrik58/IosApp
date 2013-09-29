@@ -171,6 +171,8 @@
 		42A290A017F79C5C00048D8F /* Arial-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 42A2909C17F79C5C00048D8F /* Arial-hd.png */; };
 		42A290A117F79C5C00048D8F /* Arial.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 42A2909D17F79C5C00048D8F /* Arial.fnt */; };
 		42A290A217F79C5C00048D8F /* Arial.png in Resources */ = {isa = PBXBuildFile; fileRef = 42A2909E17F79C5C00048D8F /* Arial.png */; };
+		42A290A517F7C52100048D8F /* ponyz-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 42A290A317F7C52100048D8F /* ponyz-hd.png */; };
+		42A290A617F7C52100048D8F /* ponyz.png in Resources */ = {isa = PBXBuildFile; fileRef = 42A290A417F7C52100048D8F /* ponyz.png */; };
 		42F68B0417F4D9DC0072B79A /* cloud-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F68B0217F4D9DC0072B79A /* cloud-hd.png */; };
 		42F68B0517F4D9DC0072B79A /* cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F68B0317F4D9DC0072B79A /* cloud.png */; };
 		42F68B0817F4F7270072B79A /* small-grassl-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F68B0617F4F7270072B79A /* small-grassl-hd.png */; };
@@ -535,6 +537,8 @@
 		42A2909C17F79C5C00048D8F /* Arial-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Arial-hd.png"; path = "iOS App Dev/Fonts/Arial-hd.png"; sourceTree = "<group>"; };
 		42A2909D17F79C5C00048D8F /* Arial.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Arial.fnt; path = "iOS App Dev/Fonts/Arial.fnt"; sourceTree = "<group>"; };
 		42A2909E17F79C5C00048D8F /* Arial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Arial.png; path = "iOS App Dev/Fonts/Arial.png"; sourceTree = "<group>"; };
+		42A290A317F7C52100048D8F /* ponyz-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ponyz-hd.png"; path = "Resources/ponyz-hd.png"; sourceTree = "<group>"; };
+		42A290A417F7C52100048D8F /* ponyz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ponyz.png; path = Resources/ponyz.png; sourceTree = "<group>"; };
 		42F68B0217F4D9DC0072B79A /* cloud-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cloud-hd.png"; path = "Resources/cloud-hd.png"; sourceTree = "<group>"; };
 		42F68B0317F4D9DC0072B79A /* cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cloud.png; path = Resources/cloud.png; sourceTree = "<group>"; };
 		42F68B0617F4F7270072B79A /* small-grassl-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "small-grassl-hd.png"; path = "Resources/small-grassl-hd.png"; sourceTree = "<group>"; };
@@ -628,6 +632,8 @@
 		0B312F4217E85CF200D0829B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				42A290A317F7C52100048D8F /* ponyz-hd.png */,
+				42A290A417F7C52100048D8F /* ponyz.png */,
 				42F68B0A17F4F80A0072B79A /* cloudl-hd.png */,
 				42F68B0B17F4F80A0072B79A /* cloudl.png */,
 				42F68B0617F4F7270072B79A /* small-grassl-hd.png */,
@@ -1205,6 +1211,8 @@
 				42A290A017F79C5C00048D8F /* Arial-hd.png in Resources */,
 				42A290A117F79C5C00048D8F /* Arial.fnt in Resources */,
 				42A290A217F79C5C00048D8F /* Arial.png in Resources */,
+				42A290A517F7C52100048D8F /* ponyz-hd.png in Resources */,
+				42A290A617F7C52100048D8F /* ponyz.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

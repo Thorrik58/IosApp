@@ -12,7 +12,7 @@
 
 - (id) initWithSpace:(ChipmunkSpace *)space position:(CGPoint)position;
 {
-    self = [super initWithFile:@"pony.png"];
+    self = [super initWithFile:@"ponyz.png"];
     if (self)
     {
         _space = space;

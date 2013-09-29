@@ -25,8 +25,15 @@
     CGFloat _distanceScore;
     
     CCLabelBMFont * _scoreLabel;
+    
+    //layers needed to readjust in run
+    CCSprite *_ceiling;
+    CCSprite *_ceiling2;
+    CCSprite *_floor;
+    CCSprite *_floor2;
 
     
+    CGFloat _lastAppendPos;
 }
 
 @end

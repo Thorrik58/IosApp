@@ -115,8 +115,8 @@
         inputLayer.delegate = self;
         [self addChild:inputLayer];
         
-        
-        
+        //TODO: Z INDEX FIXES!
+        //Score label set up to keep track of score
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             _scoreLabel = [CCLabelBMFont labelWithString:@"" fntFile:@"Arial-hd.fnt"];
         } else {
@@ -200,13 +200,21 @@
     CCSprite* ceiling = [CCSprite spriteWithFile:@"cloudl.png"];
     ceiling.anchorPoint = ccp(0,0);
     [_backgroundNode addChild:ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.83)];
-
+    _ceiling = ceiling;
+    
+    CCSprite* ceiling2 = [CCSprite spriteWithFile:@"cloudl.png"];
+    ceiling2.anchorPoint = ccp(0,0);
+    [_backgroundNode addChild:ceiling2 z:-1 parallaxRatio:grassSpeed positionOffset:ccp(2000,_winSize.height*0.83)];
+    _lastAppendPos = ceiling2.position.x + ceiling2.contentSize.width;
+    _ceiling2 = ceiling2;
+    
     
     //grass
     CCSprite* landscape = [CCSprite spriteWithFile:@"small-grassl.png"];
     landscape.anchorPoint = ccp(0,0);
     _landscapeWidth = landscape.contentSize.width;
     [_backgroundNode addChild:landscape z:-1 parallaxRatio:grassSpeed positionOffset:CGPointZero];
+    _floor = landscape;
     
     _gameNode = [CCNode node];
     [_backgroundNode addChild:_gameNode z:2 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:CGPointZero];
@@ -227,7 +235,6 @@
         [_space step:fixedTimeStep];
         _accumulator -= fixedTimeStep;
     }
-        
 
     //Distance travelled, we start at startingPosX so thats deducted
     CGFloat startPosX = [_configuration[@"startingPosX"] floatValue];
@@ -240,8 +247,6 @@
     
     if (_player.position.x >= (_winSize.width /2))
     {
-        //CGPoint backgroundScrollVel = ccp(-1000, 0);
-        //_backgroundNode.position = ccpAdd(_backgroundNode.position, ccpMult(backgroundScrollVel, delta));
         _backgroundNode.position = ccp(-(_player.position.x - (_winSize.width / 2)),0);
     }
     
@@ -268,6 +273,23 @@
     [_player removeForces];
     
 }
+
+/*- (void)extendTunnel
+{
+    if (_ceiling.position.x > _ceiling2.position.x)
+    {
+        _ceiling2.position.x = ccp(_lastAppendPos, _ceiling2.position.y);
+        _floor2.position.x = _lastAppendPos;
+        _lastAppendPos = _floor2.position.x + _floor2.contentSize.width;
+    }
+    else
+    {
+        _ceiling.position.x = _lastAppendPos;
+        _floor.position.x = _lastAppendPos;
+        _lastAppendPos = _floor.position.x + _floor.contentSize.width;
+
+    }
+}*/
 
 
 @end
