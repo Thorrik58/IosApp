@@ -1,14 +1,5 @@
-
-iOS App Dev.xcodeproj/project.xcworkspace/xcuserdata/Thorri.xcuserdatad/UserInterfaceState.xcuserstate
-
-iOS App Dev.xcodeproj/xcuserdata/Thorri.xcuserdatad/xcschemes/iOS App Dev.xcscheme
-
-iOS App Dev.xcodeproj/xcuserdata/Thorri.xcuserdatad/xcschemes/xcschememanagement.plist
-
-.DS_Store
-
-iOS App Dev/.DS_Store
-
-.DS_Store
-
-iOS App Dev.xcodeproj/xcuserdata/Thorri.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist
+*.xcuserstate
+*.xcscheme
+*/xcschememanagement.plist
+*.DS_Store
+*.xcbkptlist

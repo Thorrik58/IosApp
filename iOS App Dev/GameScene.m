@@ -225,9 +225,6 @@
 
 - (void)update:(ccTime)delta
 {
-    
-    //CGPoint backgroundScrollVel = ccp(-1000, 0);
-    //_backgroundNode.position = ccpAdd(_backgroundNode.position, ccpMult(backgroundScrollVel, delta));
     CGFloat fixedTimeStep = 1.0f / 240.0f;
     _accumulator += delta;
     while (_accumulator > fixedTimeStep)
@@ -238,13 +235,11 @@
 
     //Distance travelled, we start at startingPosX so thats deducted
     CGFloat startPosX = [_configuration[@"startingPosX"] floatValue];
+
     _distanceScore = (_player.position.x - startPosX)/100;
     
     [self setScoreString:[NSString stringWithFormat:@"Score: %.0f", _distanceScore]];
-    
-    cpVect vect = cpv(1000.0f, 0.0f);
-    [_player.chipmunkBody applyForce:vect offset:cpvzero];
-    
+        
     if (_player.position.x >= (_winSize.width /2))
     {
         _backgroundNode.position = ccp(-(_player.position.x - (_winSize.width / 2)),0);
@@ -260,17 +255,13 @@
 - (void)touchBegan
 {
     NSLog(@"touch began!!");
-    //[_player flyWithForce];
-    //float force = [_configuration[@"forceVector"] floatValue];
-    //cpVect vector = cpv(0.0f, force);
-    //[_player jumpWithForceVector:cpvnormalize(vector)];
     [_player jumpWithForceVector];
 }
 
 - (void)touchEnded
 {
     NSLog(@"touch ended!");
-    [_player removeForces];
+    [_player removeUpwardForce];
     
 }
 
