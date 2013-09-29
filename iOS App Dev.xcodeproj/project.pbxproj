@@ -143,7 +143,14 @@
 		0B3130E117E85D0D00D0829B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B3130E017E85D0D00D0829B /* ImageIO.framework */; };
 		0B31313D17E85ECE00D0829B /* libChipmunkPro-iPhone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B31313B17E85ECE00D0829B /* libChipmunkPro-iPhone.a */; };
 		0B31314017E8662800D0829B /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B31313F17E8662800D0829B /* GameScene.m */; };
+		249F95C517F7C843005A6A22 /* Arial-hd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 249F95C117F7C843005A6A22 /* Arial-hd.fnt */; };
+		249F95C617F7C843005A6A22 /* Arial-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 249F95C217F7C843005A6A22 /* Arial-hd.png */; };
+		249F95C717F7C843005A6A22 /* Arial.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 249F95C317F7C843005A6A22 /* Arial.fnt */; };
+		249F95C817F7C843005A6A22 /* Arial.png in Resources */ = {isa = PBXBuildFile; fileRef = 249F95C417F7C843005A6A22 /* Arial.png */; };
+		249F95CB17F7C9A5005A6A22 /* ponyz-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 249F95C917F7C9A5005A6A22 /* ponyz-hd.png */; };
+		249F95CC17F7C9A5005A6A22 /* ponyz.png in Resources */ = {isa = PBXBuildFile; fileRef = 249F95CA17F7C9A5005A6A22 /* ponyz.png */; };
 		24A441E017F4DB590003DBB7 /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A441DF17F4DB590003DBB7 /* MenuScene.m */; };
+		4252E88817F7E7130005071D /* CCParallaxNode-Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 4252E88717F7E7130005071D /* CCParallaxNode-Extras.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		428E1A1717F109AE00AF0E47 /* grass-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1117F109AE00AF0E47 /* grass-hd.png */; };
 		428E1A1817F109AE00AF0E47 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1217F109AE00AF0E47 /* grass.png */; };
 		428E1A1917F109AE00AF0E47 /* moon-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1317F109AE00AF0E47 /* moon-hd.png */; };
@@ -167,12 +174,6 @@
 		429E77C917F3CAA700E23F80 /* spikes.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77C117F3CAA700E23F80 /* spikes.png */; };
 		429E77CA17F3CAA700E23F80 /* thorns-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77C217F3CAA700E23F80 /* thorns-hd.png */; };
 		429E77CB17F3CAA700E23F80 /* thorns.png in Resources */ = {isa = PBXBuildFile; fileRef = 429E77C317F3CAA700E23F80 /* thorns.png */; };
-		42A2909F17F79C5C00048D8F /* Arial-hd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 42A2909B17F79C5C00048D8F /* Arial-hd.fnt */; };
-		42A290A017F79C5C00048D8F /* Arial-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 42A2909C17F79C5C00048D8F /* Arial-hd.png */; };
-		42A290A117F79C5C00048D8F /* Arial.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 42A2909D17F79C5C00048D8F /* Arial.fnt */; };
-		42A290A217F79C5C00048D8F /* Arial.png in Resources */ = {isa = PBXBuildFile; fileRef = 42A2909E17F79C5C00048D8F /* Arial.png */; };
-		42A290A517F7C52100048D8F /* ponyz-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 42A290A317F7C52100048D8F /* ponyz-hd.png */; };
-		42A290A617F7C52100048D8F /* ponyz.png in Resources */ = {isa = PBXBuildFile; fileRef = 42A290A417F7C52100048D8F /* ponyz.png */; };
 		42F68B0417F4D9DC0072B79A /* cloud-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F68B0217F4D9DC0072B79A /* cloud-hd.png */; };
 		42F68B0517F4D9DC0072B79A /* cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F68B0317F4D9DC0072B79A /* cloud.png */; };
 		42F68B0817F4F7270072B79A /* small-grassl-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F68B0617F4F7270072B79A /* small-grassl-hd.png */; };
@@ -506,8 +507,16 @@
 		0B31313C17E85ECE00D0829B /* ObjectiveChipmunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveChipmunk.h; sourceTree = "<group>"; };
 		0B31313E17E8662800D0829B /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		0B31313F17E8662800D0829B /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		249F95C117F7C843005A6A22 /* Arial-hd.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Arial-hd.fnt"; path = "iOS App Dev/Fonts/Arial-hd.fnt"; sourceTree = "<group>"; };
+		249F95C217F7C843005A6A22 /* Arial-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Arial-hd.png"; path = "iOS App Dev/Fonts/Arial-hd.png"; sourceTree = "<group>"; };
+		249F95C317F7C843005A6A22 /* Arial.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Arial.fnt; path = "iOS App Dev/Fonts/Arial.fnt"; sourceTree = "<group>"; };
+		249F95C417F7C843005A6A22 /* Arial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Arial.png; path = "iOS App Dev/Fonts/Arial.png"; sourceTree = "<group>"; };
+		249F95C917F7C9A5005A6A22 /* ponyz-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ponyz-hd.png"; path = "Resources/ponyz-hd.png"; sourceTree = "<group>"; };
+		249F95CA17F7C9A5005A6A22 /* ponyz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ponyz.png; path = Resources/ponyz.png; sourceTree = "<group>"; };
 		24A441DE17F4DB590003DBB7 /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
 		24A441DF17F4DB590003DBB7 /* MenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScene.m; sourceTree = "<group>"; };
+		4252E88617F7E7130005071D /* CCParallaxNode-Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCParallaxNode-Extras.h"; sourceTree = "<group>"; };
+		4252E88717F7E7130005071D /* CCParallaxNode-Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCParallaxNode-Extras.m"; sourceTree = "<group>"; };
 		428E1A1117F109AE00AF0E47 /* grass-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grass-hd.png"; path = "Resources/grass-hd.png"; sourceTree = "<group>"; };
 		428E1A1217F109AE00AF0E47 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grass.png; path = Resources/grass.png; sourceTree = "<group>"; };
 		428E1A1317F109AE00AF0E47 /* moon-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "moon-hd.png"; path = "Resources/moon-hd.png"; sourceTree = "<group>"; };
@@ -533,12 +542,6 @@
 		429E77C117F3CAA700E23F80 /* spikes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spikes.png; path = Resources/spikes.png; sourceTree = "<group>"; };
 		429E77C217F3CAA700E23F80 /* thorns-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "thorns-hd.png"; path = "Resources/thorns-hd.png"; sourceTree = "<group>"; };
 		429E77C317F3CAA700E23F80 /* thorns.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = thorns.png; path = Resources/thorns.png; sourceTree = "<group>"; };
-		42A2909B17F79C5C00048D8F /* Arial-hd.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Arial-hd.fnt"; path = "iOS App Dev/Fonts/Arial-hd.fnt"; sourceTree = "<group>"; };
-		42A2909C17F79C5C00048D8F /* Arial-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Arial-hd.png"; path = "iOS App Dev/Fonts/Arial-hd.png"; sourceTree = "<group>"; };
-		42A2909D17F79C5C00048D8F /* Arial.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Arial.fnt; path = "iOS App Dev/Fonts/Arial.fnt"; sourceTree = "<group>"; };
-		42A2909E17F79C5C00048D8F /* Arial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Arial.png; path = "iOS App Dev/Fonts/Arial.png"; sourceTree = "<group>"; };
-		42A290A317F7C52100048D8F /* ponyz-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ponyz-hd.png"; path = "Resources/ponyz-hd.png"; sourceTree = "<group>"; };
-		42A290A417F7C52100048D8F /* ponyz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ponyz.png; path = Resources/ponyz.png; sourceTree = "<group>"; };
 		42F68B0217F4D9DC0072B79A /* cloud-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cloud-hd.png"; path = "Resources/cloud-hd.png"; sourceTree = "<group>"; };
 		42F68B0317F4D9DC0072B79A /* cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cloud.png; path = Resources/cloud.png; sourceTree = "<group>"; };
 		42F68B0617F4F7270072B79A /* small-grassl-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "small-grassl-hd.png"; path = "Resources/small-grassl-hd.png"; sourceTree = "<group>"; };
@@ -609,6 +612,8 @@
 			isa = PBXGroup;
 			children = (
 				428E1A2C17F246FA00AF0E47 /* Configuration.plist */,
+				4252E88617F7E7130005071D /* CCParallaxNode-Extras.h */,
+				4252E88717F7E7130005071D /* CCParallaxNode-Extras.m */,
 				24A441DE17F4DB590003DBB7 /* MenuScene.h */,
 				24A441DF17F4DB590003DBB7 /* MenuScene.m */,
 				0B3130D217E85CF400D0829B /* AppDelegate.h */,
@@ -632,8 +637,8 @@
 		0B312F4217E85CF200D0829B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				42A290A317F7C52100048D8F /* ponyz-hd.png */,
-				42A290A417F7C52100048D8F /* ponyz.png */,
+				249F95C917F7C9A5005A6A22 /* ponyz-hd.png */,
+				249F95CA17F7C9A5005A6A22 /* ponyz.png */,
 				42F68B0A17F4F80A0072B79A /* cloudl-hd.png */,
 				42F68B0B17F4F80A0072B79A /* cloudl.png */,
 				42F68B0617F4F7270072B79A /* small-grassl-hd.png */,
@@ -1108,10 +1113,10 @@
 		42A2908F17F76B7D00048D8F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				42A2909B17F79C5C00048D8F /* Arial-hd.fnt */,
-				42A2909C17F79C5C00048D8F /* Arial-hd.png */,
-				42A2909D17F79C5C00048D8F /* Arial.fnt */,
-				42A2909E17F79C5C00048D8F /* Arial.png */,
+				249F95C117F7C843005A6A22 /* Arial-hd.fnt */,
+				249F95C217F7C843005A6A22 /* Arial-hd.png */,
+				249F95C317F7C843005A6A22 /* Arial.fnt */,
+				249F95C417F7C843005A6A22 /* Arial.png */,
 			);
 			name = Fonts;
 			path = ..;
@@ -1172,6 +1177,8 @@
 				0B312F4617E85CF200D0829B /* Default@2x.png in Resources */,
 				0B312F4817E85CF200D0829B /* Default-568h@2x.png in Resources */,
 				0B312F4A17E85CF200D0829B /* Default-Landscape~ipad.png in Resources */,
+				249F95C517F7C843005A6A22 /* Arial-hd.fnt in Resources */,
+				249F95CC17F7C9A5005A6A22 /* ponyz.png in Resources */,
 				0B312F4C17E85CF200D0829B /* Icon-72.png in Resources */,
 				0B312F4E17E85CF200D0829B /* Icon-Small-50.png in Resources */,
 				0B312F5017E85CF200D0829B /* Icon-Small.png in Resources */,
@@ -1179,9 +1186,11 @@
 				0B312F5417E85CF200D0829B /* Icon.png in Resources */,
 				0B312F5617E85CF200D0829B /* Icon@2x.png in Resources */,
 				0B312F5917E85CF200D0829B /* iTunesArtwork in Resources */,
+				249F95C817F7C843005A6A22 /* Arial.png in Resources */,
 				0B3130B217E85CF400D0829B /* ChangeLog in Resources */,
 				428E1A1717F109AE00AF0E47 /* grass-hd.png in Resources */,
 				428E1A1817F109AE00AF0E47 /* grass.png in Resources */,
+				249F95C617F7C843005A6A22 /* Arial-hd.png in Resources */,
 				428E1A1917F109AE00AF0E47 /* moon-hd.png in Resources */,
 				428E1A1A17F109AE00AF0E47 /* moon.png in Resources */,
 				428E1A1B17F109AE00AF0E47 /* tree1-hd.png in Resources */,
@@ -1192,6 +1201,8 @@
 				428E1A2417F1102D00AF0E47 /* tree2.png in Resources */,
 				428E1A2717F241E600AF0E47 /* pony-hd.png in Resources */,
 				428E1A2817F241E600AF0E47 /* pony.png in Resources */,
+				249F95C717F7C843005A6A22 /* Arial.fnt in Resources */,
+				249F95CB17F7C9A5005A6A22 /* ponyz-hd.png in Resources */,
 				428E1A2D17F246FA00AF0E47 /* Configuration.plist in Resources */,
 				429E77C417F3CAA700E23F80 /* kirby-hd.png in Resources */,
 				429E77C517F3CAA700E23F80 /* kirby.png in Resources */,
@@ -1207,12 +1218,6 @@
 				42F68B0917F4F7270072B79A /* small-grassl.png in Resources */,
 				42F68B0C17F4F80A0072B79A /* cloudl-hd.png in Resources */,
 				42F68B0D17F4F80A0072B79A /* cloudl.png in Resources */,
-				42A2909F17F79C5C00048D8F /* Arial-hd.fnt in Resources */,
-				42A290A017F79C5C00048D8F /* Arial-hd.png in Resources */,
-				42A290A117F79C5C00048D8F /* Arial.fnt in Resources */,
-				42A290A217F79C5C00048D8F /* Arial.png in Resources */,
-				42A290A517F7C52100048D8F /* ponyz-hd.png in Resources */,
-				42A290A617F7C52100048D8F /* ponyz.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1338,6 +1343,7 @@
 				0B31314017E8662800D0829B /* GameScene.m in Sources */,
 				428E1A2B17F245E700AF0E47 /* Player.m in Sources */,
 				429E778917F2814D00E23F80 /* InputLayer.m in Sources */,
+				4252E88817F7E7130005071D /* CCParallaxNode-Extras.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1393,9 +1399,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS App Dev/Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"iOS App Dev/libs/kazmath/include\"",
-				);
+				HEADER_SEARCH_PATHS = "\"iOS App Dev/libs/kazmath/include\"";
 				INFOPLIST_FILE = "iOS App Dev/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -1420,9 +1424,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS App Dev/Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"iOS App Dev/libs/kazmath/include\"",
-				);
+				HEADER_SEARCH_PATHS = "\"iOS App Dev/libs/kazmath/include\"";
 				INFOPLIST_FILE = "iOS App Dev/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
