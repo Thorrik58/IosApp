@@ -11,10 +11,12 @@
 @interface Player : CCPhysicsSprite
 {
     ChipmunkSpace *_space;
+    NSDictionary *_configuration;
 }
+
 
 - (id) initWithSpace:(ChipmunkSpace *)space position:(CGPoint)position;
 - (void)jumpWithForceVector; //veit ekkert hvort eg muni thurfa thetta
-- (void)removeForces;
-
+- (void)removeUpwardForce;
+- (void)lateralForce;
 @end

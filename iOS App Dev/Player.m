@@ -12,49 +12,44 @@
 
 - (id) initWithSpace:(ChipmunkSpace *)space position:(CGPoint)position;
 {
-    self = [super initWithFile:@"ponyz.png"];
+
+    self = [super initWithFile:@"kirby.png"];
     if (self)
     {
         _space = space;
         
         if (space != nil)
         {
-            //TODO: Look into if I should perhaps do this with auto geometry.
+            //Config file loaded
+            _configuration = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Configuration" ofType:@"plist"]];
             
-            /*
-            //Not working!!
-            NSURL *url = [[NSBundle mainBundle] URLForResource:@"pony" withExtension:@"png"];
-             
-            ChipmunkImageSampler *sampler = [ChipmunkImageSampler samplerWithImageFile:url isMask:NO];
-            ChipmunkPolylineSet *contour = [sampler marchAllWithBorder:NO hard:YES];
-            ChipmunkPolyline *line = [contour lineAtIndex:0];
-            ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
-             
-            ChipmunkBody *ponyBody = [ChipmunkBody bodyWithMass:10000.0f andMoment:1000000.0f];
-            NSArray *ponyShapes = [simpleLine asChipmunkSegmentsWithBody:ponyBody radius:0 offset:cpvzero];
-            for (ChipmunkShape *shape in ponyShapes)
-            {
-                [_space addShape:shape];
-                //self.chipmunkBody = ponyBody;
-            }
-            */
+            //To fix the offset of the image within the auto-geometry.
+            CCSprite *sprite = [CCSprite spriteWithFile:@"kirby.png"];
+            CGPoint anchor = cpvadd(sprite.anchorPointInPoints, cpvzero);
+            sprite.anchorPoint = ccp(anchor.x/sprite.contentSize.width, anchor.y/sprite.contentSize.height);
             
             
-            CGSize size = self.textureRect.size;
-            cpFloat mass = size.width * size.height;
-            cpFloat moment = cpMomentForBox(mass, size.width, size.height);
+            NSURL *url = [[NSBundle mainBundle] URLForResource:@"kirby" withExtension:@"png"];
             
+            ChipmunkBitmapSampler *sampler = [ChipmunkImageSampler samplerWithImageFile:url isMask:NO];
+            [sampler setBorderValue:0.0f];
+            ChipmunkPolylineSet *lines = [sampler marchAllWithBorder:YES hard:NO];
+            ChipmunkPolyline *line = [lines lineAtIndex:0];
+            
+            CGFloat mass = [_configuration [@"characterMass"] floatValue];
+            CGFloat moment = [line momentForMass:mass offset:cpvneg(sprite.anchorPointInPoints)];
             ChipmunkBody *body = [ChipmunkBody bodyWithMass:mass andMoment:moment];
             body.pos = position;
-            ChipmunkShape *shape = [ChipmunkPolyShape boxWithBody:body width:size.width height:size.height];
             
-            //Add to space
-            [_space addBody:body];
-            [_space addShape:shape];
-            
-            //add to physics sprite
+            ChipmunkPolyline *hull = [[line simplifyCurves:1.0f] toConvexHull:1.0f];
+            ChipmunkShape *shape = [hull asChipmunkPolyShapeWithBody: body offset:cpvneg(sprite.anchorPointInPoints)];
+            [_space addBody: body];
+            [_space addShape: shape];
             
             self.chipmunkBody = body;
+            
+            //Set the lateral force of the player.
+            [self lateralForce];
         }
     }
     return self;
@@ -73,12 +68,18 @@
     //NSLog(@"The current force: %@",NSStringFromCGPoint(self.chipmunkBody.body->f));
 }
 
-- (void)removeForces
+- (void)removeUpwardForce
 {
     //NSLog(@"The current force before remove: %@",NSStringFromCGPoint(self.chipmunkBody.body->f));
     //[self.chipmunkBody resetForces];
     self.chipmunkBody.body->f.y = 0;
     //NSLog(@"The current force after remove: %@",NSStringFromCGPoint(self.chipmunkBody.body->f));
+}
+
+-(void)lateralForce
+{
+    NSString *vectorArgument = _configuration[@"lateralForce"];
+    [self.chipmunkBody applyForce:CGPointFromString(vectorArgument) offset:cpvzero];
 }
 
 
