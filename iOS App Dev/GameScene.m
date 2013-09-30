@@ -12,8 +12,6 @@
 
 
 
-
-
 @implementation GameScene
 
 #pragma mark - Initilization
@@ -29,61 +27,16 @@
     return scene;
 }
 
-- (void)restartTapped:(id)sender {
-    [[CCDirector sharedDirector] resume];
-    // Reload the current scene
-    CCScene *scene = [GameScene scene];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:scene]];
-    
-}
-
-- (void)showRestartMenu:(BOOL)won {
-    
-    CGSize winSize = [CCDirector sharedDirector].winSize;
-    [[CCDirector sharedDirector] pause];
-    NSString *message;
-    if (won) {
-        message = @"You win!";
-    } else {
-        message = @"You lose!";
-    }
-    
-    CCLabelBMFont *label;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        label = [CCLabelBMFont labelWithString:message fntFile:@"Arial-hd.fnt"];
-    } else {
-        label = [CCLabelBMFont labelWithString:message fntFile:@"Arial.fnt"];
-    }
-    label.scale = 0.1;
-    label.position = ccp(winSize.width/2, winSize.height * 0.6);
-    [self addChild:label];
-    
-    CCLabelBMFont *restartLabel;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        restartLabel = [CCLabelBMFont labelWithString:@"Restart" fntFile:@"Arial-hd.fnt"];
-    } else {
-        restartLabel = [CCLabelBMFont labelWithString:@"Restart" fntFile:@"Arial.fnt"];
-    }
-    
-    CCMenuItemLabel *restartItem = [CCMenuItemLabel itemWithLabel:restartLabel target:self selector:@selector(restartTapped:)];
-    restartItem.scale = 0.1;
-    restartItem.position = ccp(winSize.width/2, winSize.height * 0.4);
-    
-    CCMenu *menu = [CCMenu menuWithItems:restartItem, nil];
-    menu.position = CGPointZero;
-    [self addChild:menu z:10];
-    
-    [restartItem runAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]];
-    [label runAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]];
-    
-}
-
 - (id)init
 {
     self = [super init];
     if (self)
     {
         srandom(time(NULL));
+        
+        
+        _hudLayer = [[HUDLayer alloc] init];
+        [self addChild:_hudLayer z:1];
         
         //Config file loaded
         _configuration = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Configuration" ofType:@"plist"]];
@@ -116,29 +69,12 @@
         inputLayer.delegate = self;
         [self addChild:inputLayer];
         
-        //TODO: Z INDEX FIXES!
-        //Score label set up to keep track of score
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            _scoreLabel = [CCLabelBMFont labelWithString:@"" fntFile:@"Arial-hd.fnt"];
-        } else {
-            _scoreLabel = [CCLabelBMFont labelWithString:@"" fntFile:@"Arial.fnt"];
-        }
-        _scoreLabel.position = ccp(_winSize.width* 0.2, _winSize.height * 0.9);
-        [self addChild:_scoreLabel z:10];
-        
-        
         // Your initilization code goes here
         [self scheduleUpdate];
 
     }
     return self;
 }
-
-
-- (void)setScoreString:(NSString *)string {
-    _scoreLabel.string = string;
-}
-
 
 - (void) setupPhysicsWorld
 {
@@ -185,7 +121,7 @@
     
     //ParallaxEffect
     _backgroundNode = [CCParallaxNode node];
-    [self addChild:_backgroundNode z:1];
+    [self addChild:_backgroundNode];
     
     //Speed which objects move in background
     CGPoint grassSpeed = ccp(1.0, 1.0);
@@ -195,7 +131,7 @@
     //trees
     CCSprite* trees = [CCSprite spriteWithFile:@"tree2.png"];
     trees.anchorPoint = ccp(0,0);
-    [_backgroundNode addChild:trees z:-1 parallaxRatio:landscapeSpeed positionOffset:ccp(600,_winSize.height * 0)];
+    [_backgroundNode addChild:trees z:1 parallaxRatio:landscapeSpeed positionOffset:ccp(600,_winSize.height * 0)];
     
     //moon
     CCSprite* moon = [CCSprite spriteWithFile:@"moon.png"];
@@ -217,11 +153,11 @@
     CCSprite* landscape = [CCSprite spriteWithFile:@"small-grassl.png"];
     landscape.anchorPoint = ccp(0,0);
     _landscapeWidth = landscape.contentSize.width;
-    [_backgroundNode addChild:landscape z:-1 parallaxRatio:grassSpeed positionOffset:CGPointZero];
+    [_backgroundNode addChild:landscape z:2 parallaxRatio:grassSpeed positionOffset:CGPointZero];
     _floor = landscape;
     
     _gameNode = [CCNode node];
-    [_backgroundNode addChild:_gameNode z:2 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:CGPointZero];
+    [_backgroundNode addChild:_gameNode z:1 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:CGPointZero];
 }
 
 
@@ -244,7 +180,7 @@
     CGFloat startPosX = [_configuration[@"startingPosX"] floatValue];
     _distanceScore = (_player.position.x - startPosX)/100;
     
-    [self setScoreString:[NSString stringWithFormat:@"Score: %.0f", _distanceScore]];
+    [_hudLayer setScoreString:[NSString stringWithFormat:@"Score: %.0f", _distanceScore]];
     
     cpVect vect = cpv(1000.0f, 0.0f);
     [_player.chipmunkBody applyForce:vect offset:cpvzero];
@@ -288,13 +224,11 @@
 - (void)touchEnded
 {
     NSLog(@"touch ended!");
-    [_player removeForces];
-    
+    [_player removeForces];    
 }
 
 - (void)extendTunnel
 {
-    
     CGPoint grassSpeed = ccp(1.0, 1.0);
     if (_ceiling.position.x > _ceiling2.position.x)
     {

@@ -9,6 +9,7 @@
 #import "MenuScene.h"
 #import "cocos2d.h"
 #import "GameScene.h"
+#import "HUDLayer.h"
 
 @implementation MenuScene
 
