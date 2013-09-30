@@ -5,9 +5,9 @@
 	<key>forceVector</key>
 	<string>200.0f</string>
 	<key>characterMass</key>
-	<string>1000.0f</string>
+	<string>10.0f</string>
 	<key>lateralForce</key>
-	<string>{50,0}</string>
+	<string>{100,0}</string>
 	<key>coinPosition</key>
 	<string>{120,100}</string>
 	<key>playerStartingPos</key>

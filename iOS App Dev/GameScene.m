@@ -192,8 +192,8 @@
     
     [_hudLayer setScoreString:[NSString stringWithFormat:@"Score: %.0f", _distanceScore]];
     
-    cpVect vect = cpv(1000.0f, 0.0f);
-    [_player.chipmunkBody applyForce:vect offset:cpvzero];
+    //cpVect vect = cpv(1000.0f, 0.0f);
+    //[_player.chipmunkBody applyForce:vect offset:cpvzero];
     
 
     if (_player.position.x >= (_winSize.width /2))
@@ -289,6 +289,11 @@
     [_backgroundNode addChild:_ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.83)];
     
     
+}
+
+-(int)getRandomNumberBetween:(int)from to:(int)to {
+    
+    return (int)from + arc4random() % (to-from+1);
 }
 
 

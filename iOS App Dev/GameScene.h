@@ -40,6 +40,8 @@
     CGFloat _lastAppendPos;
 }
 + (id)scene;
+-(int)getRandomNumberBetween:(int)from to:(int)to;
+
 
 
 @end
