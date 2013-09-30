@@ -9,12 +9,15 @@
 #import "InputLayer.h"
 
 @class Player;
+@class Collectable;
+@class Collectable;
 @interface GameScene : CCScene <InputLayerDelgate>
 {
     CGSize _winSize;
     NSDictionary *_configuration;
     CCLayerGradient *_skyLayer;
     Player *_player;
+    Collectable *_coin;
     
     ChipmunkSpace *_space;
     ccTime _accumulator;    

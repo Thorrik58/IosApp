@@ -5,6 +5,7 @@
 //
 
 #import "GameScene.h"
+#import "Collectable.h"
 #import "Player.h"
 #import "InputLayer.h"
 #import "ChipmunkAutoGeometry.h"
@@ -107,9 +108,20 @@
         
         //Player character set up with starting position
         NSString *playerPositionString = _configuration[@"playerStartingPos"];
+        
+        // Register collision handler
+        [_space setDefaultCollisionHandler:self
+                                     begin:@selector(collisionBegan:space:)
+                                     preSolve:nil
+                                     postSolve:nil
+                                     separate:nil];
 
         _player = [[Player alloc] initWithSpace:_space position:CGPointFromString(playerPositionString)];
         [_gameNode addChild:_player];
+        
+        // Add coin
+        _coin = [[Collectable alloc] initWithSpace:_space position:CGPointFromString(_configuration[@"coinPosition"])];
+        [_gameNode addChild:_coin];
         
         // Create a input layer
         InputLayer *inputLayer = [[InputLayer alloc] init];
@@ -151,15 +163,15 @@
     ChipmunkPolyline *line = [contour lineAtIndex:0];
     ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
     
-    ChipmunkBody *floorBody = [ChipmunkBody bodyWithMass:1000000000.0f andMoment:INFINITY];
-    CGFloat gravity = [_configuration [@"gravity"] floatValue];
-    floorBody.force = cpv(0.0f, gravity*1000000000);
+    //ChipmunkBody *floorBody = [ChipmunkBody bodyWithMass:1000000000.0f andMoment:INFINITY];
+    //CGFloat gravity = [_configuration [@"gravity"] floatValue];
+    //floorBody.force = cpv(0.0f, gravity*1000000000);
+    ChipmunkBody *floorBody = [ChipmunkBody staticBody];
     NSArray *floorShapes = [simpleLine asChipmunkSegmentsWithBody:floorBody radius:0 offset:cpv(0.0f, _winSize.height*0.83)];
     for (ChipmunkShape *shape in floorShapes)
     {
         [_space addShape:shape];
     }
-    [_space addBody:floorBody];
     
     
      
@@ -281,6 +293,24 @@
     NSLog(@"touch ended!");
     [_player removeUpwardForce];
     
+}
+
+#pragma mark - Collition methods
+- (bool)collisionBegan:(cpArbiter *)arbiter space:(ChipmunkSpace*)space
+{
+    cpBody *firstBody;
+    cpBody *secondBody;
+    cpArbiterGetBodies(arbiter, &firstBody, &secondBody);
+    
+    ChipmunkBody *firstChipmunkBody = firstBody->data;
+    ChipmunkBody *secondChipmunkBody = secondBody->data;
+    
+    if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == _coin.chipmunkBody) ||
+        (firstChipmunkBody == _coin.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
+    {
+        NSLog(@"TANK HIT GOAL :D:D:D xoxoxo");
+    }
+        return YES;
 }
 
 - (void)extendTunnel

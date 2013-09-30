@@ -149,6 +149,11 @@
 		249F95C817F7C843005A6A22 /* Arial.png in Resources */ = {isa = PBXBuildFile; fileRef = 249F95C417F7C843005A6A22 /* Arial.png */; };
 		249F95CB17F7C9A5005A6A22 /* ponyz-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 249F95C917F7C9A5005A6A22 /* ponyz-hd.png */; };
 		249F95CC17F7C9A5005A6A22 /* ponyz.png in Resources */ = {isa = PBXBuildFile; fileRef = 249F95CA17F7C9A5005A6A22 /* ponyz.png */; };
+		24A2BD5517F8F17500BD26D3 /* coin-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A2BD5317F8F17500BD26D3 /* coin-hd.png */; };
+		24A2BD5617F8F17500BD26D3 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A2BD5417F8F17500BD26D3 /* coin.png */; };
+		24A2BD5B17F8F84800BD26D3 /* Goal-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A2BD5717F8F84800BD26D3 /* Goal-hd.png */; };
+		24A2BD5C17F8F84800BD26D3 /* Collectable.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A2BD5917F8F84800BD26D3 /* Collectable.m */; };
+		24A2BD5D17F8F84800BD26D3 /* Goal.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A2BD5A17F8F84800BD26D3 /* Goal.png */; };
 		24A441E017F4DB590003DBB7 /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A441DF17F4DB590003DBB7 /* MenuScene.m */; };
 		4252E88817F7E7130005071D /* CCParallaxNode-Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 4252E88717F7E7130005071D /* CCParallaxNode-Extras.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		428E1A1717F109AE00AF0E47 /* grass-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1117F109AE00AF0E47 /* grass-hd.png */; };
@@ -513,6 +518,12 @@
 		249F95C417F7C843005A6A22 /* Arial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Arial.png; path = "iOS App Dev/Fonts/Arial.png"; sourceTree = "<group>"; };
 		249F95C917F7C9A5005A6A22 /* ponyz-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ponyz-hd.png"; path = "Resources/ponyz-hd.png"; sourceTree = "<group>"; };
 		249F95CA17F7C9A5005A6A22 /* ponyz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ponyz.png; path = Resources/ponyz.png; sourceTree = "<group>"; };
+		24A2BD5317F8F17500BD26D3 /* coin-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coin-hd.png"; sourceTree = "<group>"; };
+		24A2BD5417F8F17500BD26D3 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin.png; sourceTree = "<group>"; };
+		24A2BD5717F8F84800BD26D3 /* Goal-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Goal-hd.png"; sourceTree = "<group>"; };
+		24A2BD5817F8F84800BD26D3 /* Collectable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collectable.h; sourceTree = "<group>"; };
+		24A2BD5917F8F84800BD26D3 /* Collectable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Collectable.m; sourceTree = "<group>"; };
+		24A2BD5A17F8F84800BD26D3 /* Goal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Goal.png; sourceTree = "<group>"; };
 		24A441DE17F4DB590003DBB7 /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
 		24A441DF17F4DB590003DBB7 /* MenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScene.m; sourceTree = "<group>"; };
 		4252E88617F7E7130005071D /* CCParallaxNode-Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCParallaxNode-Extras.h"; sourceTree = "<group>"; };
@@ -611,6 +622,8 @@
 		0B312F4117E85CF200D0829B /* iOS App Dev */ = {
 			isa = PBXGroup;
 			children = (
+				24A2BD5817F8F84800BD26D3 /* Collectable.h */,
+				24A2BD5917F8F84800BD26D3 /* Collectable.m */,
 				428E1A2C17F246FA00AF0E47 /* Configuration.plist */,
 				4252E88617F7E7130005071D /* CCParallaxNode-Extras.h */,
 				4252E88717F7E7130005071D /* CCParallaxNode-Extras.m */,
@@ -637,6 +650,10 @@
 		0B312F4217E85CF200D0829B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				24A2BD5717F8F84800BD26D3 /* Goal-hd.png */,
+				24A2BD5A17F8F84800BD26D3 /* Goal.png */,
+				24A2BD5317F8F17500BD26D3 /* coin-hd.png */,
+				24A2BD5417F8F17500BD26D3 /* coin.png */,
 				249F95C917F7C9A5005A6A22 /* ponyz-hd.png */,
 				249F95CA17F7C9A5005A6A22 /* ponyz.png */,
 				42F68B0A17F4F80A0072B79A /* cloudl-hd.png */,
@@ -1183,6 +1200,7 @@
 				0B312F4E17E85CF200D0829B /* Icon-Small-50.png in Resources */,
 				0B312F5017E85CF200D0829B /* Icon-Small.png in Resources */,
 				0B312F5217E85CF200D0829B /* Icon-Small@2x.png in Resources */,
+				24A2BD5B17F8F84800BD26D3 /* Goal-hd.png in Resources */,
 				0B312F5417E85CF200D0829B /* Icon.png in Resources */,
 				0B312F5617E85CF200D0829B /* Icon@2x.png in Resources */,
 				0B312F5917E85CF200D0829B /* iTunesArtwork in Resources */,
@@ -1201,6 +1219,7 @@
 				428E1A2417F1102D00AF0E47 /* tree2.png in Resources */,
 				428E1A2717F241E600AF0E47 /* pony-hd.png in Resources */,
 				428E1A2817F241E600AF0E47 /* pony.png in Resources */,
+				24A2BD5517F8F17500BD26D3 /* coin-hd.png in Resources */,
 				249F95C717F7C843005A6A22 /* Arial.fnt in Resources */,
 				249F95CB17F7C9A5005A6A22 /* ponyz-hd.png in Resources */,
 				428E1A2D17F246FA00AF0E47 /* Configuration.plist in Resources */,
@@ -1211,8 +1230,10 @@
 				429E77C817F3CAA700E23F80 /* spikes-hd.png in Resources */,
 				429E77C917F3CAA700E23F80 /* spikes.png in Resources */,
 				429E77CA17F3CAA700E23F80 /* thorns-hd.png in Resources */,
+				24A2BD5617F8F17500BD26D3 /* coin.png in Resources */,
 				429E77CB17F3CAA700E23F80 /* thorns.png in Resources */,
 				42F68B0417F4D9DC0072B79A /* cloud-hd.png in Resources */,
+				24A2BD5D17F8F84800BD26D3 /* Goal.png in Resources */,
 				42F68B0517F4D9DC0072B79A /* cloud.png in Resources */,
 				42F68B0817F4F7270072B79A /* small-grassl-hd.png in Resources */,
 				42F68B0917F4F7270072B79A /* small-grassl.png in Resources */,
@@ -1333,6 +1354,7 @@
 				0B3130C017E85CF400D0829B /* plane.c in Sources */,
 				0B3130C217E85CF400D0829B /* quaternion.c in Sources */,
 				0B3130C417E85CF400D0829B /* ray2.c in Sources */,
+				24A2BD5C17F8F84800BD26D3 /* Collectable.m in Sources */,
 				0B3130C617E85CF400D0829B /* utility.c in Sources */,
 				0B3130C817E85CF400D0829B /* vec2.c in Sources */,
 				0B3130CA17E85CF400D0829B /* vec3.c in Sources */,
