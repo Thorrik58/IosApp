@@ -50,6 +50,9 @@
         CGFloat gravity = [_configuration [@"gravity"] floatValue];
         _space.gravity = ccp(0.0f, -gravity);
         
+        NSMutableArray *coinsArray = [[NSMutableArray alloc] init];
+        _coinsArray = coinsArray;
+        
         //Background set up
         [self setupGraphicsWorld];
         [self setupPhysicsWorld];
@@ -72,9 +75,16 @@
         _player = [[Player alloc] initWithSpace:_space position:CGPointFromString(playerPositionString)];
         [_gameNode addChild:_player];
         
-        // Add coin
-        _coin = [[Collectable alloc] initWithSpace:_space position:CGPointFromString(_configuration[@"coinPosition"])];
-        [_gameNode addChild:_coin];
+        for (NSUInteger i = 0; i < 10; ++i)
+        {
+            [self createCoin];
+        }
+        
+        
+        
+        /*_coin = [[Collectable alloc] initWithSpace:_space position:CGPointFromString(_configuration[@"coinPosition"])];
+        [_gameNode addChild:_coin];*/
+        
         
         // Create a input layer
         InputLayer *inputLayer = [[InputLayer alloc] init];
@@ -231,11 +241,10 @@
 - (void)touchEnded
 {
     NSLog(@"touch ended!");
-    [_player removeUpwardForce];
-    
+    [_player removeUpwardForce];    
 }
 
-#pragma mark - Collition methods
+#pragma mark - Collision methods
 - (bool)collisionBegan:(cpArbiter *)arbiter space:(ChipmunkSpace*)space
 {
     cpBody *firstBody;
@@ -245,11 +254,17 @@
     ChipmunkBody *firstChipmunkBody = firstBody->data;
     ChipmunkBody *secondChipmunkBody = secondBody->data;
     
-    if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == _coin.chipmunkBody) ||
-        (firstChipmunkBody == _coin.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
+    
+    for (Collectable* coin in _coinsArray)
     {
-        NSLog(@"TANK HIT GOAL :D:D:D xoxoxo");
+        if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == coin.chipmunkBody) ||
+            (firstChipmunkBody == coin.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
+        {
+            NSLog(@"TANK HIT GOAL :D:D:D xoxoxo");
+        }
     }
+    
+    
         return YES;
 }
 
@@ -291,8 +306,26 @@
     
 }
 
--(int)getRandomNumberBetween:(int)from to:(int)to {
+-(void)createCoin{
     
+    int randomNumberx = [self getRandomNumberBetween:200 to:4000];
+    int randomNumbery = [self getRandomNumberBetween:20 to:_winSize.height-20];
+    // Add coin
+    Collectable *bla = [[Collectable alloc] initWithSpace:_space position:ccp(randomNumberx,randomNumbery)];
+    [_gameNode addChild:bla];    
+    [_coinsArray addObject:bla];
+    
+    
+    /*
+    for (NSUInteger i = 0; i < 4; ++i)
+    {
+        Collectable *coin = [Collectable alloc];
+        cloud.position = ccp(CCRANDOM_0_1() * _winSize.width, (CCRANDOM_0_1() * 200) + _winSize.height / 2);
+        [_skyLayer addChild:cloud];
+    }*/
+}
+
+-(int)getRandomNumberBetween:(int)from to:(int)to {
     return (int)from + arc4random() % (to-from+1);
 }
 

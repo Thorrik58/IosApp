@@ -28,6 +28,7 @@
     CGFloat _landscapeWidth;
     CGFloat _distanceScore;
     
+    NSMutableArray *_coinsArray;
     
     //layers needed to readjust in run
     CCSprite *_ceiling;
