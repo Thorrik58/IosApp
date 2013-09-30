@@ -87,6 +87,8 @@
         /*_coin = [[Collectable alloc] initWithSpace:_space position:CGPointFromString(_configuration[@"coinPosition"])];
         [_gameNode addChild:_coin];*/
         
+        // Preload sound effects
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"coin.wav"];
         
         // Create a input layer
         InputLayer *inputLayer = [[InputLayer alloc] init];
@@ -111,9 +113,6 @@
     ChipmunkPolyline *line = [contour lineAtIndex:0];
     ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
     
-    //ChipmunkBody *floorBody = [ChipmunkBody bodyWithMass:1000000000.0f andMoment:INFINITY];
-    //CGFloat gravity = [_configuration [@"gravity"] floatValue];
-    //floorBody.force = cpv(0.0f, gravity*1000000000);
     ChipmunkBody *floorBody = [ChipmunkBody staticBody];
     NSArray *floorShapes = [simpleLine asChipmunkSegmentsWithBody:floorBody radius:0 offset:cpv(0.0f, _winSize.height*0.83)];
     for (ChipmunkShape *shape in floorShapes)
@@ -256,6 +255,7 @@
     ChipmunkBody *firstChipmunkBody = firstBody->data;
     ChipmunkBody *secondChipmunkBody = secondBody->data;
     
+    Collectable* removedCoin;
     
     for (Collectable* coin in _coinsArray)
     {
@@ -264,16 +264,23 @@
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
             
-            /*[_space smartRemove:coin.chipmunkBody];
+            //[_space smartRemove:coin.chipmunkBody];
             for (ChipmunkShape *shape in coin.chipmunkBody.shapes) {
                 [_space smartRemove:shape];
+                
             }
-            [coin removeFromParentAndCleanup:YES];*/
+            [coin removeFromParentAndCleanup:YES];
+            removedCoin = coin;
         }
     }
     
+    //To remove the coin from the coin array.
+    if (removedCoin != nil)
+    {
+        [_coinsArray removeObject:removedCoin];
+    }
     
-        return YES;
+    return YES;
 }
 
 - (void)extendTunnel
@@ -303,15 +310,11 @@
         _lastAppendPos = _ceiling.position.x + _ceiling.contentSize.width;
     }
     
-    
-    
-    
     //Ceiling
     _ceiling = [CCSprite spriteWithFile:@"cloudl.png"];
     _ceiling.anchorPoint = ccp(0,0);
     [_backgroundNode addChild:_ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.83)];
-    
-    
+
 }
 
 -(void)createCoin{
@@ -322,18 +325,10 @@
     Collectable *bla = [[Collectable alloc] initWithSpace:_space position:ccp(randomNumberx,randomNumbery)];
     [_gameNode addChild:bla];    
     [_coinsArray addObject:bla];
-    
-    
-    /*
-    for (NSUInteger i = 0; i < 4; ++i)
-    {
-        Collectable *coin = [Collectable alloc];
-        cloud.position = ccp(CCRANDOM_0_1() * _winSize.width, (CCRANDOM_0_1() * 200) + _winSize.height / 2);
-        [_skyLayer addChild:cloud];
-    }*/
 }
 
--(int)getRandomNumberBetween:(int)from to:(int)to {
+-(int)getRandomNumberBetween:(int)from to:(int)to
+{
     return (int)from + arc4random() % (to-from+1);
 }
 
