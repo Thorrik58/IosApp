@@ -10,6 +10,8 @@
 #import "InputLayer.h"
 #import "ChipmunkAutoGeometry.h"
 #import "CCParallaxNode-Extras.h"
+#import "SimpleAudioEngine.h"
+
 
 
 
@@ -260,7 +262,13 @@
         if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == coin.chipmunkBody) ||
             (firstChipmunkBody == coin.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
         {
-            NSLog(@"TANK HIT GOAL :D:D:D xoxoxo");
+            [[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+            
+            /*[_space smartRemove:coin.chipmunkBody];
+            for (ChipmunkShape *shape in coin.chipmunkBody.shapes) {
+                [_space smartRemove:shape];
+            }
+            [coin removeFromParentAndCleanup:YES];*/
         }
     }
     

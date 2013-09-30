@@ -157,6 +157,7 @@
 		24A441E017F4DB590003DBB7 /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A441DF17F4DB590003DBB7 /* MenuScene.m */; };
 		4252E88817F7E7130005071D /* CCParallaxNode-Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 4252E88717F7E7130005071D /* CCParallaxNode-Extras.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4252E88B17F8F1620005071D /* HUDLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4252E88A17F8F1620005071D /* HUDLayer.m */; };
+		4252E88D17F953570005071D /* coin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4252E88C17F953570005071D /* coin.wav */; };
 		428E1A1717F109AE00AF0E47 /* grass-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1117F109AE00AF0E47 /* grass-hd.png */; };
 		428E1A1817F109AE00AF0E47 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1217F109AE00AF0E47 /* grass.png */; };
 		428E1A1917F109AE00AF0E47 /* moon-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1317F109AE00AF0E47 /* moon-hd.png */; };
@@ -531,6 +532,7 @@
 		4252E88717F7E7130005071D /* CCParallaxNode-Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCParallaxNode-Extras.m"; sourceTree = "<group>"; };
 		4252E88917F8F1620005071D /* HUDLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDLayer.h; sourceTree = "<group>"; };
 		4252E88A17F8F1620005071D /* HUDLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDLayer.m; sourceTree = "<group>"; };
+		4252E88C17F953570005071D /* coin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin.wav; sourceTree = "<group>"; };
 		428E1A1117F109AE00AF0E47 /* grass-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grass-hd.png"; path = "Resources/grass-hd.png"; sourceTree = "<group>"; };
 		428E1A1217F109AE00AF0E47 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grass.png; path = Resources/grass.png; sourceTree = "<group>"; };
 		428E1A1317F109AE00AF0E47 /* moon-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "moon-hd.png"; path = "Resources/moon-hd.png"; sourceTree = "<group>"; };
@@ -657,6 +659,7 @@
 			children = (
 				24A2BD5717F8F84800BD26D3 /* Goal-hd.png */,
 				24A2BD5A17F8F84800BD26D3 /* Goal.png */,
+				4252E88C17F953570005071D /* coin.wav */,
 				24A2BD5317F8F17500BD26D3 /* coin-hd.png */,
 				24A2BD5417F8F17500BD26D3 /* coin.png */,
 				249F95C917F7C9A5005A6A22 /* ponyz-hd.png */,
@@ -1244,6 +1247,7 @@
 				42F68B0917F4F7270072B79A /* small-grassl.png in Resources */,
 				42F68B0C17F4F80A0072B79A /* cloudl-hd.png in Resources */,
 				42F68B0D17F4F80A0072B79A /* cloudl.png in Resources */,
+				4252E88D17F953570005071D /* coin.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1427,7 +1431,9 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS App Dev/Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"iOS App Dev/libs/kazmath/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"iOS App Dev/libs/kazmath/include\"",
+				);
 				INFOPLIST_FILE = "iOS App Dev/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -1452,7 +1458,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS App Dev/Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"iOS App Dev/libs/kazmath/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"iOS App Dev/libs/kazmath/include\"",
+				);
 				INFOPLIST_FILE = "iOS App Dev/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
