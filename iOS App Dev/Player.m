@@ -44,6 +44,7 @@
             ChipmunkPolyline *hull = [[line simplifyCurves:1.0f] toConvexHull:1.0f];
             ChipmunkShape *shape = [hull asChipmunkPolyShapeWithBody: body offset:cpvneg(sprite.anchorPointInPoints)];
             shape.friction = 0.05f;
+            shape.elasticity = 0.5f;
             [_space addBody: body];
             [_space addShape: shape];
             

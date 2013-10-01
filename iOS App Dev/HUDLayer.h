@@ -14,7 +14,7 @@
     CCLabelBMFont * _statusLabel;
 
 }
-- (void)showRestartMenu:(BOOL)won;
+- (void)showRestartMenu:(BOOL)won highScore:(BOOL) highScore;
 - (void)setScoreString:(NSString *)string;
 - (void)setStatusString:(NSString *)string;
 

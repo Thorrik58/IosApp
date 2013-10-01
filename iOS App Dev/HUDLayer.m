@@ -57,15 +57,21 @@
     [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:scene]];
 }
 
-- (void)showRestartMenu:(BOOL)won {
+- (void)showRestartMenu:(BOOL)won highScore:(BOOL) highScore{
     
     CGSize winSize = [CCDirector sharedDirector].winSize;
     NSString *message;
     if (won) {
-        message = @"You win!";
+        if(highScore){
+            message = @"You won and set a High Score!";
+        }
+        else{
+            message = @"You win!";
+        }
     } else {
         message = @"You lose!";
     }
+
     CCLabelTTF *resultLabel = [CCLabelTTF labelWithString:message fontName:@"Arial" fontSize:24.0];
     resultLabel.color = ccc3(252,214,103);
     resultLabel.scale = 0.1;
@@ -81,7 +87,7 @@
     [self setColorAndScale:restartItem];
     
     CCLabelTTF *menuLabel = [CCLabelTTF labelWithString:@"Main Menu" fontName:@"Arial" fontSize:24.0];
-    //CCMenuItemLabel *menuB = [CCMenuItemLabel itemWithLabel:menuLabel target:self selector:@selector(menuTrapped:)];
+    
     CCMenuItemLabel *menuB = [CCMenuItemLabel itemWithLabel:menuLabel block:^(id sender)
     {
         MenuScene *menuScene = [[MenuScene alloc] init];

@@ -43,7 +43,7 @@
         _totalscore = 0;
         _collectableScore = 0;
         
-        _lives = 5;
+        _lives = 3;
         
         _hudLayer = [[HUDLayer alloc] init];
         [self addChild:_hudLayer z:1];
@@ -144,15 +144,15 @@
     [self physicsAutoGeoWithImage:@"cave-floor" xAxis:8000 yAxis:0];
 
     
-    
     //The second approach. A simple rectangle in the middle of the grass.
     //Now it appears as though you land in the middle of the grass.
     CCSprite* landscape = [CCSprite spriteWithFile:@"small-grassl.png"];
     CGSize size = landscape.textureRect.size;
     ChipmunkBody *body = [ChipmunkBody staticBody];
     body.pos = ccp(0, size.height/4);
-    //height size has a constant because of positioning in middle of grass
-    ChipmunkShape *shape = [ChipmunkPolyShape boxWithBody:body width:size.width height:size.height/8];
+    //height size has a constant because of positioning in middle of grass.
+    //Seems that the offset is off, and you can't fix it on a box.
+    ChipmunkShape *shape = [ChipmunkPolyShape boxWithBody:body width:size.width*6 height:size.height/8];
     shape.friction = 0.3f;
     [_space addShape:shape];
 }
@@ -171,6 +171,9 @@
     
     for (ChipmunkShape *shape in floorShapes)
     {
+        if([img isEqual:@"cloudl"]){
+            shape.elasticity = 0.5f;
+        }
         [_space addShape:shape];
     }
 }
@@ -213,7 +216,6 @@
     [self parallaxSprite:@"cloudl.png" xAxis:4000 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
     [self parallaxSprite:@"cave-roof.png" xAxis:6000 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
     [self parallaxSprite:@"cave-roof.png" xAxis:8000 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
-    [self parallaxSprite:@"small-grassl.png" xAxis:0 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
     [self parallaxSprite:@"small-grassl.png" xAxis:0 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
     [self parallaxSprite:@"small-grassl.png" xAxis:2000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
     [self parallaxSprite:@"small-grassl.png" xAxis:4000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
@@ -279,10 +281,15 @@
     }
     if (_lives<=0 && _gameOver == NO)
     {
-        [_hudLayer showRestartMenu:NO];
+        //[_hudLayer showRestartMenu:NO];
         [self gameOver:NO];
         _gameOver = YES;
         _player.visible = NO;
+    }
+    if(_player.position.x < 0 && _gameOver == NO)
+    {
+        [self gameOver:NO];
+        _gameOver = YES;
     }
     //NSLog(@"Pos: %f",_distanceScore);
 }
@@ -310,7 +317,9 @@
         if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:meteor])
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"bonk.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
-            _lives = _lives -1;
+            if(_lives != 0){
+                _lives = _lives -1;
+            }
         
             //Play the particle effect.
             _collisionParticles.position = _player.position;
@@ -320,20 +329,19 @@
     
     for (Coin* coin in _coinArray)
     {
-            if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:coin])
-            {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+        if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:coin])
+        {
+            [[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
             
-                _collectableScore = _collectableScore +10;
+            _collectableScore = _collectableScore +10;
             
-                //[_space smartRemove:coin.chipmunkBody];
-                for (ChipmunkShape *shape in coin.chipmunkBody.shapes) {
-                    [_space smartRemove:shape];
+            for (ChipmunkShape *shape in coin.chipmunkBody.shapes) {
+                [_space smartRemove:shape];
                 
-                }
-                [coin removeFromParentAndCleanup:YES];
-                removedCoin = coin;
             }
+            [coin removeFromParentAndCleanup:YES];
+            removedCoin = coin;
+        }
     }
     
     //To remove the coin from the coin array.
@@ -350,6 +358,11 @@
             cpVect normalizedVector = cpvnormalize(cpvsub(_player.position, _dynamite.position));
             CGFloat impulse = [_configuration [@"impulseFromExplosion"] floatValue];
             [_player applyImpulseOnExplosion:impulse vector:normalizedVector];
+            
+            //Lose a live if you hit a dynamite.
+            if(_lives != 0){
+                _lives = _lives -1;
+            }
             
             //Play the particle effect.
             _collisionParticles.position = _player.position;
@@ -418,7 +431,7 @@
 {
     int randomNumberx = [self getRandomNumberBetween:200 to:10000];
     int randomNumbery = [self getRandomNumberBetween:40 to:50];
-    // Add Meteor
+    // Add Dynamite
     Dynamite *dynamite = [[Dynamite alloc] initWithSpace:_space position:ccp(randomNumberx,randomNumbery)];
     [_gameNode addChild:dynamite];
     [_dynamiteArray addObject:dynamite];
@@ -449,12 +462,13 @@
 - (void)gameOver:(BOOL)win
 {
 	// Show "game over" text
-    [_hudLayer showRestartMenu:win];
+    //[_hudLayer showRestartMenu:win];
 
   	// Get high scores array from "defaults" object
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSMutableArray *highScores = [NSMutableArray arrayWithArray:[defaults arrayForKey:@"highScore"]];
 	
+    NSInteger newHighScore = 0;
 	// Check if the current score made it to the  high socre list.
 	for (int i = 0; i < [highScores count]; i++)
 	{
@@ -471,12 +485,19 @@
 			
 			[defaults synchronize];
 			
+            newHighScore = 1;
 			NSLog(@"Saved new high score of %f", _totalscore);
 			
 			// Bust out of the loop
 			break;
 		}
 	}
+    if( newHighScore ){
+        [_hudLayer showRestartMenu:win highScore:YES];
+    }
+    else{
+        [_hudLayer showRestartMenu:win highScore:NO];
+    }
 }
 
 -(void) createInitialHighScore

@@ -7,7 +7,7 @@
 	<key>characterMass</key>
 	<string>10.0f</string>
 	<key>lateralForce</key>
-	<string>{100,0}</string>
+	<string>{500,0}</string>
 	<key>meteorLateralForce</key>
 	<string>{-100,0}</string>
 	<key>meteorMass</key>
@@ -19,7 +19,7 @@
 	<key>playerStartingPos</key>
 	<string>{60,165}</string>
 	<key>gravity</key>
-	<string>500.0f</string>
+	<string>300.0f</string>
 	<key>startingPosX</key>
 	<string>60.0f</string>
 </dict>
