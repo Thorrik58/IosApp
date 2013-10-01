@@ -181,6 +181,8 @@
 
 - (void)setupGraphicsWorld
 {
+    CGFloat endOfGame = [_configuration[@"endOfGame"]floatValue];
+    
     _endLayer = [CCLayerColor layerWithColor:ccc4(0, 0, 0, 255)];
     [self addChild:_endLayer];
     [_backgroundNode addChild:_endLayer z:30 parallaxRatio:ccp(0.0f,0.0f) positionOffset:CGPointZero];
@@ -222,6 +224,8 @@
     [self parallaxSprite:@"cave-floor.png" xAxis:6000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
     [self parallaxSprite:@"cave-floor.png" xAxis:8000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
     [self parallaxSprite:@"endWall.png" xAxis:10000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
+    [self parallaxSprite:@"flag.png" xAxis:endOfGame yAxis:_winSize.height*0.15 Speed:grassSpeed zIndex:3];
+
 }
 
 - (void)parallaxSprite: (NSString*) img xAxis:(CGFloat)x yAxis:(CGFloat)y Speed:(CGPoint)s zIndex:(int)z
@@ -263,6 +267,8 @@
 
 -(void)statusOfGame
 {
+    CGFloat endOfGame = [_configuration[@"endOfGame"]floatValue];
+
     if (_player.position.x >= (_winSize.width /2))
     {
         _backgroundNode.position = ccp(-(_player.position.x - (_winSize.width / 2)),0);
@@ -273,7 +279,7 @@
         _skyLayer.visible = NO;
     }
     
-    if (_player.position.x > 10000 && _gameOver == NO)
+    if (_player.position.x > endOfGame && _gameOver == NO)
     {
         _caveLayer.visible = NO;
         [self gameOver:YES];
