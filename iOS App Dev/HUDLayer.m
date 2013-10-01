@@ -8,6 +8,7 @@
 
 #import "HUDLayer.h"
 #import "GameScene.h"
+#import "MenuScene.h"
 
 @implementation HUDLayer
 
@@ -34,6 +35,12 @@
     _scoreLabel.string = string;
 }
 
+- (void)menuTapped:(id)sender {
+    // Reload the current scene
+    CCScene *scene = [MenuScene init];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:scene]];
+}
+
 
 - (void)restartTapped:(id)sender {
     // Reload the current scene
@@ -50,34 +57,47 @@
     } else {
         message = @"You lose!";
     }
+    CCLabelTTF *resultLabel = [CCLabelTTF labelWithString:message fontName:@"Arial" fontSize:24.0];
+    resultLabel.color = ccc3(252,214,103);
+    resultLabel.scale = 0.1;
+    resultLabel.position = ccp(winSize.width/2, winSize.height * 0.6);
+    [self addChild:resultLabel];
     
-    CCLabelBMFont *label;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        label = [CCLabelBMFont labelWithString:message fntFile:@"Arial-hd.fnt"];
-    } else {
-        label = [CCLabelBMFont labelWithString:message fntFile:@"Arial.fnt"];
-    }
-    label.scale = 0.1;
-    label.position = ccp(winSize.width/2, winSize.height * 0.6);
-    [self addChild:label];
-    
-    CCLabelBMFont *restartLabel;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        restartLabel = [CCLabelBMFont labelWithString:@"Restart" fntFile:@"Arial-hd.fnt"];
-    } else {
-        restartLabel = [CCLabelBMFont labelWithString:@"Restart" fntFile:@"Arial.fnt"];
-    }
+    CCLabelTTF *restartLabel = [CCLabelTTF labelWithString:@"Restart" fontName:@"Arial" fontSize:24.0];
     
     CCMenuItemLabel *restartItem = [CCMenuItemLabel itemWithLabel:restartLabel target:self selector:@selector(restartTapped:)];
-    restartItem.scale = 0.1;
-    restartItem.position = ccp(winSize.width/2, winSize.height * 0.4);
     
-    CCMenu *menu = [CCMenu menuWithItems:restartItem, nil];
+     //Set the position and color of 'restartItem'
+    restartItem.position = ccp(winSize.width/1.5, winSize.height * 0.4);
+    [self setColorAndScale:restartItem];
+    
+    CCLabelTTF *menuLabel = [CCLabelTTF labelWithString:@"Main Menu" fontName:@"Arial" fontSize:24.0];
+    //CCMenuItemLabel *menuB = [CCMenuItemLabel itemWithLabel:menuLabel target:self selector:@selector(menuTrapped:)];
+    CCMenuItemLabel *menuB = [CCMenuItemLabel itemWithLabel:menuLabel block:^(id sender)
+    {
+        MenuScene *menuScene = [[MenuScene alloc] init];
+        [[CCDirector sharedDirector] replaceScene:menuScene];
+    }];
+    
+    //Set the position and color of 'Main Menu'
+    menuB.position =ccp(winSize.width/3, winSize.height * 0.4);
+    [self setColorAndScale:menuB];
+    
+    CCMenu *menu = [CCMenu menuWithItems:restartItem,menuB, nil];
     menu.position = CGPointZero;
     [self addChild:menu z:10];
     
+    //Actions for epic effects!
     [restartItem runAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]];
-    [label runAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]];
+    [resultLabel runAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]];
+    [menuB runAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]];
+    
+}
+
+- (void) setColorAndScale:(CCMenuItemLabel*) label
+{
+    label.color = ccc3(252,214,103);
+    label.scale = 0.1;
 }
 
 @end

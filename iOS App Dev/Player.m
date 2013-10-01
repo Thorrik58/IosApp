@@ -78,6 +78,11 @@
     [self.chipmunkBody applyForce:CGPointFromString(vectorArgument) offset:cpvzero];
 }
 
+- (void)applyImpulseOnExplosion:(CGFloat)impulse vector:(cpVect)normalizedVector
+{
+    [self.chipmunkBody applyImpulse:cpvmult(normalizedVector, impulse) offset:cpvzero];
+}
+
 
 @end
 

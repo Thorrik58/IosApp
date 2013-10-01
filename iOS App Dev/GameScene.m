@@ -8,6 +8,7 @@
 #import "Coin.h"
 #import "Player.h"
 #import "Meteor.h"
+#import "Dynamite.h"
 #import "InputLayer.h"
 #import "ChipmunkAutoGeometry.h"
 #import "CCParallaxNode-Extras.h"
@@ -90,10 +91,17 @@
         _meteor = [[Meteor alloc] initWithSpace:_space position:cpv(1000.0f, 200.0f)];
         [_gameNode addChild:_meteor];
         
+        
+        _dynamite = [[Dynamite alloc] initWithSpace:_space position:cpv(200,100)];
+        [_gameNode addChild:_dynamite];
+        
         for (NSUInteger i = 0; i < 20; ++i)
         {
             [self createCoin];
         }
+        
+        //Create the initial high score list.
+        [self createInitialHighScore];
         
         // Preload sound effects
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"coin.wav"];
@@ -230,12 +238,6 @@
     [self statusOfGame];
 }
 
-#pragma mark - My Touch Delegate Methods
-- (void)touchBegan
-{
-    [_player jumpWithForceVector];
-}
-
 -(void)statusOfGame
 {
     if (_player.position.x >= (_winSize.width /2))
@@ -260,7 +262,13 @@
         _gameOver = YES;
     }
     //NSLog(@"Pos: %f",_distanceScore);
-    
+}
+
+#pragma mark - My Touch Delegate Methods
+- (void)touchBegan
+{
+    [_player jumpWithForceVector];
+    //[_hudLayer showRestartMenu:YES];
 }
 
 - (void)touchEnded
@@ -271,17 +279,9 @@
 #pragma mark - Collision methods
 - (bool)collisionBegan:(cpArbiter *)arbiter space:(ChipmunkSpace*)space
 {
-    cpBody *firstBody;
-    cpBody *secondBody;
-    cpArbiterGetBodies(arbiter, &firstBody, &secondBody);
-    
-    ChipmunkBody *firstChipmunkBody = firstBody->data;
-    ChipmunkBody *secondChipmunkBody = secondBody->data;
-    
     Coin* removedCoin;
     
-    if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == _meteor.chipmunkBody) ||
-        (firstChipmunkBody == _meteor.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
+    if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:_meteor])
     {
         [[SimpleAudioEngine sharedEngine] playEffect:@"bonk.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
         _lives = _lives -1;
@@ -291,10 +291,22 @@
         [_collisionParticles resetSystem];
     }
     
+    if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:_dynamite])
+    {
+        //[[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+        
+        cpVect normalizedVector = cpvnormalize(cpvsub(_player.position, _dynamite.position));
+        CGFloat impulse = [_configuration [@"impulseFromExplosion"] floatValue];
+        [_player applyImpulseOnExplosion:impulse vector:normalizedVector];
+        
+        //Play the particle effect.
+        _collisionParticles.position = _player.position;
+        [_collisionParticles resetSystem];
+    }
+    
     for (Coin* coin in _coinsArray)
     {
-        if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == coin.chipmunkBody) ||
-            (firstChipmunkBody == coin.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
+        if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:coin])
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
             
@@ -317,6 +329,24 @@
     }
     
     return YES;
+}
+
+//Checks if the two provided sprites are colliding.
+- (BOOL) areBodiesColliding:(cpArbiter*) arbiter firstSprite:(CCPhysicsSprite*) first secondSprite:(CCPhysicsSprite*) second
+{
+    cpBody *firstBody;
+    cpBody *secondBody;
+    cpArbiterGetBodies(arbiter, &firstBody, &secondBody);
+    
+    ChipmunkBody *firstChipmunkBody = firstBody->data;
+    ChipmunkBody *secondChipmunkBody = secondBody->data;
+    
+    if ((firstChipmunkBody == first.chipmunkBody && secondChipmunkBody == second.chipmunkBody) ||
+        (firstChipmunkBody == second.chipmunkBody && secondChipmunkBody == first.chipmunkBody))
+    {
+        return YES;
+    }
+    return NO;
 }
 
 -(void)createCoin{
@@ -345,5 +375,55 @@
     return (int)from + arc4random() % (to-from+1);
 }
 
+- (void)gameOver
+{
+	// Show "game over" text
+    [_hudLayer showRestartMenu:YES];
+
+  	// Get high scores array from "defaults" object
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSMutableArray *highScores = [NSMutableArray arrayWithArray:[defaults arrayForKey:@"highScore"]];
+	
+	// Check if the current score made it to the  high socre list.
+	for (int i = 0; i < [highScores count]; i++)
+	{
+		if (_distanceScore >= [[highScores objectAtIndex:i] intValue])
+		{
+			// Insert new high score, which pushes all others down
+			[highScores insertObject:[NSNumber numberWithInt:_distanceScore] atIndex:i];
+			
+			// Remove last score, so as to ensure only 5 entries in the high score array
+			[highScores removeLastObject];
+			
+			// Re-save scores array to user defaults
+			[defaults setObject:highScores forKey:@"highScore"];
+			
+			[defaults synchronize];
+			
+			NSLog(@"Saved new high score of %f", _distanceScore);
+			
+			// Bust out of the loop
+			break;
+		}
+	}
+}
+
+-(void) createInitialHighScore
+{
+    
+     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+     
+     // Register default high scores. Can't get it to work by using a plist.
+     NSDictionary *defaultDefaults = [NSDictionary dictionaryWithObject:[NSArray arrayWithObjects:[NSNumber numberWithInt:0],
+                                                                         [NSNumber numberWithInt:0],
+                                                                         [NSNumber numberWithInt:0],
+                                                                         [NSNumber numberWithInt:0],
+                                                                         [NSNumber numberWithInt:0],
+                                                                         nil]
+                                                                 forKey:@"highScore"];
+    
+        [defaults registerDefaults:defaultDefaults];
+    [defaults synchronize];
+}
 
 @end

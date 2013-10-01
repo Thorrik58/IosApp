@@ -154,6 +154,11 @@
 		24A1017C17FA3CC600F61B3A /* meteor.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A1017A17FA3CC600F61B3A /* meteor.png */; };
 		24A1018F17FA591600F61B3A /* Impact.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24A1018D17FA591600F61B3A /* Impact.plist */; };
 		24A1019017FA591600F61B3A /* particleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A1018E17FA591600F61B3A /* particleTexture.png */; };
+		24A1019317FA847300F61B3A /* ScoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A1019217FA847300F61B3A /* ScoreScene.m */; };
+		24A1019517FAA90300F61B3A /* highScore.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24A1019417FAA90300F61B3A /* highScore.plist */; };
+		24A1019817FAB05700F61B3A /* Dynamite.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A1019717FAB05700F61B3A /* Dynamite.m */; };
+		24A1019B17FAB0A900F61B3A /* dynamite-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A1019917FAB0A900F61B3A /* dynamite-hd.png */; };
+		24A1019C17FAB0A900F61B3A /* dynamite.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A1019A17FAB0A900F61B3A /* dynamite.png */; };
 		24A2BD5517F8F17500BD26D3 /* coin-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A2BD5317F8F17500BD26D3 /* coin-hd.png */; };
 		24A2BD5617F8F17500BD26D3 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A2BD5417F8F17500BD26D3 /* coin.png */; };
 		24A2BD5B17F8F84800BD26D3 /* Goal-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A2BD5717F8F84800BD26D3 /* Goal-hd.png */; };
@@ -538,6 +543,13 @@
 		24A1017A17FA3CC600F61B3A /* meteor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteor.png; sourceTree = "<group>"; };
 		24A1018D17FA591600F61B3A /* Impact.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Impact.plist; sourceTree = "<group>"; };
 		24A1018E17FA591600F61B3A /* particleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particleTexture.png; sourceTree = "<group>"; };
+		24A1019117FA847300F61B3A /* ScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreScene.h; sourceTree = "<group>"; };
+		24A1019217FA847300F61B3A /* ScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreScene.m; sourceTree = "<group>"; };
+		24A1019417FAA90300F61B3A /* highScore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = highScore.plist; sourceTree = "<group>"; };
+		24A1019617FAB05700F61B3A /* Dynamite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dynamite.h; sourceTree = "<group>"; };
+		24A1019717FAB05700F61B3A /* Dynamite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dynamite.m; sourceTree = "<group>"; };
+		24A1019917FAB0A900F61B3A /* dynamite-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dynamite-hd.png"; sourceTree = "<group>"; };
+		24A1019A17FAB0A900F61B3A /* dynamite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dynamite.png; sourceTree = "<group>"; };
 		24A2BD5317F8F17500BD26D3 /* coin-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coin-hd.png"; sourceTree = "<group>"; };
 		24A2BD5417F8F17500BD26D3 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin.png; sourceTree = "<group>"; };
 		24A2BD5717F8F84800BD26D3 /* Goal-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Goal-hd.png"; sourceTree = "<group>"; };
@@ -657,6 +669,8 @@
 				4252E88717F7E7130005071D /* CCParallaxNode-Extras.m */,
 				24A441DE17F4DB590003DBB7 /* MenuScene.h */,
 				24A441DF17F4DB590003DBB7 /* MenuScene.m */,
+				24A1019117FA847300F61B3A /* ScoreScene.h */,
+				24A1019217FA847300F61B3A /* ScoreScene.m */,
 				0B3130D217E85CF400D0829B /* AppDelegate.h */,
 				0B3130D317E85CF400D0829B /* AppDelegate.m */,
 				4252E88917F8F1620005071D /* HUDLayer.h */,
@@ -673,6 +687,8 @@
 				24A2BD5917F8F84800BD26D3 /* Coin.m */,
 				24A1017617FA2B0B00F61B3A /* Meteor.h */,
 				24A1017717FA2B0B00F61B3A /* Meteor.m */,
+				24A1019617FAB05700F61B3A /* Dynamite.h */,
+				24A1019717FAB05700F61B3A /* Dynamite.m */,
 				0B312F4217E85CF200D0829B /* Resources */,
 				42A2908F17F76B7D00048D8F /* Fonts */,
 				0B312F5A17E85CF200D0829B /* libs */,
@@ -684,6 +700,8 @@
 		0B312F4217E85CF200D0829B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				24A1019917FAB0A900F61B3A /* dynamite-hd.png */,
+				24A1019A17FAB0A900F61B3A /* dynamite.png */,
 				24A1018D17FA591600F61B3A /* Impact.plist */,
 				24A1018E17FA591600F61B3A /* particleTexture.png */,
 				4252E8A017FAB3E10005071D /* bonk.wav */,
@@ -740,6 +758,7 @@
 				0B312F5517E85CF200D0829B /* Icon@2x.png */,
 				0B312F5717E85CF200D0829B /* Info.plist */,
 				0B312F5817E85CF200D0829B /* iTunesArtwork */,
+				24A1019417FAA90300F61B3A /* highScore.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1242,6 +1261,7 @@
 				0B312F4A17E85CF200D0829B /* Default-Landscape~ipad.png in Resources */,
 				249F95C517F7C843005A6A22 /* Arial-hd.fnt in Resources */,
 				249F95CC17F7C9A5005A6A22 /* ponyz.png in Resources */,
+				24A1019B17FAB0A900F61B3A /* dynamite-hd.png in Resources */,
 				0B312F4C17E85CF200D0829B /* Icon-72.png in Resources */,
 				0B312F4E17E85CF200D0829B /* Icon-Small-50.png in Resources */,
 				0B312F5017E85CF200D0829B /* Icon-Small.png in Resources */,
@@ -1283,11 +1303,13 @@
 				24A1017B17FA3CC600F61B3A /* meteor-hd.png in Resources */,
 				429E77CB17F3CAA700E23F80 /* thorns.png in Resources */,
 				42F68B0417F4D9DC0072B79A /* cloud-hd.png in Resources */,
+				24A1019C17FAB0A900F61B3A /* dynamite.png in Resources */,
 				24A2BD5D17F8F84800BD26D3 /* Goal.png in Resources */,
 				42F68B0517F4D9DC0072B79A /* cloud.png in Resources */,
 				42F68B0817F4F7270072B79A /* small-grassl-hd.png in Resources */,
 				42F68B0917F4F7270072B79A /* small-grassl.png in Resources */,
 				42F68B0C17F4F80A0072B79A /* cloudl-hd.png in Resources */,
+				24A1019517FAA90300F61B3A /* highScore.plist in Resources */,
 				42F68B0D17F4F80A0072B79A /* cloudl.png in Resources */,
 				4252E88D17F953570005071D /* coin.wav in Resources */,
 				4252E89217FA429F0005071D /* cave-floor-hd.png in Resources */,
@@ -1344,6 +1366,7 @@
 				0B312FC617E85CF300D0829B /* CCMenuItem.m in Sources */,
 				0B312FC917E85CF300D0829B /* CCMotionStreak.m in Sources */,
 				24A1017817FA2B0B00F61B3A /* Meteor.m in Sources */,
+				24A1019817FAB05700F61B3A /* Dynamite.m in Sources */,
 				0B312FCC17E85CF300D0829B /* CCNode+Debug.m in Sources */,
 				0B312FCF17E85CF300D0829B /* CCNode.m in Sources */,
 				0B312FD217E85CF300D0829B /* CCParallaxNode.m in Sources */,
@@ -1380,6 +1403,7 @@
 				0B31304417E85CF400D0829B /* CCES2Renderer.m in Sources */,
 				0B31304817E85CF400D0829B /* CCGLView.m in Sources */,
 				0B31304C17E85CF400D0829B /* CCTouchDispatcher.m in Sources */,
+				24A1019317FA847300F61B3A /* ScoreScene.m in Sources */,
 				0B31304F17E85CF400D0829B /* CCTouchHandler.m in Sources */,
 				0B31305317E85CF400D0829B /* CCDirectorMac.m in Sources */,
 				0B31305617E85CF400D0829B /* CCEventDispatcher.m in Sources */,

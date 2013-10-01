@@ -13,6 +13,7 @@
 @class Player;
 @class Coin;
 @class Meteor;
+@class Dynamite;
 @interface GameScene : CCScene <InputLayerDelgate>
 {
     CGSize _winSize;
@@ -23,6 +24,7 @@
     Player *_player;
     Coin *_coin;
     Meteor *_meteor;
+    Dynamite *_dynamite;
     
     ChipmunkSpace *_space;
     CCParticleSystemQuad *_collisionParticles;

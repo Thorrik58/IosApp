@@ -16,7 +16,8 @@
 
 
 - (id) initWithSpace:(ChipmunkSpace *)space position:(CGPoint)position;
-- (void)jumpWithForceVector; //veit ekkert hvort eg muni thurfa thetta
+- (void)jumpWithForceVector;
+- (void)applyImpulseOnExplosion:(CGFloat)impulse vector:(cpVect)normalizedVector;
 - (void)removeUpwardForce;
 - (void)lateralForce;
 @end

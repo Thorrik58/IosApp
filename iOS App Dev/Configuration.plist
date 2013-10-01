@@ -12,6 +12,8 @@
 	<string>{-100,0}</string>
 	<key>meteorMass</key>
 	<string>100.0f</string>
+	<key>impulseFromExplosion</key>
+	<string>3000.0f</string>
 	<key>coinPosition</key>
 	<string>{120,100}</string>
 	<key>playerStartingPos</key>
