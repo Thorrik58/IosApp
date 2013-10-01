@@ -8,6 +8,10 @@
 	<string>10.0f</string>
 	<key>lateralForce</key>
 	<string>{100,0}</string>
+	<key>meteorLateralForce</key>
+	<string>{-100,0}</string>
+	<key>meteorMass</key>
+	<string>100.0f</string>
 	<key>coinPosition</key>
 	<string>{120,100}</string>
 	<key>playerStartingPos</key>

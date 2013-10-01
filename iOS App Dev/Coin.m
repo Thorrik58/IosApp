@@ -6,10 +6,9 @@
 //  Copyright 2013 Sveinn Fannar Kristjansson. All rights reserved.
 //
 
-#import "Collectable.h"
-#import "ObjectiveChipmunk.h"
+#import "Coin.h"
 
-@implementation Collectable
+@implementation Coin
 
 - (id)initWithSpace:(ChipmunkSpace *)space position:(CGPoint)position
 {

@@ -11,16 +11,19 @@
 
 
 @class Player;
-@class Collectable;
+@class Coin;
+@class Meteor;
 @interface GameScene : CCScene <InputLayerDelgate>
 {
     CGSize _winSize;
     NSDictionary *_configuration;
     CCLayerGradient *_skyLayer;
     Player *_player;
-    Collectable *_coin;
+    Coin *_coin;
+    Meteor *_meteor;
     
     ChipmunkSpace *_space;
+    CCParticleSystemQuad *_collisionParticles;
     ccTime _accumulator;    
     
     CCParallaxNode *_backgroundNode;

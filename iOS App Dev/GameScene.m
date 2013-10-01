@@ -5,8 +5,9 @@
 //
 
 #import "GameScene.h"
-#import "Collectable.h"
+#import "Coin.h"
 #import "Player.h"
+#import "Meteor.h"
 #import "InputLayer.h"
 #import "ChipmunkAutoGeometry.h"
 #import "CCParallaxNode-Extras.h"
@@ -49,6 +50,7 @@
         
         //Create physics world.
         _space = [[ChipmunkSpace alloc] init];
+
         CGFloat gravity = [_configuration [@"gravity"] floatValue];
         _space.gravity = ccp(0.0f, -gravity);
         
@@ -77,15 +79,18 @@
         _player = [[Player alloc] initWithSpace:_space position:CGPointFromString(playerPositionString)];
         [_gameNode addChild:_player];
         
+        //Particle effect.
+        _collisionParticles = [CCParticleSystemQuad particleWithFile:@"Impact.plist"];
+        [_collisionParticles stopSystem];
+        [_gameNode addChild:_collisionParticles];
+        
+        _meteor = [[Meteor alloc] initWithSpace:_space position:cpv(1000.0f, 200.0f)];
+        [_gameNode addChild:_meteor];
+        
         for (NSUInteger i = 0; i < 10; ++i)
         {
             [self createCoin];
         }
-        
-        
-        
-        /*_coin = [[Collectable alloc] initWithSpace:_space position:CGPointFromString(_configuration[@"coinPosition"])];
-        [_gameNode addChild:_coin];*/
         
         // Preload sound effects
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"coin.wav"];
@@ -95,7 +100,6 @@
         inputLayer.delegate = self;
         [self addChild:inputLayer];
         
-        // Your initilization code goes here
         [self scheduleUpdate];
 
     }
@@ -130,6 +134,7 @@
     body.pos = ccp(0, size.height/4);
     //height size has a constant because of positioning in middle of grass
     ChipmunkShape *shape = [ChipmunkPolyShape boxWithBody:body width:size.width height:size.height/8];
+    shape.friction = 0.3f;
     [_space addShape:shape];
 }
 
@@ -235,13 +240,11 @@
 #pragma mark - My Touch Delegate Methods
 - (void)touchBegan
 {
-    NSLog(@"touch began!!");
     [_player jumpWithForceVector];
 }
 
 - (void)touchEnded
 {
-    NSLog(@"touch ended!");
     [_player removeUpwardForce];    
 }
 
@@ -255,9 +258,19 @@
     ChipmunkBody *firstChipmunkBody = firstBody->data;
     ChipmunkBody *secondChipmunkBody = secondBody->data;
     
-    Collectable* removedCoin;
+    Coin* removedCoin;
     
-    for (Collectable* coin in _coinsArray)
+    if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == _meteor.chipmunkBody) ||
+        (firstChipmunkBody == _meteor.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
+    {
+        //[[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+        
+        //Play the particle effect.
+        _collisionParticles.position = _player.position;
+        [_collisionParticles resetSystem];
+    }
+    
+    for (Coin* coin in _coinsArray)
     {
         if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == coin.chipmunkBody) ||
             (firstChipmunkBody == coin.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
@@ -322,7 +335,7 @@
     int randomNumberx = [self getRandomNumberBetween:200 to:4000];
     int randomNumbery = [self getRandomNumberBetween:20 to:_winSize.height-20];
     // Add coin
-    Collectable *bla = [[Collectable alloc] initWithSpace:_space position:ccp(randomNumberx,randomNumbery)];
+    Coin *bla = [[Coin alloc] initWithSpace:_space position:ccp(randomNumberx,randomNumbery)];
     [_gameNode addChild:bla];    
     [_coinsArray addObject:bla];
 }
