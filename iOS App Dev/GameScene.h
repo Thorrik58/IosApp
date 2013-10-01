@@ -37,6 +37,8 @@
     
     NSMutableArray *_coinArray;
     NSMutableArray *_meteorArray;
+    NSMutableArray *_dynamiteArray;
+
 
     
     HUDLayer * _hudLayer;

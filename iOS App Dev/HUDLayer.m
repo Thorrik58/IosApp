@@ -22,17 +22,26 @@
         //Score label set up to keep track of score
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             _scoreLabel = [CCLabelBMFont labelWithString:@"" fntFile:@"Arial-hd.fnt"];
+            _statusLabel = [CCLabelBMFont labelWithString:@"" fntFile:@"Arial-hd.fnt"];
         } else {
             _scoreLabel = [CCLabelBMFont labelWithString:@"" fntFile:@"Arial.fnt"];
+            _statusLabel = [CCLabelBMFont labelWithString:@"" fntFile:@"Arial.fnt"];
         }
         _scoreLabel.position = ccp(_winSize.width* 0.2, _winSize.height * 0.9);
         [self addChild:_scoreLabel z:10];
+        
+        _statusLabel.position = ccp(_winSize.width* 0.8, _winSize.height * 0.9);
+        [self addChild:_statusLabel z:10];
     }
     return self;
 }
 
 - (void)setScoreString:(NSString *)string {
     _scoreLabel.string = string;
+}
+
+- (void)setStatusString:(NSString *)string {
+    _statusLabel.string = string;
 }
 
 - (void)menuTapped:(id)sender {

@@ -11,9 +11,12 @@
 
 @interface HUDLayer : CCLayer {
     CCLabelBMFont * _scoreLabel;
+    CCLabelBMFont * _statusLabel;
+
 }
 - (void)showRestartMenu:(BOOL)won;
 - (void)setScoreString:(NSString *)string;
+- (void)setStatusString:(NSString *)string;
 
 
 @end

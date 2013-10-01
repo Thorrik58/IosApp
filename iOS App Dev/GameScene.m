@@ -38,7 +38,6 @@
     if (self)
     {
         srandom(time(NULL));
-        
         _gameOver = NO;
         
         _totalscore = 0;
@@ -63,6 +62,8 @@
         
         _coinArray = [[NSMutableArray alloc] init];
         _meteorArray = [[NSMutableArray alloc] init];
+        _dynamiteArray = [[NSMutableArray alloc] init];
+
 
         
         //Background set up
@@ -93,12 +94,6 @@
         [_collisionParticles stopSystem];
         [_gameNode addChild:_collisionParticles];
         
-
-        
-        _dynamite = [[Dynamite alloc] initWithSpace:_space position:cpv(200,100)];
-        [_gameNode addChild:_dynamite];
-
-        
         //Create the initial high score list.
         [self createInitialHighScore];
         
@@ -122,11 +117,17 @@
     {
         [self createCoin];
     }
+    
+    for (NSUInteger i = 0; i < 10; ++i)
+    {
+        [self createDynamite];
+    }
 
-for (int i=1; i<28;i=i*3)
-{
+
+    for (int i=1; i<28;i=i*3)
+    {
     [self createMeteor:i*1000];
-}
+    }
 
 }
 
@@ -205,7 +206,7 @@ for (int i=1; i<28;i=i*3)
     
 
     //CCSprite objects which arent member variables
-    [self parallaxSprite:@"tree2.png" xAxis:600 yAxis:_winSize.height*0 Speed:treeSpeed zIndex:1];
+    [self parallaxSprite:@"tree2.png" xAxis:600 yAxis:_winSize.height*0 Speed:treeSpeed zIndex:0];
     [self parallaxSprite:@"moon.png" xAxis:500 yAxis:_winSize.height*0.6 Speed:moonSpeed zIndex:-1];
     [self parallaxSprite:@"cloudl.png" xAxis:0 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
     [self parallaxSprite:@"cloudl.png" xAxis:2000 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
@@ -253,6 +254,8 @@ for (int i=1; i<28;i=i*3)
     
     [_hudLayer setScoreString:[NSString stringWithFormat:@"Score: %.0f", _totalscore]];
     
+    [_hudLayer setStatusString:[NSString stringWithFormat:@"Lives: %d", _lives]];
+    
     [self statusOfGame];
 }
 
@@ -279,6 +282,7 @@ for (int i=1; i<28;i=i*3)
         [_hudLayer showRestartMenu:NO];
         [self gameOver:NO];
         _gameOver = YES;
+        _player.visible = NO;
     }
     //NSLog(@"Pos: %f",_distanceScore);
 }
@@ -298,54 +302,38 @@ for (int i=1; i<28;i=i*3)
 - (bool)collisionBegan:(cpArbiter *)arbiter space:(ChipmunkSpace*)space
 {
     Coin* removedCoin;
+    Dynamite* removedDyna;
 
-    
 
-for (Meteor* meteor in _meteorArray)
-{
-    if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:meteor])
+    for (Meteor* meteor in _meteorArray)
     {
-        [[SimpleAudioEngine sharedEngine] playEffect:@"bonk.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
-        _lives = _lives -1;
-        
-        //Play the particle effect.
-        _collisionParticles.position = _player.position;
-        [_collisionParticles resetSystem];
-    }
-}
-
-
-
-if ([self areBodiesColliding:arbiter firstSprite:_player secondSprite:_dynamite])
-{
-        //[[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
-        
-        cpVect normalizedVector = cpvnormalize(cpvsub(_player.position, _dynamite.position));
-        CGFloat impulse = [_configuration [@"impulseFromExplosion"] floatValue];
-        [_player applyImpulseOnExplosion:impulse vector:normalizedVector];
-        
-        //Play the particle effect.
-        _collisionParticles.position = _player.position;
-        [_collisionParticles resetSystem];
-}
-
-    
-for (Coin* coin in _coinArray)
-{
-        if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:coin])
+        if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:meteor])
         {
-            [[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
-            
-            _collectableScore = _collectableScore +10;
-            
-            //[_space smartRemove:coin.chipmunkBody];
-            for (ChipmunkShape *shape in coin.chipmunkBody.shapes) {
-                [_space smartRemove:shape];
-                
-            }
-            [coin removeFromParentAndCleanup:YES];
-            removedCoin = coin;
+            [[SimpleAudioEngine sharedEngine] playEffect:@"bonk.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+            _lives = _lives -1;
+        
+            //Play the particle effect.
+            _collisionParticles.position = _player.position;
+            [_collisionParticles resetSystem];
         }
+    }
+    
+    for (Coin* coin in _coinArray)
+    {
+            if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:coin])
+            {
+                [[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+            
+                _collectableScore = _collectableScore +10;
+            
+                //[_space smartRemove:coin.chipmunkBody];
+                for (ChipmunkShape *shape in coin.chipmunkBody.shapes) {
+                    [_space smartRemove:shape];
+                
+                }
+                [coin removeFromParentAndCleanup:YES];
+                removedCoin = coin;
+            }
     }
     
     //To remove the coin from the coin array.
@@ -354,8 +342,38 @@ for (Coin* coin in _coinArray)
         [_coinArray removeObject:removedCoin];
     }
     
+    for (Dynamite* dyna in _dynamiteArray)
+    {
+        if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:dyna])
+        {
+            [[SimpleAudioEngine sharedEngine] playEffect:@"bomb.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+            cpVect normalizedVector = cpvnormalize(cpvsub(_player.position, _dynamite.position));
+            CGFloat impulse = [_configuration [@"impulseFromExplosion"] floatValue];
+            [_player applyImpulseOnExplosion:impulse vector:normalizedVector];
+            
+            //Play the particle effect.
+            _collisionParticles.position = _player.position;
+            [_collisionParticles resetSystem];
+                        
+            //[_space smartRemove:coin.chipmunkBody];
+            for (ChipmunkShape *shape in dyna.chipmunkBody.shapes) {
+                [_space smartRemove:shape];
+                
+            }
+            [dyna removeFromParentAndCleanup:YES];
+            removedDyna = dyna;
+        }
+    }
+    
+    //To remove the coin from the coin array.
+    if (removedDyna != nil)
+    {
+        [_dynamiteArray removeObject:removedDyna];
+    }
     return YES;
 }
+
+
 
 //Checks if the two provided sprites are colliding.
 - (BOOL) areBodiesColliding:(cpArbiter*) arbiter firstSprite:(CCPhysicsSprite*) first secondSprite:(CCPhysicsSprite*) second
@@ -394,6 +412,16 @@ for (Coin* coin in _coinArray)
     Coin *coin = [[Coin alloc] initWithSpace:_space position:ccp(randomNumberx,randomNumbery)];
     [_gameNode addChild:coin];
     [_coinArray addObject:coin];
+}
+
+-(void)createDynamite
+{
+    int randomNumberx = [self getRandomNumberBetween:200 to:10000];
+    int randomNumbery = [self getRandomNumberBetween:40 to:50];
+    // Add Meteor
+    Dynamite *dynamite = [[Dynamite alloc] initWithSpace:_space position:ccp(randomNumberx,randomNumbery)];
+    [_gameNode addChild:dynamite];
+    [_dynamiteArray addObject:dynamite];
 }
 
 -(void)createMeteor:(CGFloat)x

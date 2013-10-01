@@ -175,6 +175,7 @@
 		4252E89E17FA69C90005071D /* endWall-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 4252E89C17FA69C80005071D /* endWall-hd.png */; };
 		4252E89F17FA69C90005071D /* endWall.png in Resources */ = {isa = PBXBuildFile; fileRef = 4252E89D17FA69C90005071D /* endWall.png */; };
 		4252E8A117FAB3E10005071D /* bonk.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4252E8A017FAB3E10005071D /* bonk.wav */; };
+		4252E8A317FADC310005071D /* bomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4252E8A217FADC310005071D /* bomb.wav */; };
 		428E1A1717F109AE00AF0E47 /* grass-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1117F109AE00AF0E47 /* grass-hd.png */; };
 		428E1A1817F109AE00AF0E47 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1217F109AE00AF0E47 /* grass.png */; };
 		428E1A1917F109AE00AF0E47 /* moon-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 428E1A1317F109AE00AF0E47 /* moon-hd.png */; };
@@ -570,6 +571,7 @@
 		4252E89C17FA69C80005071D /* endWall-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "endWall-hd.png"; sourceTree = "<group>"; };
 		4252E89D17FA69C90005071D /* endWall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = endWall.png; sourceTree = "<group>"; };
 		4252E8A017FAB3E10005071D /* bonk.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bonk.wav; sourceTree = "<group>"; };
+		4252E8A217FADC310005071D /* bomb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bomb.wav; sourceTree = "<group>"; };
 		428E1A1117F109AE00AF0E47 /* grass-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grass-hd.png"; path = "Resources/grass-hd.png"; sourceTree = "<group>"; };
 		428E1A1217F109AE00AF0E47 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grass.png; path = Resources/grass.png; sourceTree = "<group>"; };
 		428E1A1317F109AE00AF0E47 /* moon-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "moon-hd.png"; path = "Resources/moon-hd.png"; sourceTree = "<group>"; };
@@ -702,6 +704,7 @@
 			children = (
 				24A1019917FAB0A900F61B3A /* dynamite-hd.png */,
 				24A1019A17FAB0A900F61B3A /* dynamite.png */,
+				4252E8A217FADC310005071D /* bomb.wav */,
 				24A1018D17FA591600F61B3A /* Impact.plist */,
 				24A1018E17FA591600F61B3A /* particleTexture.png */,
 				4252E8A017FAB3E10005071D /* bonk.wav */,
@@ -1319,6 +1322,7 @@
 				4252E89E17FA69C90005071D /* endWall-hd.png in Resources */,
 				4252E89F17FA69C90005071D /* endWall.png in Resources */,
 				4252E8A117FAB3E10005071D /* bonk.wav in Resources */,
+				4252E8A317FADC310005071D /* bomb.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
