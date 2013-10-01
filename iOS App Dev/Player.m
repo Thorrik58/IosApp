@@ -59,18 +59,12 @@
 - (void)jumpWithForceVector
 {
     cpVect forceVector = cpvmult(ccp(0,1), self.chipmunkBody.mass * 1000);
-    
-    //cpVect forceVector = cpvmult(vector, self.chipmunkBody.mass * 1000);
     [self.chipmunkBody applyForce:forceVector offset:cpvzero];
-    //NSLog(@"The current force: %@",NSStringFromCGPoint(self.chipmunkBody.body->f));
 }
 
 - (void)removeUpwardForce
 {
-    //NSLog(@"The current force before remove: %@",NSStringFromCGPoint(self.chipmunkBody.body->f));
-    //[self.chipmunkBody resetForces];
     self.chipmunkBody.body->f.y = 0;
-    //NSLog(@"The current force after remove: %@",NSStringFromCGPoint(self.chipmunkBody.body->f));
 }
 
 - (void)lateralForce

@@ -10,6 +10,8 @@
 	<string>10.0f</string>
 	<key>lateralForce</key>
 	<string>{500,0}</string>
+	<key>widthOfSprite</key>
+	<string>2000.0f</string>
 	<key>meteorLateralForce</key>
 	<string>{-100,0}</string>
 	<key>meteorMass</key>

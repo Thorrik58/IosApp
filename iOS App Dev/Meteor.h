@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface Meteor : CCPhysicsSprite{
+@interface Meteor : CCPhysicsSprite
+{
 
 }
 - (id)initWithSpace:(ChipmunkSpace *)space position:(CGPoint)position;

@@ -18,22 +18,6 @@
     self = [super init];
     if (self != nil)
     {
-        /*
-        CCLabelTTF *label = [CCLabelTTF labelWithString:@"START GAME" fontName:@"Arial" fontSize:48];
-        CCMenuItemLabel *start = [CCMenuItemLabel itemWithLabel:label block:^(id sender)
-        {
-            GameScene *gameScene = [[GameScene alloc] init];
-            [[CCDirector sharedDirector] replaceScene:gameScene];
-        }];
-        
-        CGSize winSize = [CCDirector sharedDirector].winSize;
-        start.position = ccp(winSize.width/2, winSize.height/2);
-        
-        CCMenu *menu = [CCMenu menuWithItems:start, nil];
-        menu.position = CGPointZero;
-        [self addChild:menu];
-         */
-        
         // Get window size
         CGSize winSize = [CCDirector sharedDirector].winSize;
         

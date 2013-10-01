@@ -10,30 +10,8 @@
 #import "ChipmunkAutoGeometry.h"
 
 @implementation Meteor
-/*- (id)initWithSpace:(ChipmunkSpace *)space position:(CGPoint)position
-{
-    self = [super initWithFile:@"meteor.png"];
-    if (self) {
-        CGSize size = self.textureRect.size;
-        
-        // Create body and shape
-        ChipmunkBody *body = [ChipmunkBody staticBody];
-        body.pos = position;
-        ChipmunkShape *shape = [ChipmunkPolyShape boxWithBody:body width:size.width height:size.height];
-        shape.sensor = YES;
-        
-        // Add to world
-        [space addShape:shape];
-        
-        // Add self to body and body to self
-        body.data = self;
-        self.chipmunkBody = body;
-    }
-    return self;
-}*/
 - (id) initWithSpace:(ChipmunkSpace *)space position:(CGPoint)position;
 {
-    
     self = [super initWithFile:@"meteor.png"];
     if (self)
     {
@@ -60,15 +38,11 @@
             ChipmunkBody *body = [ChipmunkBody bodyWithMass:mass andMoment:moment];
             body.pos = position;
             
-            //ChipmunkBody *floorBody = [ChipmunkBody bodyWithMass:1000000000.0f andMoment:INFINITY];
-            //floorBody.force = cpv(0.0f, gravity*1000000000);
             CGFloat gravity = [configuration [@"gravity"] floatValue];
             body.force = cpv(0.0f, gravity*mass);
 
-            
             ChipmunkPolyline *hull = [[line simplifyCurves:1.0f] toConvexHull:1.0f];
             ChipmunkShape *shape = [hull asChipmunkPolyShapeWithBody: body offset:cpvneg(sprite.anchorPointInPoints)];
-            //shape.sensor = YES;
             
             [space addBody: body];
             [space addShape: shape];
@@ -77,7 +51,6 @@
             //Set lateral force.
             NSString *vectorArgument = configuration[@"lateralForce"];
             [self.chipmunkBody applyForce:cpvmult(CGPointFromString(vectorArgument), -10.0f) offset:cpvzero];
-            //[self.chipmunkBody applyForce:cpv(10.0f,0.0f) offset:cpvzero];
         }
     }
     return self;

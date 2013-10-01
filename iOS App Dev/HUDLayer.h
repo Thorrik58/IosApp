@@ -9,7 +9,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HUDLayer : CCLayer {
+@interface HUDLayer : CCLayer
+{
     CCLabelBMFont * _scoreLabel;
     CCLabelBMFont * _statusLabel;
 

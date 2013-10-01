@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface Dynamite : CCPhysicsSprite {
+@interface Dynamite : CCPhysicsSprite
+{
     
 }
 

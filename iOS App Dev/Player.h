@@ -14,7 +14,6 @@
     NSDictionary *_configuration;
 }
 
-
 - (id) initWithSpace:(ChipmunkSpace *)space position:(CGPoint)position;
 - (void)jumpWithForceVector;
 - (void)applyImpulseOnExplosion:(CGFloat)impulse vector:(cpVect)normalizedVector;

@@ -10,10 +10,8 @@
 #import "cocos2d.h"
 
 @protocol InputLayerDelgate <NSObject>
-
 - (void)touchBegan;
 - (void)touchEnded;
-
 @end
 
 @interface InputLayer : CCLayer

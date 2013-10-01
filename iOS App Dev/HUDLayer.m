@@ -18,7 +18,7 @@
     if ((self = [super init])) {
         
         CGSize _winSize = [CCDirector sharedDirector].winSize;
-        //TODO: Z INDEX FIXES!
+
         //Score label set up to keep track of score
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             _scoreLabel = [CCLabelBMFont labelWithString:@"" fntFile:@"Arial-hd.fnt"];
@@ -63,7 +63,7 @@
     NSString *message;
     if (won) {
         if(highScore){
-            message = @"You won and set a High Score!";
+            message = @"You won and set a new High Score!";
         }
         else{
             message = @"You win!";
@@ -77,6 +77,7 @@
     resultLabel.scale = 0.1;
     resultLabel.position = ccp(winSize.width/2, winSize.height * 0.6);
     [self addChild:resultLabel];
+    
     
     CCLabelTTF *restartLabel = [CCLabelTTF labelWithString:@"Restart" fontName:@"Arial" fontSize:24.0];
     

@@ -22,8 +22,6 @@
     CCLayerColor *_endLayer;
     CCLayerColor *_caveLayer;
     Player *_player;
-    Meteor *_meteor;
-    Dynamite *_dynamite;
     
     ChipmunkSpace *_space;
     CCParticleSystemQuad *_collisionParticles;
@@ -34,19 +32,15 @@
     CGFloat _landscapeWidth;
     CGFloat _totalscore;
     CGFloat _collectableScore;
+    CGFloat _distanceScore;
+
     
     NSMutableArray *_coinArray;
     NSMutableArray *_meteorArray;
     NSMutableArray *_dynamiteArray;
-
-
     
     HUDLayer * _hudLayer;
-    
-    CGFloat _lastAppendPos;
-    
     BOOL _gameOver;
-    
     int _lives;
 }
 + (id)scene;

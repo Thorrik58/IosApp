@@ -3,7 +3,6 @@
 //  IosApp Dev
 //
 //
-
 #import "GameScene.h"
 #import "Coin.h"
 #import "Player.h"
@@ -11,17 +10,12 @@
 #import "Dynamite.h"
 #import "InputLayer.h"
 #import "ChipmunkAutoGeometry.h"
-#import "CCParallaxNode-Extras.h"
 #import "SimpleAudioEngine.h"
-
-
 
 
 @implementation GameScene
 
 #pragma mark - Initilization
-
-
 //HUD and restart
 + (id)scene {
     CCScene *scene = [CCScene node];
@@ -42,8 +36,10 @@
         
         _totalscore = 0;
         _collectableScore = 0;
+        _distanceScore = 0;
+
         
-        _lives = 3;
+        _lives = 4;
         
         _hudLayer = [[HUDLayer alloc] init];
         [self addChild:_hudLayer z:1];
@@ -63,8 +59,6 @@
         _coinArray = [[NSMutableArray alloc] init];
         _meteorArray = [[NSMutableArray alloc] init];
         _dynamiteArray = [[NSMutableArray alloc] init];
-
-
         
         //Background set up
         [self setupGraphicsWorld];
@@ -73,7 +67,7 @@
         
         //Create debug node
         CCPhysicsDebugNode *debugNode = [CCPhysicsDebugNode debugNodeForChipmunkSpace:_space];
-        debugNode.visible = YES;
+        debugNode.visible = NO;
         [self addChild:debugNode];
         
         //Player character set up with starting position
@@ -99,6 +93,8 @@
         
         // Preload sound effects
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"coin.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"bonk.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"bomb.wav"];
         
         // Create a input layer
         InputLayer *inputLayer = [[InputLayer alloc] init];
@@ -131,17 +127,18 @@
 
 }
 
-
+#pragma - mark World initialization. 
 - (void) setupPhysicsWorld
 {
-    
-    [self physicsAutoGeoWithImage:@"cloudl" xAxis:0 yAxis:_winSize.height*0.83];
-    [self physicsAutoGeoWithImage:@"cloudl" xAxis:2000 yAxis:_winSize.height*0.83];
-    [self physicsAutoGeoWithImage:@"cloudl" xAxis:4000 yAxis:_winSize.height*0.83];
-    [self physicsAutoGeoWithImage:@"cave-roof" xAxis:6000 yAxis:_winSize.height*0.83];
-    [self physicsAutoGeoWithImage:@"cave-roof" xAxis:8000 yAxis:_winSize.height*0.83];
-    [self physicsAutoGeoWithImage:@"cave-floor" xAxis:6000 yAxis:0];
-    [self physicsAutoGeoWithImage:@"cave-floor" xAxis:8000 yAxis:0];
+    CGFloat widthOfSprite = [_configuration[@"widthOfSprite"]floatValue];
+
+    [self physicsAutoGeoWithImage:@"cloudl" xAxis:0*widthOfSprite yAxis:_winSize.height*0.83];
+    [self physicsAutoGeoWithImage:@"cloudl" xAxis:widthOfSprite yAxis:_winSize.height*0.83];
+    [self physicsAutoGeoWithImage:@"cloudl" xAxis:2*widthOfSprite yAxis:_winSize.height*0.83];
+    [self physicsAutoGeoWithImage:@"cave-roof" xAxis:3*widthOfSprite yAxis:_winSize.height*0.83];
+    [self physicsAutoGeoWithImage:@"cave-roof" xAxis:4*widthOfSprite yAxis:_winSize.height*0.83];
+    [self physicsAutoGeoWithImage:@"cave-floor" xAxis:3*widthOfSprite yAxis:0];
+    [self physicsAutoGeoWithImage:@"cave-floor" xAxis:4*widthOfSprite yAxis:0];
 
     
     //The second approach. A simple rectangle in the middle of the grass.
@@ -157,30 +154,11 @@
     [_space addShape:shape];
 }
 
-- (void)physicsAutoGeoWithImage: (NSString*)img xAxis:(CGFloat)x yAxis:(CGFloat)y
-{
-    NSURL *roofUrl = [[NSBundle mainBundle] URLForResource:img withExtension:@"png"];
-    ChipmunkImageSampler *sampler = [ChipmunkImageSampler samplerWithImageFile:roofUrl isMask:NO];
-    
-    ChipmunkPolylineSet *contour = [sampler marchAllWithBorder:NO hard:YES];
-    ChipmunkPolyline *line = [contour lineAtIndex:0];
-    ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
-    
-    ChipmunkBody *roofBody = [ChipmunkBody staticBody];
-    NSArray *floorShapes = [simpleLine asChipmunkSegmentsWithBody:roofBody radius:0 offset:cpv(x,y)];
-    
-    for (ChipmunkShape *shape in floorShapes)
-    {
-        if([img isEqual:@"cloudl"]){
-            shape.elasticity = 0.5f;
-        }
-        [_space addShape:shape];
-    }
-}
-
 
 - (void)setupGraphicsWorld
 {
+    CGFloat widthOfSprite = [_configuration[@"widthOfSprite"]floatValue];
+
     CGFloat endOfGame = [_configuration[@"endOfGame"]floatValue];
     
     _endLayer = [CCLayerColor layerWithColor:ccc4(0, 0, 0, 255)];
@@ -214,18 +192,40 @@
     [self parallaxSprite:@"tree2.png" xAxis:600 yAxis:_winSize.height*0 Speed:treeSpeed zIndex:0];
     [self parallaxSprite:@"moon.png" xAxis:500 yAxis:_winSize.height*0.6 Speed:moonSpeed zIndex:-1];
     [self parallaxSprite:@"cloudl.png" xAxis:0 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
-    [self parallaxSprite:@"cloudl.png" xAxis:2000 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
-    [self parallaxSprite:@"cloudl.png" xAxis:4000 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
-    [self parallaxSprite:@"cave-roof.png" xAxis:6000 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
-    [self parallaxSprite:@"cave-roof.png" xAxis:8000 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
+    [self parallaxSprite:@"cloudl.png" xAxis:widthOfSprite yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
+    [self parallaxSprite:@"cloudl.png" xAxis:2*widthOfSprite yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
+    [self parallaxSprite:@"cave-roof.png" xAxis:3*widthOfSprite yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
+    [self parallaxSprite:@"cave-roof.png" xAxis:4*widthOfSprite yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
     [self parallaxSprite:@"small-grassl.png" xAxis:0 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
-    [self parallaxSprite:@"small-grassl.png" xAxis:2000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
-    [self parallaxSprite:@"small-grassl.png" xAxis:4000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
-    [self parallaxSprite:@"cave-floor.png" xAxis:6000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
-    [self parallaxSprite:@"cave-floor.png" xAxis:8000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
-    [self parallaxSprite:@"endWall.png" xAxis:10000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
+    [self parallaxSprite:@"small-grassl.png" xAxis:widthOfSprite yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
+    [self parallaxSprite:@"small-grassl.png" xAxis:2*widthOfSprite yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
+    [self parallaxSprite:@"cave-floor.png" xAxis:3*widthOfSprite yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
+    [self parallaxSprite:@"cave-floor.png" xAxis:4*widthOfSprite yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
+    [self parallaxSprite:@"endWall.png" xAxis:5*widthOfSprite yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
     [self parallaxSprite:@"flag.png" xAxis:endOfGame yAxis:_winSize.height*0.15 Speed:grassSpeed zIndex:3];
 
+}
+
+#pragma - mark World init helper functions.
+- (void)physicsAutoGeoWithImage: (NSString*)img xAxis:(CGFloat)x yAxis:(CGFloat)y
+{
+    NSURL *roofUrl = [[NSBundle mainBundle] URLForResource:img withExtension:@"png"];
+    ChipmunkImageSampler *sampler = [ChipmunkImageSampler samplerWithImageFile:roofUrl isMask:NO];
+    
+    ChipmunkPolylineSet *contour = [sampler marchAllWithBorder:NO hard:YES];
+    ChipmunkPolyline *line = [contour lineAtIndex:0];
+    ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
+    
+    ChipmunkBody *roofBody = [ChipmunkBody staticBody];
+    NSArray *floorShapes = [simpleLine asChipmunkSegmentsWithBody:roofBody radius:0 offset:cpv(x,y)];
+    
+    for (ChipmunkShape *shape in floorShapes)
+    {
+        if([img isEqual:@"cloudl"]){
+            shape.elasticity = 0.5f;
+        }
+        [_space addShape:shape];
+    }
 }
 
 - (void)parallaxSprite: (NSString*) img xAxis:(CGFloat)x yAxis:(CGFloat)y Speed:(CGPoint)s zIndex:(int)z
@@ -251,10 +251,14 @@
 
     //Distance travelled, we start at startingPosX so thats deducted
     CGFloat startPosX = [_configuration[@"startingPosX"] floatValue];
-    CGFloat distanceScore = (_player.position.x - startPosX)/100;
+    if ((_player.position.x - startPosX)/100 > _distanceScore)
+    {
+        _distanceScore = (_player.position.x - startPosX)/100;
+    }
+    
     if (!_gameOver)
     {
-        _totalscore = distanceScore + _collectableScore;
+        _totalscore = _distanceScore + _collectableScore;
     }
     
     
@@ -281,6 +285,7 @@
     
     if (_player.position.x > endOfGame && _gameOver == NO)
     {
+        _totalscore = _totalscore + (25*_lives);
         _caveLayer.visible = NO;
         [self gameOver:YES];
         _gameOver = YES;
@@ -361,7 +366,7 @@
         if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:dyna])
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"bomb.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
-            cpVect normalizedVector = cpvnormalize(cpvsub(_player.position, _dynamite.position));
+            cpVect normalizedVector = cpvnormalize(cpvsub(_player.position, dyna.position));
             CGFloat impulse = [_configuration [@"impulseFromExplosion"] floatValue];
             [_player applyImpulseOnExplosion:impulse vector:normalizedVector];
             
@@ -392,25 +397,7 @@
     return YES;
 }
 
-
-
-//Checks if the two provided sprites are colliding.
-- (BOOL) areBodiesColliding:(cpArbiter*) arbiter firstSprite:(CCPhysicsSprite*) first secondSprite:(CCPhysicsSprite*) second
-{
-    cpBody *firstBody;
-    cpBody *secondBody;
-    cpArbiterGetBodies(arbiter, &firstBody, &secondBody);
-    
-    ChipmunkBody *firstChipmunkBody = firstBody->data;
-    ChipmunkBody *secondChipmunkBody = secondBody->data;
-    
-    if ((firstChipmunkBody == first.chipmunkBody && secondChipmunkBody == second.chipmunkBody) ||
-        (firstChipmunkBody == second.chipmunkBody && secondChipmunkBody == first.chipmunkBody))
-    {
-        return YES;
-    }
-    return NO;
-}
+#pragma - mark Object creation functions.
 
 -(void)createCoin{
     
@@ -460,11 +447,7 @@
     [_meteorArray addObject:meteor];
 }
 
--(int)getRandomNumberBetween:(int)from to:(int)to
-{
-    return (int)from + arc4random() % (to-from+1);
-}
-
+#pragma - mark Game Over.
 - (void)gameOver:(BOOL)win
 {
 	// Show "game over" text
@@ -504,6 +487,30 @@
     else{
         [_hudLayer showRestartMenu:win highScore:NO];
     }
+}
+
+#pragma - mark Other helper functions.
+//Checks if the two provided sprites are colliding.
+- (BOOL) areBodiesColliding:(cpArbiter*) arbiter firstSprite:(CCPhysicsSprite*) first secondSprite:(CCPhysicsSprite*) second
+{
+    cpBody *firstBody;
+    cpBody *secondBody;
+    cpArbiterGetBodies(arbiter, &firstBody, &secondBody);
+    
+    ChipmunkBody *firstChipmunkBody = firstBody->data;
+    ChipmunkBody *secondChipmunkBody = secondBody->data;
+    
+    if ((firstChipmunkBody == first.chipmunkBody && secondChipmunkBody == second.chipmunkBody) ||
+        (firstChipmunkBody == second.chipmunkBody && secondChipmunkBody == first.chipmunkBody))
+    {
+        return YES;
+    }
+    return NO;
+}
+
+-(int)getRandomNumberBetween:(int)from to:(int)to
+{
+    return (int)from + arc4random() % (to-from+1);
 }
 
 -(void) createInitialHighScore
