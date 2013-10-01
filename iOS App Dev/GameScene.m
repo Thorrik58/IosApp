@@ -38,7 +38,9 @@
     {
         srandom(time(NULL));
         
-        _gameWon = NO;
+        _gameOver = NO;
+        
+        _lives = 5;
         
         _hudLayer = [[HUDLayer alloc] init];
         [self addChild:_hudLayer z:1];
@@ -224,7 +226,18 @@
     _distanceScore = (_player.position.x - startPosX)/100;
     
     [_hudLayer setScoreString:[NSString stringWithFormat:@"Score: %.0f", _distanceScore]];
+    
+    [self statusOfGame];
+}
 
+#pragma mark - My Touch Delegate Methods
+- (void)touchBegan
+{
+    [_player jumpWithForceVector];
+}
+
+-(void)statusOfGame
+{
     if (_player.position.x >= (_winSize.width /2))
     {
         _backgroundNode.position = ccp(-(_player.position.x - (_winSize.width / 2)),0);
@@ -235,19 +248,19 @@
         _skyLayer.visible = NO;
     }
     
-    if (_player.position.x > 10000 && _gameWon == NO)
+    if (_player.position.x > 10000 && _gameOver == NO)
     {
         _caveLayer.visible = NO;
         [_hudLayer showRestartMenu:YES];
-        _gameWon = YES;
+        _gameOver = YES;
+    }
+    if (_lives<=0 && _gameOver == NO)
+    {
+        [_hudLayer showRestartMenu:NO];
+        _gameOver = YES;
     }
     //NSLog(@"Pos: %f",_distanceScore);
-}
-
-#pragma mark - My Touch Delegate Methods
-- (void)touchBegan
-{
-    [_player jumpWithForceVector];
+    
 }
 
 - (void)touchEnded
@@ -271,6 +284,7 @@
         (firstChipmunkBody == _meteor.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
     {
         [[SimpleAudioEngine sharedEngine] playEffect:@"bonk.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+        _lives = _lives -1;
         
         //Play the particle effect.
         _collisionParticles.position = _player.position;
@@ -283,6 +297,8 @@
             (firstChipmunkBody == coin.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+            
+            //ADDMOTHARFARCKINGPOINTS
             
             //[_space smartRemove:coin.chipmunkBody];
             for (ChipmunkShape *shape in coin.chipmunkBody.shapes) {

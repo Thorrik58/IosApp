@@ -39,7 +39,9 @@
     
     CGFloat _lastAppendPos;
     
-    BOOL _gameWon;
+    BOOL _gameOver;
+    
+    int _lives;
 }
 + (id)scene;
 -(int)getRandomNumberBetween:(int)from to:(int)to;
