@@ -37,6 +37,7 @@
     {
         srandom(time(NULL));
         
+        _gameWon = NO;
         
         _hudLayer = [[HUDLayer alloc] init];
         [self addChild:_hudLayer z:1];
@@ -77,15 +78,10 @@
         _player = [[Player alloc] initWithSpace:_space position:CGPointFromString(playerPositionString)];
         [_gameNode addChild:_player];
         
-        for (NSUInteger i = 0; i < 10; ++i)
+        for (NSUInteger i = 0; i < 20; ++i)
         {
             [self createCoin];
         }
-        
-        
-        
-        /*_coin = [[Collectable alloc] initWithSpace:_space position:CGPointFromString(_configuration[@"coinPosition"])];
-        [_gameNode addChild:_coin];*/
         
         // Preload sound effects
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"coin.wav"];
@@ -104,24 +100,17 @@
 
 - (void) setupPhysicsWorld
 {
-    /*
-     First approach. Auto Geometry used to get the all the lines of the grass.*/
-    NSURL *floorUrl = [[NSBundle mainBundle] URLForResource:@"cloudl" withExtension:@"png"];
-    ChipmunkImageSampler *sampler = [ChipmunkImageSampler samplerWithImageFile:floorUrl isMask:NO];
     
-    ChipmunkPolylineSet *contour = [sampler marchAllWithBorder:NO hard:YES];
-    ChipmunkPolyline *line = [contour lineAtIndex:0];
-    ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
-    
-    ChipmunkBody *floorBody = [ChipmunkBody staticBody];
-    NSArray *floorShapes = [simpleLine asChipmunkSegmentsWithBody:floorBody radius:0 offset:cpv(0.0f, _winSize.height*0.83)];
-    for (ChipmunkShape *shape in floorShapes)
-    {
-        [_space addShape:shape];
-    }
+    [self physicsAutoGeoWithImage:@"cloudl" xAxis:0 yAxis:_winSize.height*0.83];
+    [self physicsAutoGeoWithImage:@"cloudl" xAxis:2000 yAxis:_winSize.height*0.83];
+    [self physicsAutoGeoWithImage:@"cloudl" xAxis:4000 yAxis:_winSize.height*0.83];
+    [self physicsAutoGeoWithImage:@"cave-roof" xAxis:6000 yAxis:_winSize.height*0.83];
+    [self physicsAutoGeoWithImage:@"cave-roof" xAxis:8000 yAxis:_winSize.height*0.83];
+    [self physicsAutoGeoWithImage:@"cave-floor" xAxis:6000 yAxis:0];
+    [self physicsAutoGeoWithImage:@"cave-floor" xAxis:8000 yAxis:0];
+
     
     
-     
     //The second approach. A simple rectangle in the middle of the grass.
     //Now it appears as though you land in the middle of the grass.
     CCSprite* landscape = [CCSprite spriteWithFile:@"small-grassl.png"];
@@ -129,13 +118,38 @@
     ChipmunkBody *body = [ChipmunkBody staticBody];
     body.pos = ccp(0, size.height/4);
     //height size has a constant because of positioning in middle of grass
-    ChipmunkShape *shape = [ChipmunkPolyShape boxWithBody:body width:size.width height:size.height/8];
+    ChipmunkShape *shape = [ChipmunkPolyShape boxWithBody:body width:2000 height:size.height/8];
     [_space addShape:shape];
+}
+
+- (void)physicsAutoGeoWithImage: (NSString*)img xAxis:(CGFloat)x yAxis:(CGFloat)y
+{
+    NSURL *roofUrl = [[NSBundle mainBundle] URLForResource:img withExtension:@"png"];
+    ChipmunkImageSampler *sampler = [ChipmunkImageSampler samplerWithImageFile:roofUrl isMask:NO];
+    
+    ChipmunkPolylineSet *contour = [sampler marchAllWithBorder:NO hard:YES];
+    ChipmunkPolyline *line = [contour lineAtIndex:0];
+    ChipmunkPolyline *simpleLine = [line simplifyCurves:1];
+    
+    ChipmunkBody *roofBody = [ChipmunkBody staticBody];
+    NSArray *floorShapes = [simpleLine asChipmunkSegmentsWithBody:roofBody radius:0 offset:cpv(x,y)];
+    
+    for (ChipmunkShape *shape in floorShapes)
+    {
+        [_space addShape:shape];
+    }
 }
 
 
 - (void)setupGraphicsWorld
 {
+    _endLayer = [CCLayerColor layerWithColor:ccc4(0, 0, 0, 255)];
+    [self addChild:_endLayer];
+    [_backgroundNode addChild:_endLayer z:30 parallaxRatio:ccp(0.0f,0.0f) positionOffset:CGPointZero];
+    
+    _caveLayer = [CCLayerColor layerWithColor:ccc4(105, 67, 44, 255)];
+    [self addChild:_caveLayer];
+    [_backgroundNode addChild:_caveLayer z:0 parallaxRatio:ccp(0.0f,0.0f) positionOffset:CGPointZero];
     
     //Skylayer set up with gradient orange to blue
     _skyLayer = [CCLayerGradient layerWithColor:ccc4(0, 48, 150, 255) fadingTo:ccc4(242, 155, 5, 255)];
@@ -146,42 +160,40 @@
     _backgroundNode = [CCParallaxNode node];
     [self addChild:_backgroundNode];
     
-    //Speed which objects move in background
-    CGPoint grassSpeed = ccp(1.0, 1.0);
-    CGPoint landscapeSpeed = ccp(0.05, 0.05);
-    CGPoint moonSpeed = ccp(0.005, 0.005);
-    
-    //trees
-    CCSprite* trees = [CCSprite spriteWithFile:@"tree2.png"];
-    trees.anchorPoint = ccp(0,0);
-    [_backgroundNode addChild:trees z:1 parallaxRatio:landscapeSpeed positionOffset:ccp(600,_winSize.height * 0)];
-    
-    //moon
-    CCSprite* moon = [CCSprite spriteWithFile:@"moon.png"];
-    moon.anchorPoint = ccp(0, 0);
-    [_backgroundNode addChild:moon z:-1 parallaxRatio:moonSpeed positionOffset:ccp(500,_winSize.height * 0.6)];
-
-    //Ceiling
-    _ceiling = [CCSprite spriteWithFile:@"cloudl.png"];
-    _ceiling.anchorPoint = ccp(0,0);
-    [_backgroundNode addChild:_ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.83)];
-    
-    _ceiling2 = [CCSprite spriteWithFile:@"cloudl.png"];
-    _ceiling2.anchorPoint = ccp(0,0);
-    [_backgroundNode addChild:_ceiling2 z:-1 parallaxRatio:grassSpeed positionOffset:ccp(2000,_winSize.height*0.83)];
-    _lastAppendPos = _ceiling2.position.x + _ceiling2.contentSize.width;
-    
-    
-    //grass
-    CCSprite* landscape = [CCSprite spriteWithFile:@"small-grassl.png"];
-    landscape.anchorPoint = ccp(0,0);
-    _landscapeWidth = landscape.contentSize.width;
-    [_backgroundNode addChild:landscape z:2 parallaxRatio:grassSpeed positionOffset:CGPointZero];
-    _floor = landscape;
-    
+    //Gamenode
     _gameNode = [CCNode node];
     [_backgroundNode addChild:_gameNode z:1 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:CGPointZero];
+    
+    //Speed which objects move in background
+    CGPoint grassSpeed = ccp(1.0, 1.0);
+    CGPoint treeSpeed = ccp(0.5, 0.5);
+    CGPoint moonSpeed = ccp(0.1, 0.1);
+    
+
+    //CCSprite objects which arent member variables
+    [self parallaxSprite:@"tree2.png" xAxis:600 yAxis:_winSize.height*0 Speed:treeSpeed zIndex:1];
+    [self parallaxSprite:@"moon.png" xAxis:500 yAxis:_winSize.height*0.6 Speed:moonSpeed zIndex:-1];
+    [self parallaxSprite:@"cloudl.png" xAxis:0 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
+    [self parallaxSprite:@"cloudl.png" xAxis:2000 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
+    [self parallaxSprite:@"cloudl.png" xAxis:4000 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
+    [self parallaxSprite:@"cave-roof.png" xAxis:6000 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
+    [self parallaxSprite:@"cave-roof.png" xAxis:8000 yAxis:_winSize.height*0.83 Speed:grassSpeed zIndex:-1];
+    [self parallaxSprite:@"small-grassl.png" xAxis:0 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
+    [self parallaxSprite:@"small-grassl.png" xAxis:0 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
+    [self parallaxSprite:@"small-grassl.png" xAxis:2000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
+    [self parallaxSprite:@"small-grassl.png" xAxis:4000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
+    [self parallaxSprite:@"cave-floor.png" xAxis:6000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
+    [self parallaxSprite:@"cave-floor.png" xAxis:8000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
+    [self parallaxSprite:@"endWall.png" xAxis:10000 yAxis:_winSize.height*0 Speed:grassSpeed zIndex:2];
 }
+
+- (void)parallaxSprite: (NSString*) img xAxis:(CGFloat)x yAxis:(CGFloat)y Speed:(CGPoint)s zIndex:(int)z
+{
+    CCSprite* object = [CCSprite spriteWithFile:img];
+    object.anchorPoint = ccp(0,0);
+    [_backgroundNode addChild:object z:z parallaxRatio:s positionOffset:ccp(x,y)];
+}
+
 
 
 #pragma mark - Update
@@ -202,34 +214,24 @@
     _distanceScore = (_player.position.x - startPosX)/100;
     
     [_hudLayer setScoreString:[NSString stringWithFormat:@"Score: %.0f", _distanceScore]];
-    
-    //cpVect vect = cpv(1000.0f, 0.0f);
-    //[_player.chipmunkBody applyForce:vect offset:cpvzero];
-    
 
     if (_player.position.x >= (_winSize.width /2))
     {
         _backgroundNode.position = ccp(-(_player.position.x - (_winSize.width / 2)),0);
     }
     
-    /*if (_player.position.x > _lastAppendPos/2)
+    if (_player.position.x >= 6000)
     {
-        [self extendTunnel];
-    }*/
-    
-       
-    
-    //NSLog(@"Pos: %f",_distanceScore);
-    
-    
-    
-    
-    NSArray *ceilings = [NSArray arrayWithObjects:_ceiling,_ceiling2, nil];
-    for (CCSprite *ceiling in ceilings) {
-        if ([_backgroundNode convertToWorldSpace:ceiling.position].x < -ceiling.contentSize.width) {
-            [_backgroundNode incrementOffset:ccp(2*ceiling.contentSize.width,0) forChild:ceiling];
-        }
+        _skyLayer.visible = NO;
     }
+    
+    if (_player.position.x > 10000 && _gameWon == NO)
+    {
+        _caveLayer.visible = NO;
+        [_hudLayer showRestartMenu:YES];
+        _gameWon = YES;
+    }
+    //NSLog(@"Pos: %f",_distanceScore);
 }
 
 #pragma mark - My Touch Delegate Methods
@@ -242,7 +244,8 @@
 - (void)touchEnded
 {
     NSLog(@"touch ended!");
-    [_player removeUpwardForce];    
+    [_player removeUpwardForce];
+
 }
 
 #pragma mark - Collision methods
@@ -283,44 +286,21 @@
     return YES;
 }
 
-- (void)extendTunnel
-{
-    CGPoint grassSpeed = ccp(1.0, 1.0);
-    if (_ceiling.position.x > _ceiling2.position.x)
+-(void)createCoin{
+    
+    int randomNumberx = [self getRandomNumberBetween:200 to:10000];
+    int randomNumbery;
+    
+    //Check if coin is appearing within the cave or not, then we need to readjust the y axis
+    if (randomNumberx >= 6000)
     {
-        NSLog(@"OMG TRUE RELOCATE!!!!!!");
-        NSLog(@"_ceiling.position.x %f",_lastAppendPos);
-        
-        [_backgroundNode removeChild: _ceiling2 cleanup:YES ];
-        _ceiling2 = [CCSprite spriteWithFile:@"cloudl.png"];
-        _ceiling2.anchorPoint = ccp(0,0);
-        [_backgroundNode addChild:_ceiling2 z:-1 parallaxRatio:grassSpeed positionOffset:ccp(_lastAppendPos,_winSize.height*0.83)];
-        _lastAppendPos = _ceiling2.position.x + _ceiling2.contentSize.width;
+        randomNumbery = [self getRandomNumberBetween:40 to:_winSize.height-100];
     }
     else
     {
-        NSLog(@"OMG2 TRUE RELOCATE!!!!!!");
-        NSLog(@"_ceiling.position.x %f",_lastAppendPos);
-        NSLog(@"_player.position.x %f",_player.position.x);
-
-        [_backgroundNode removeChild: _ceiling cleanup:YES ];
-        _ceiling = [CCSprite spriteWithFile:@"cloudl.png"];
-        _ceiling.anchorPoint = ccp(0,0);
-        [_backgroundNode addChild:_ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(_lastAppendPos,_winSize.height*0.83)];
-        _lastAppendPos = _ceiling.position.x + _ceiling.contentSize.width;
+        randomNumbery = [self getRandomNumberBetween:40 to:_winSize.height-80];
     }
     
-    //Ceiling
-    _ceiling = [CCSprite spriteWithFile:@"cloudl.png"];
-    _ceiling.anchorPoint = ccp(0,0);
-    [_backgroundNode addChild:_ceiling z:-1 parallaxRatio:grassSpeed positionOffset:ccp(0,_winSize.height*0.83)];
-
-}
-
--(void)createCoin{
-    
-    int randomNumberx = [self getRandomNumberBetween:200 to:4000];
-    int randomNumbery = [self getRandomNumberBetween:20 to:_winSize.height-20];
     // Add coin
     Collectable *bla = [[Collectable alloc] initWithSpace:_space position:ccp(randomNumberx,randomNumbery)];
     [_gameNode addChild:bla];    

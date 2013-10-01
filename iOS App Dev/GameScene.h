@@ -17,6 +17,8 @@
     CGSize _winSize;
     NSDictionary *_configuration;
     CCLayerGradient *_skyLayer;
+    CCLayerColor *_endLayer;
+    CCLayerColor *_caveLayer;
     Player *_player;
     Collectable *_coin;
     
@@ -30,15 +32,11 @@
     
     NSMutableArray *_coinsArray;
     
-    //layers needed to readjust in run
-    CCSprite *_ceiling;
-    CCSprite *_ceiling2;
-    CCSprite *_floor;
-    CCSprite *_floor2;
-    
     HUDLayer * _hudLayer;
     
     CGFloat _lastAppendPos;
+    
+    BOOL _gameWon;
 }
 + (id)scene;
 -(int)getRandomNumberBetween:(int)from to:(int)to;

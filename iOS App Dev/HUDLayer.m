@@ -78,7 +78,6 @@
     
     [restartItem runAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]];
     [label runAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]];
-    
 }
 
 @end

@@ -48,10 +48,6 @@
             
             self.chipmunkBody = body;
             
-            
-            
-            // WHAT!!!?????? kommentad ut og samt kemur lateral,find out why
-            //Set the lateral force of the player.
             [self lateralForce];
         }
     }
