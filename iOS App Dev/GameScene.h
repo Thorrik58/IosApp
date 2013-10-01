@@ -21,7 +21,6 @@
     CCLayerColor *_endLayer;
     CCLayerColor *_caveLayer;
     Player *_player;
-    Coin *_coin;
     Meteor *_meteor;
     
     ChipmunkSpace *_space;
@@ -32,8 +31,11 @@
     CCNode *_gameNode;
     CGFloat _landscapeWidth;
     CGFloat _distanceScore;
+    CGFloat _collectableScore;
     
-    NSMutableArray *_coinsArray;
+    NSMutableArray *_coinArray;
+    NSMutableArray *_meteorArray;
+
     
     HUDLayer * _hudLayer;
     

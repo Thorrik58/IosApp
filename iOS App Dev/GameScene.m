@@ -40,6 +40,9 @@
         
         _gameOver = NO;
         
+        _distanceScore = 0;
+        _collectableScore = 0;
+        
         _lives = 5;
         
         _hudLayer = [[HUDLayer alloc] init];
@@ -57,12 +60,14 @@
         CGFloat gravity = [_configuration [@"gravity"] floatValue];
         _space.gravity = ccp(0.0f, -gravity);
         
-        NSMutableArray *coinsArray = [[NSMutableArray alloc] init];
-        _coinsArray = coinsArray;
+        _coinArray = [[NSMutableArray alloc] init];
+        _meteorArray = [[NSMutableArray alloc] init];
+
         
         //Background set up
         [self setupGraphicsWorld];
         [self setupPhysicsWorld];
+        [self plantItems];
         
         //Create debug node
         CCPhysicsDebugNode *debugNode = [CCPhysicsDebugNode debugNodeForChipmunkSpace:_space];
@@ -87,14 +92,6 @@
         [_collisionParticles stopSystem];
         [_gameNode addChild:_collisionParticles];
         
-        _meteor = [[Meteor alloc] initWithSpace:_space position:cpv(1000.0f, 200.0f)];
-        [_gameNode addChild:_meteor];
-        
-        for (NSUInteger i = 0; i < 20; ++i)
-        {
-            [self createCoin];
-        }
-        
         // Preload sound effects
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"coin.wav"];
         
@@ -108,6 +105,21 @@
     }
     return self;
 }
+
+-(void) plantItems
+{
+    for (NSUInteger i = 0; i < 20; ++i)
+    {
+        [self createCoin];
+    }
+
+for (int i=1; i<28;i=i*3)
+{
+    [self createMeteor:i*1000];
+}
+
+}
+
 
 - (void) setupPhysicsWorld
 {
@@ -224,8 +236,10 @@
     CGFloat startPosX = [_configuration[@"startingPosX"] floatValue];
 
     _distanceScore = (_player.position.x - startPosX)/100;
+    CGFloat totalscore = _distanceScore + _collectableScore;
     
-    [_hudLayer setScoreString:[NSString stringWithFormat:@"Score: %.0f", _distanceScore]];
+    
+    [_hudLayer setScoreString:[NSString stringWithFormat:@"Score: %.0f", totalscore]];
     
     [self statusOfGame];
 }
@@ -279,26 +293,31 @@
     ChipmunkBody *secondChipmunkBody = secondBody->data;
     
     Coin* removedCoin;
+
     
-    if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == _meteor.chipmunkBody) ||
-        (firstChipmunkBody == _meteor.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
+    for (Meteor* meteor in _meteorArray)
     {
-        [[SimpleAudioEngine sharedEngine] playEffect:@"bonk.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
-        _lives = _lives -1;
-        
-        //Play the particle effect.
-        _collisionParticles.position = _player.position;
-        [_collisionParticles resetSystem];
+        if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == meteor.chipmunkBody) ||
+            (firstChipmunkBody == meteor.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
+        {
+            [[SimpleAudioEngine sharedEngine] playEffect:@"bonk.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+            _lives = _lives -1;
+            
+            //Play the particle effect.
+            _collisionParticles.position = _player.position;
+            [_collisionParticles resetSystem];
+        }
     }
     
-    for (Coin* coin in _coinsArray)
+    
+    for (Coin* coin in _coinArray)
     {
         if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == coin.chipmunkBody) ||
             (firstChipmunkBody == coin.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
             
-            //ADDMOTHARFARCKINGPOINTS
+            _collectableScore = _collectableScore +10;
             
             //[_space smartRemove:coin.chipmunkBody];
             for (ChipmunkShape *shape in coin.chipmunkBody.shapes) {
@@ -313,7 +332,7 @@
     //To remove the coin from the coin array.
     if (removedCoin != nil)
     {
-        [_coinsArray removeObject:removedCoin];
+        [_coinArray removeObject:removedCoin];
     }
     
     return YES;
@@ -335,9 +354,26 @@
     }
     
     // Add coin
-    Coin *bla = [[Coin alloc] initWithSpace:_space position:ccp(randomNumberx,randomNumbery)];
-    [_gameNode addChild:bla];    
-    [_coinsArray addObject:bla];
+    Coin *coin = [[Coin alloc] initWithSpace:_space position:ccp(randomNumberx,randomNumbery)];
+    [_gameNode addChild:coin];
+    [_coinArray addObject:coin];
+}
+
+-(void)createMeteor:(CGFloat)x
+{
+    int randomNumbery;
+    if (x >= 6000)
+    {
+        randomNumbery = [self getRandomNumberBetween:40 to:_winSize.height-100];
+    }
+    else
+    {
+        randomNumbery = [self getRandomNumberBetween:40 to:_winSize.height-80];
+    }
+    // Add Meteor
+    Meteor *meteor = [[Meteor alloc] initWithSpace:_space position:ccp(x,randomNumbery)];
+    [_gameNode addChild:meteor];
+    [_meteorArray addObject:meteor];
 }
 
 -(int)getRandomNumberBetween:(int)from to:(int)to
