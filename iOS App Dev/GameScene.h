@@ -11,7 +11,8 @@
 
 
 @class Player;
-@class Collectable;
+@class Coin;
+@class Meteor;
 @interface GameScene : CCScene <InputLayerDelgate>
 {
     CGSize _winSize;
@@ -20,9 +21,11 @@
     CCLayerColor *_endLayer;
     CCLayerColor *_caveLayer;
     Player *_player;
-    Collectable *_coin;
+    Coin *_coin;
+    Meteor *_meteor;
     
     ChipmunkSpace *_space;
+    CCParticleSystemQuad *_collisionParticles;
     ccTime _accumulator;    
     
     CCParallaxNode *_backgroundNode;

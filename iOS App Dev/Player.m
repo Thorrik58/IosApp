@@ -43,6 +43,7 @@
             
             ChipmunkPolyline *hull = [[line simplifyCurves:1.0f] toConvexHull:1.0f];
             ChipmunkShape *shape = [hull asChipmunkPolyShapeWithBody: body offset:cpvneg(sprite.anchorPointInPoints)];
+            shape.friction = 0.05f;
             [_space addBody: body];
             [_space addShape: shape];
             
@@ -56,10 +57,6 @@
 
 - (void)jumpWithForceVector
 {
-    //NSLog(@"inside jump with force vector");
-    //CCJumpTo *jump = [CCJumpTo actionWithDuration:1.5f position:ccp(60, 215) height:100.0f jumps:1];
-    //[self runAction:jump];
-    
     cpVect forceVector = cpvmult(ccp(0,1), self.chipmunkBody.mass * 1000);
     
     //cpVect forceVector = cpvmult(vector, self.chipmunkBody.mass * 1000);
@@ -75,7 +72,7 @@
     //NSLog(@"The current force after remove: %@",NSStringFromCGPoint(self.chipmunkBody.body->f));
 }
 
--(void)lateralForce
+- (void)lateralForce
 {
     NSString *vectorArgument = _configuration[@"lateralForce"];
     [self.chipmunkBody applyForce:CGPointFromString(vectorArgument) offset:cpvzero];
