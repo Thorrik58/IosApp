@@ -8,6 +8,7 @@
 #import "Coin.h"
 #import "Player.h"
 #import "Meteor.h"
+#import "Dynamite.h"
 #import "InputLayer.h"
 #import "ChipmunkAutoGeometry.h"
 #import "CCParallaxNode-Extras.h"
@@ -40,7 +41,7 @@
         
         _gameOver = NO;
         
-        _distanceScore = 0;
+        _totalscore = 0;
         _collectableScore = 0;
         
         _lives = 5;
@@ -91,6 +92,15 @@
         _collisionParticles = [CCParticleSystemQuad particleWithFile:@"Impact.plist"];
         [_collisionParticles stopSystem];
         [_gameNode addChild:_collisionParticles];
+        
+
+        
+        _dynamite = [[Dynamite alloc] initWithSpace:_space position:cpv(200,100)];
+        [_gameNode addChild:_dynamite];
+
+        
+        //Create the initial high score list.
+        [self createInitialHighScore];
         
         // Preload sound effects
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"coin.wav"];
@@ -234,20 +244,16 @@ for (int i=1; i<28;i=i*3)
 
     //Distance travelled, we start at startingPosX so thats deducted
     CGFloat startPosX = [_configuration[@"startingPosX"] floatValue];
-
-    _distanceScore = (_player.position.x - startPosX)/100;
-    CGFloat totalscore = _distanceScore + _collectableScore;
+    CGFloat distanceScore = (_player.position.x - startPosX)/100;
+    if (!_gameOver)
+    {
+        _totalscore = distanceScore + _collectableScore;
+    }
     
     
-    [_hudLayer setScoreString:[NSString stringWithFormat:@"Score: %.0f", totalscore]];
+    [_hudLayer setScoreString:[NSString stringWithFormat:@"Score: %.0f", _totalscore]];
     
     [self statusOfGame];
-}
-
-#pragma mark - My Touch Delegate Methods
-- (void)touchBegan
-{
-    [_player jumpWithForceVector];
 }
 
 -(void)statusOfGame
@@ -265,16 +271,22 @@ for (int i=1; i<28;i=i*3)
     if (_player.position.x > 10000 && _gameOver == NO)
     {
         _caveLayer.visible = NO;
-        [_hudLayer showRestartMenu:YES];
+        [self gameOver:YES];
         _gameOver = YES;
     }
     if (_lives<=0 && _gameOver == NO)
     {
         [_hudLayer showRestartMenu:NO];
+        [self gameOver:NO];
         _gameOver = YES;
     }
     //NSLog(@"Pos: %f",_distanceScore);
-    
+}
+
+#pragma mark - My Touch Delegate Methods
+- (void)touchBegan
+{
+    [_player jumpWithForceVector];
 }
 
 - (void)touchEnded
@@ -285,35 +297,42 @@ for (int i=1; i<28;i=i*3)
 #pragma mark - Collision methods
 - (bool)collisionBegan:(cpArbiter *)arbiter space:(ChipmunkSpace*)space
 {
-    cpBody *firstBody;
-    cpBody *secondBody;
-    cpArbiterGetBodies(arbiter, &firstBody, &secondBody);
-    
-    ChipmunkBody *firstChipmunkBody = firstBody->data;
-    ChipmunkBody *secondChipmunkBody = secondBody->data;
-    
     Coin* removedCoin;
 
     
-    for (Meteor* meteor in _meteorArray)
+
+for (Meteor* meteor in _meteorArray)
+{
+    if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:meteor])
     {
-        if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == meteor.chipmunkBody) ||
-            (firstChipmunkBody == meteor.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
-        {
-            [[SimpleAudioEngine sharedEngine] playEffect:@"bonk.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
-            _lives = _lives -1;
-            
-            //Play the particle effect.
-            _collisionParticles.position = _player.position;
-            [_collisionParticles resetSystem];
-        }
+        [[SimpleAudioEngine sharedEngine] playEffect:@"bonk.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+        _lives = _lives -1;
+        
+        //Play the particle effect.
+        _collisionParticles.position = _player.position;
+        [_collisionParticles resetSystem];
     }
+}
+
+
+
+if ([self areBodiesColliding:arbiter firstSprite:_player secondSprite:_dynamite])
+{
+        //[[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+        
+        cpVect normalizedVector = cpvnormalize(cpvsub(_player.position, _dynamite.position));
+        CGFloat impulse = [_configuration [@"impulseFromExplosion"] floatValue];
+        [_player applyImpulseOnExplosion:impulse vector:normalizedVector];
+        
+        //Play the particle effect.
+        _collisionParticles.position = _player.position;
+        [_collisionParticles resetSystem];
+}
+
     
-    
-    for (Coin* coin in _coinArray)
-    {
-        if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == coin.chipmunkBody) ||
-            (firstChipmunkBody == coin.chipmunkBody && secondChipmunkBody == _player.chipmunkBody))
+for (Coin* coin in _coinArray)
+{
+        if([self areBodiesColliding:arbiter firstSprite:_player secondSprite:coin])
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
             
@@ -336,6 +355,24 @@ for (int i=1; i<28;i=i*3)
     }
     
     return YES;
+}
+
+//Checks if the two provided sprites are colliding.
+- (BOOL) areBodiesColliding:(cpArbiter*) arbiter firstSprite:(CCPhysicsSprite*) first secondSprite:(CCPhysicsSprite*) second
+{
+    cpBody *firstBody;
+    cpBody *secondBody;
+    cpArbiterGetBodies(arbiter, &firstBody, &secondBody);
+    
+    ChipmunkBody *firstChipmunkBody = firstBody->data;
+    ChipmunkBody *secondChipmunkBody = secondBody->data;
+    
+    if ((firstChipmunkBody == first.chipmunkBody && secondChipmunkBody == second.chipmunkBody) ||
+        (firstChipmunkBody == second.chipmunkBody && secondChipmunkBody == first.chipmunkBody))
+    {
+        return YES;
+    }
+    return NO;
 }
 
 -(void)createCoin{
@@ -381,5 +418,55 @@ for (int i=1; i<28;i=i*3)
     return (int)from + arc4random() % (to-from+1);
 }
 
+- (void)gameOver:(BOOL)win
+{
+	// Show "game over" text
+    [_hudLayer showRestartMenu:win];
+
+  	// Get high scores array from "defaults" object
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSMutableArray *highScores = [NSMutableArray arrayWithArray:[defaults arrayForKey:@"highScore"]];
+	
+	// Check if the current score made it to the  high socre list.
+	for (int i = 0; i < [highScores count]; i++)
+	{
+		if (_totalscore >= [[highScores objectAtIndex:i] intValue])
+		{
+			// Insert new high score, which pushes all others down
+			[highScores insertObject:[NSNumber numberWithInt:_totalscore] atIndex:i];
+			
+			// Remove last score, so as to ensure only 5 entries in the high score array
+			[highScores removeLastObject];
+			
+			// Re-save scores array to user defaults
+			[defaults setObject:highScores forKey:@"highScore"];
+			
+			[defaults synchronize];
+			
+			NSLog(@"Saved new high score of %f", _totalscore);
+			
+			// Bust out of the loop
+			break;
+		}
+	}
+}
+
+-(void) createInitialHighScore
+{
+    
+     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+     
+     // Register default high scores. Can't get it to work by using a plist.
+     NSDictionary *defaultDefaults = [NSDictionary dictionaryWithObject:[NSArray arrayWithObjects:[NSNumber numberWithInt:0],
+                                                                         [NSNumber numberWithInt:0],
+                                                                         [NSNumber numberWithInt:0],
+                                                                         [NSNumber numberWithInt:0],
+                                                                         [NSNumber numberWithInt:0],
+                                                                         nil]
+                                                                 forKey:@"highScore"];
+    
+        [defaults registerDefaults:defaultDefaults];
+    [defaults synchronize];
+}
 
 @end

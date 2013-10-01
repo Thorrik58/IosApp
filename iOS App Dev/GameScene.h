@@ -13,6 +13,7 @@
 @class Player;
 @class Coin;
 @class Meteor;
+@class Dynamite;
 @interface GameScene : CCScene <InputLayerDelgate>
 {
     CGSize _winSize;
@@ -22,6 +23,7 @@
     CCLayerColor *_caveLayer;
     Player *_player;
     Meteor *_meteor;
+    Dynamite *_dynamite;
     
     ChipmunkSpace *_space;
     CCParticleSystemQuad *_collisionParticles;
@@ -30,7 +32,7 @@
     CCParallaxNode *_backgroundNode;
     CCNode *_gameNode;
     CGFloat _landscapeWidth;
-    CGFloat _distanceScore;
+    CGFloat _totalscore;
     CGFloat _collectableScore;
     
     NSMutableArray *_coinArray;
